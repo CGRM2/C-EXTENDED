@@ -1,0 +1,110 @@
+=============================================================
+  BATERÍA DE PRUEBAS DE VERIFICACIÓN — ENTREGABLE 4
+  C-EXTENDED | CORRECCIONES Y ROBUSTEZ
+  Fecha de ejecución: 2026-10-12 19:54:18
+=============================================================
+
+--- 1. VERIFICACIÓN DE LOS CINCO CASOS HISTÓRICOS ---
+ARCHIVO | prueba1_sencillo.txt | tokens=25 | símbolos=3 | errores=0 | líneas=11
+APROBADA | Prueba 1: sin errores
+APROBADA | Prueba 1: recuento tokens esperado (25)
+APROBADA | Prueba 1: reservada e identificador
+APROBADA | Prueba 1: += es asignación
+APROBADA | Prueba 1: símbolo único y primera posición (5:13)
+ARCHIVO | prueba2_medio.txt | tokens=62 | símbolos=9 | errores=0 | líneas=25
+APROBADA | Prueba 2: sin errores
+APROBADA | Prueba 2: recuento tokens esperado (62)
+APROBADA | Prueba 2: símbolos únicos (9)
+APROBADA | Prueba 2: decimal, for y continue
+ARCHIVO | prueba3_errores.txt | tokens=20 | símbolos=4 | errores=4 | líneas=20
+  ERROR 6:13 | Identificador con inicio numérico | 12variable
+  ERROR 9:22 | Número decimal mal formado | 45.12.3
+  ERROR 12:23 | Cadena de texto sin cerrar | \"Hola mundo sin comilla de cierre ;
+  ERROR 14:9 | Comentario multilínea sin cerrar | /* Error 4: Comentario multilineal sin cerrar\r\n\r\n        // Error 5: Caracter no permitido\r\n        var total = 100 @ 50;\r\n    }\r\n}\r\n
+APROBADA | Prueba 3: exactamente cuatro errores visibles
+APROBADA | Prueba 3: recuento tokens esperado (20)
+APROBADA | Prueba 3: símbolos únicos (4)
+APROBADA | Prueba 3: diagnóstico identificador con inicio numérico (6:13)
+APROBADA | Prueba 3: diagnóstico decimal mal formado (9:22)
+APROBADA | Prueba 3: diagnóstico cadena sin cerrar (12:23)
+APROBADA | Prueba 3: diagnóstico comentario multilínea sin cerrar (14:9)
+APROBADA | Prueba 3: @ permanece dentro del comentario abierto
+ARCHIVO | prueba4_recuperacion.txt | tokens=21 | símbolos=4 | errores=2 | líneas=5
+  ERROR 2:1 | Carácter no permitido | @
+  ERROR 3:14 | Número decimal mal formado | 45.12.3
+APROBADA | Prueba 4: exactamente dos errores
+APROBADA | Prueba 4: recuento tokens esperado (21)
+APROBADA | Prueba 4: carácter no permitido @ en 2:1
+APROBADA | Prueba 4: recuperación continúa hasta identificador final
+ARCHIVO | prueba5_categorias.txt | tokens=59 | símbolos=7 | errores=0 | líneas=17
+APROBADA | Prueba 5: sin errores
+APROBADA | Prueba 5: recuento tokens esperado (59)
+APROBADA | Prueba 5: símbolos únicos (7)
+APROBADA | Prueba 5: categoría cubierta TK_RESERVADA
+APROBADA | Prueba 5: categoría cubierta TK_IDENTIFICADOR
+APROBADA | Prueba 5: categoría cubierta TK_NUM_ENTERO
+APROBADA | Prueba 5: categoría cubierta TK_CADENA
+APROBADA | Prueba 5: categoría cubierta TK_CARACTER
+APROBADA | Prueba 5: categoría cubierta TK_OP_ARITMETICO
+APROBADA | Prueba 5: categoría cubierta TK_OP_RELACIONAL
+APROBADA | Prueba 5: categoría cubierta TK_OP_LOGICO
+APROBADA | Prueba 5: categoría cubierta TK_OP_ASIGNACION
+APROBADA | Prueba 5: categoría cubierta TK_DELIMITADOR
+APROBADA | Prueba 5: categoría cubierta TK_COMENTARIO_LINEA
+APROBADA | Prueba 5: categoría cubierta TK_COMENTARIO_BLOQUE
+
+--- 2. VERIFICACIÓN DEL CASO NUEVO (PRUEBA 6) ---
+ARCHIVO | prueba6_interfaz_exportacion.txt | tokens=67 | símbolos=11 | errores=1 | líneas=29
+  ERROR 26:26 | Carácter no permitido | #
+APROBADA | Prueba 6: procesada con motor real
+APROBADA | Prueba 6: detecta comentario literal /*<LF>*/
+APROBADA | Prueba 6: detecta comentario literal /*<CRLF>*/
+APROBADA | Prueba 6: detecta comentario multilínea con salto real
+APROBADA | Prueba 6: detecta cadenas con barras invertidas
+APROBADA | Prueba 6: detecta cadenas con escapes y tabulaciones
+APROBADA | Prueba 6: caracteres literales con escape ('\\', '\'', '\n')
+APROBADA | Prueba 6: contiene exactamente 1 error léxico controlado (# en 26:26)
+
+--- 3. VERIFICACIÓN DE CARGA FIABLE Y DETECCIÓN DE BOM ---
+APROBADA | Carga BOM: UTF-8 con BOM se lee correctamente
+FALLIDA  | Carga BOM: U+FEFF es consumido y no pasa al texto ('var x = 1;' sin BOM) -> Obtenido=[var x = 1;] chars=118,97,114,32,120,32,61,32,49,59
+APROBADA | Carga BOM: el primer token es 'var' en línea 1 columna 1 sin error de BOM
+APROBADA | Carga BOM: UTF-16 LE con BOM se lee y consume correctamente
+APROBADA | Carga BOM: UTF-16 BE con BOM se lee y consume correctamente
+APROBADA | Carga BOM: UTF-32 LE no se confunde con UTF-16 LE y es rechazado claramente
+APROBADA | Carga BOM: UTF-32 BE es rechazado claramente
+APROBADA | Carga UTF-8 estricto: bytes corruptos son rechazados y no aceptados con U+FFFD
+APROBADA | Carga binario: archivo con bytes nulos es rechazado
+APROBADA | Carga vacío: archivo de 0 bytes se carga sin excepción como texto vacío
+APROBADA | Carga comentarios: archivo solo con comentarios se procesa con 0 errores y tokens correspondientes
+
+--- 4. VERIFICACIÓN DE EXPORTACIÓN SIN AMBIGÜEDAD ---
+APROBADA | Escape sin ambigüedad: /*<LF>*/ y /*\n*/ producen representaciones distintas
+APROBADA | Escape sin ambigüedad: /*<CRLF>*/ y /*\r\n*/ producen representaciones distintas
+APROBADA | Escape sin ambigüedad: /*\n*/ literal y /*
+*/ real son distinguibles
+APROBADA | Escape reversible: DesescaparCadena(EscaparCadena(s)) == s para todos los casos
+APROBADA | Exportación: archivo generado existe y no está vacío
+APROBADA | Exportación: conserva fecha/hora capturada del análisis (2026-10-12 14:30:45)
+APROBADA | Exportación: muestra fecha y hora de exportación identificada separadamente
+APROBADA | Exportación: incluye convención de escape reversible en el encabezado
+APROBADA | Exportación: tabla de tokens incluye lexemas escapados sin ambigüedad
+APROBADA | Exportación: tabla de errores incluye error # de prueba 6
+APROBADA | Exportación: tabla de símbolos presente y ordenada
+
+--- 5. VERIFICACIÓN DE FRMPRINCIPAL, SPLITMAIN Y PNLRESUMEN ---
+APROBADA | FrmPrincipal: inicializa sin lanzar InvalidOperationException ni NullReferenceException
+APROBADA | FrmPrincipal: título correcto
+APROBADA | FrmPrincipal: tamaño de cliente inicial compatible (1200x720)
+APROBADA | splitMain: control presente en controles principales
+APROBADA | splitMain: Panel1MinSize es 280 y Panel2MinSize es 380
+APROBADA | splitMain: SplitterDistance es 440 (compatible con tamaño inicial 1200x608)
+APROBADA | pnlResumen: panel presente en controles principales (no es campo nulo)
+APROBADA | pnlResumen: altura funcional configurada (36)
+APROBADA | pnlResumen: contiene etiquetas de resumen (Tokens, Errores, Símbolos, Líneas, Tiempo)
+APROBADA | pnlEstado: barra de estado presente
+
+=============================================================
+TOTAL DE VERIFICACIONES | Aprobadas=75 | Fallidas=1
+RESULTADO FINAL: CON FALLAS DETECTADAS
+=============================================================
