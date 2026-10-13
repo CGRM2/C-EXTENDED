@@ -12,7 +12,8 @@ namespace C_Extended.UI
     /// <summary>
     /// Formulario principal de C-extended | Analizador léxico.
     /// Organización: barra de acciones (arriba) · editor con numeración (izquierda) ·
-    ///               pestañas de resultados (derecha) · panel de resumen (abajo).
+    ///               pestañas de resultados (derecha) · panel de resumen (abajo) ·
+    ///               barra de estado (inferior).
     /// </summary>
     public partial class FrmPrincipal : Form
     {
@@ -22,16 +23,13 @@ namespace C_Extended.UI
         private ResultadoAnalisis _ultimoResultado = null;
         private string            _rutaArchivoCargado = null;
         private bool              _resultadosValidos  = false;
-        private bool              _suprimiendoCambio  = false;   // evita ciclos al colorear
+        private bool              _suprimiendoCambio  = false;
 
-        // Color de fondo oscuro del boceto de referencia
-        private static readonly Color ColorFondo      = Color.FromArgb(30, 30, 30);
-        private static readonly Color ColorTexto      = Color.FromArgb(220, 220, 220);
-        private static readonly Color ColorAcento     = Color.FromArgb(0, 122, 204);
-        private static readonly Color ColorBorde      = Color.FromArgb(60, 60, 60);
-        private static readonly Color ColorFilaAlterna= Color.FromArgb(40, 40, 40);
-        private static readonly Color ColorError      = Color.FromArgb(210, 50, 50);
-        private static readonly Color ColorAdvertencia= Color.FromArgb(220, 160, 0);
+        // Colores de la interfaz
+        private static readonly Color ColorTexto       = Color.FromArgb(220, 220, 220);
+        private static readonly Color ColorAcento      = Color.FromArgb(0, 122, 204);
+        private static readonly Color ColorError       = Color.FromArgb(210, 50, 50);
+        private static readonly Color ColorAdvertencia = Color.FromArgb(220, 160, 0);
 
         // ----------------------------------------------------------------
         // Constructor
@@ -39,159 +37,16 @@ namespace C_Extended.UI
         public FrmPrincipal()
         {
             InitializeComponent();
-            ConfigurarFormulario();
-            ConfigurarEditor();
-            ConfigurarTablas();
-            ActualizarBarraEstado(null);
+            InicializarEstadoFormulario();
         }
 
-        // ================================================================
-        // Configuración visual del formulario
-        // ================================================================
-        private void ConfigurarFormulario()
+        private void InicializarEstadoFormulario()
         {
-            this.Text            = "C-extended | Analizador léxico";
-            this.BackColor       = ColorFondo;
-            this.ForeColor       = ColorTexto;
-            this.MinimumSize     = new Size(1000, 640);
-
-            // Botones de la barra de acciones
-            EstilarBoton(btnCargar);
-            EstilarBoton(btnAnalizar);
-            EstilarBoton(btnExportar);
-            EstilarBoton(btnLimpiar);
             btnExportar.Enabled = false;
-
-            // Panel de numeración
-            pnlNumeros.BackColor = Color.FromArgb(45, 45, 45);
-            pnlNumeros.ForeColor = Color.FromArgb(130, 130, 130);
-
-            // Editor
-            rtbEditor.BackColor = Color.FromArgb(20, 20, 20);
-            rtbEditor.ForeColor = ColorTexto;
-
-            // Pestañas
-            tabResultados.BackColor = Color.FromArgb(35, 35, 35);
-
-            // Panel de resumen
-            pnlResumen.BackColor = Color.FromArgb(38, 38, 38);
-
-            // Etiqueta de fuente
-            lblFuente.ForeColor = ColorTexto;
             lblFuente.Text      = "Código escrito en el editor";
-        }
-
-        private static void EstilarBoton(Button btn)
-        {
-            btn.BackColor  = Color.FromArgb(0, 90, 158);
-            btn.ForeColor  = Color.White;
-            btn.FlatStyle  = FlatStyle.Flat;
-            btn.FlatAppearance.BorderColor = Color.FromArgb(0, 122, 204);
-            btn.Cursor     = Cursors.Hand;
-        }
-
-        // ================================================================
-        // Editor y numeración
-        // ================================================================
-        private void ConfigurarEditor()
-        {
-            rtbEditor.Font         = new Font("Consolas", 11f);
-            rtbEditor.WordWrap     = false;
-            rtbEditor.ScrollBars   = RichTextBoxScrollBars.Both;
-            rtbEditor.AcceptsTab   = true;
-            pnlNumeros.Font        = new Font("Consolas", 11f);
-
-            // Sincronizar desplazamiento vertical
-            rtbEditor.VScroll += (s, e) => pnlNumeros.Invalidate();
-            rtbEditor.Resize  += (s, e) => pnlNumeros.Invalidate();
-
-            pnlNumeros.Paint += DibujarNumeros_Paint;
-        }
-
-        private void DibujarNumeros_Paint(object sender, PaintEventArgs e)
-        {
-            if (rtbEditor.Lines.Length == 0) return;
-
-            e.Graphics.Clear(pnlNumeros.BackColor);
-            int totalLineas = rtbEditor.Lines.Length;
-            int alturaLinea = (int)Math.Round(rtbEditor.Font.GetHeight(e.Graphics));
-            if (alturaLinea < 1) alturaLinea = 1;
-
-            // Posición de la primera línea visible considerando el scroll vertical.
-            // Usamos GetPositionFromCharIndex para calcular la posición Y de la línea 0.
-            int offsetY = 0;
-            if (rtbEditor.TextLength > 0)
-            {
-                Point pt = rtbEditor.GetPositionFromCharIndex(0);
-                offsetY = pt.Y;
-            }
-
-            var brush = new SolidBrush(pnlNumeros.ForeColor);
-            var fmt   = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near };
-
-            for (int i = 0; i < totalLineas; i++)
-            {
-                int y = offsetY + i * alturaLinea;
-                if (y + alturaLinea < 0) continue;
-                if (y > pnlNumeros.Height) break;
-                var rect = new RectangleF(0, y, pnlNumeros.Width - 4, alturaLinea);
-                e.Graphics.DrawString((i + 1).ToString(), pnlNumeros.Font, brush, rect, fmt);
-            }
-            brush.Dispose();
-        }
-
-        // ================================================================
-        // Tablas de resultados
-        // ================================================================
-        private void ConfigurarTablas()
-        {
-            ConfigurarDataGrid(dgvTokens,
-                new[] { "#", "Lexema", "Tipo de token", "Línea", "Columna" },
-                new[] { 50,  260,      160,             60,      70 });
-
-            ConfigurarDataGrid(dgvErrores,
-                new[] { "#", "Secuencia inválida", "Línea", "Columna", "Descripción" },
-                new[] { 50,  180,                   60,      70,        350 });
-
-            ConfigurarDataGrid(dgvSimbolos,
-                new[] { "#", "Identificador", "Tipo de token", "Primera línea", "Primera columna" },
-                new[] { 50,  200,             140,              100,             110 });
-        }
-
-        private void ConfigurarDataGrid(DataGridView dgv, string[] encabezados, int[] anchos)
-        {
-            dgv.BackgroundColor    = Color.FromArgb(28, 28, 28);
-            dgv.DefaultCellStyle.BackColor = Color.FromArgb(28, 28, 28);
-            dgv.DefaultCellStyle.ForeColor = ColorTexto;
-            dgv.DefaultCellStyle.SelectionBackColor = ColorAcento;
-            dgv.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 50, 50);
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = ColorTexto;
-            dgv.EnableHeadersVisualStyles = false;
-            dgv.GridColor              = ColorBorde;
-            dgv.BorderStyle            = BorderStyle.None;
-            dgv.RowHeadersVisible      = false;
-            dgv.AllowUserToAddRows     = false;
-            dgv.AllowUserToDeleteRows  = false;
-            dgv.ReadOnly               = true;
-            dgv.SelectionMode          = DataGridViewSelectionMode.FullRowSelect;
-            dgv.AutoSizeRowsMode       = DataGridViewAutoSizeRowsMode.None;
-            dgv.RowTemplate.Height     = 22;
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = ColorFilaAlterna;
-            dgv.ScrollBars             = ScrollBars.Both;
-
-            dgv.Columns.Clear();
-            for (int i = 0; i < encabezados.Length; i++)
-            {
-                var col = new DataGridViewTextBoxColumn
-                {
-                    HeaderText = encabezados[i],
-                    Width      = anchos[i],
-                    SortMode   = DataGridViewColumnSortMode.Automatic,
-                    DefaultCellStyle = { WrapMode = DataGridViewTriState.False }
-                };
-                dgv.Columns.Add(col);
-            }
+            toolTipPrincipal.SetToolTip(lblFuente, "Editor de código activo");
+            ActualizarResumen(null);
+            ActualizarBarraEstado(null);
         }
 
         // ================================================================
@@ -203,38 +58,142 @@ namespace C_Extended.UI
         {
             using (var dlg = new OpenFileDialog
             {
-                Title  = "Cargar archivo de código",
-                Filter = "Archivos de texto (*.txt)|*.txt|Archivos C# (*.cs)|*.cs|Todos los archivos (*.*)|*.*",
+                Title       = "Cargar archivo de código",
+                Filter      = "Archivos de texto (*.txt)|*.txt|Archivos C# (*.cs)|*.cs|Todos los archivos (*.*)|*.*",
                 FilterIndex = 1
             })
             {
                 if (dlg.ShowDialog() != DialogResult.OK) return;
 
+                if (!IntentarLeerArchivo(dlg.FileName, out string contenido, out string errorMensaje))
+                {
+                    MessageBox.Show(errorMensaje, "Error al cargar archivo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                CargarContenidoEnEditor(contenido, dlg.FileName);
+            }
+        }
+
+        /// <summary>
+        /// Lee un archivo de texto aplicando detección y consumo riguroso de BOM,
+        /// validación estricta de codificación (sin sustitución silenciosa con U+FFFD)
+        /// y rechazo claro de codificaciones no admitidas como UTF-32.
+        /// </summary>
+        public static bool IntentarLeerArchivo(string ruta, out string contenido, out string errorMensaje)
+        {
+            contenido = null;
+            errorMensaje = null;
+            try
+            {
+                byte[] bytes = File.ReadAllBytes(ruta);
+
+                // Archivo vacío
+                if (bytes.Length == 0)
+                {
+                    contenido = "";
+                    return true;
+                }
+
+                // 1. Detectar firmas de 4 bytes (UTF-32 LE y BE)
+                if (bytes.Length >= 4 && bytes[0] == 0xFF && bytes[1] == 0xFE && bytes[2] == 0x00 && bytes[3] == 0x00)
+                {
+                    errorMensaje = "La codificación detectada es UTF-32 LE, la cual no está admitida por el analizador.\nPor favor guarde el archivo en codificación UTF-8 o UTF-16.";
+                    return false;
+                }
+                if (bytes.Length >= 4 && bytes[0] == 0x00 && bytes[1] == 0x00 && bytes[2] == 0xFE && bytes[3] == 0xFF)
+                {
+                    errorMensaje = "La codificación detectada es UTF-32 BE, la cual no está admitida por el analizador.\nPor favor guarde el archivo en codificación UTF-8 o UTF-16.";
+                    return false;
+                }
+
+                // 2. Detectar BOM UTF-8 (EF BB BF) y consumir los 3 bytes
+                if (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
+                {
+                    try
+                    {
+                        var encUtf8 = new UTF8Encoding(false, throwOnInvalidBytes: true);
+                        contenido = encUtf8.GetString(bytes, 3, bytes.Length - 3);
+                        return true;
+                    }
+                    catch (DecoderFallbackException)
+                    {
+                        errorMensaje = "El archivo presenta encabezado UTF-8 (BOM) pero contiene bytes no válidos para la codificación UTF-8.";
+                        return false;
+                    }
+                }
+
+                // 3. Detectar BOM UTF-16 LE (FF FE) y consumir los 2 bytes
+                if (bytes.Length >= 2 && bytes[0] == 0xFF && bytes[1] == 0xFE)
+                {
+                    try
+                    {
+                        var encU16Le = new UnicodeEncoding(bigEndian: false, byteOrderMark: false, throwOnInvalidBytes: true);
+                        contenido = encU16Le.GetString(bytes, 2, bytes.Length - 2);
+                        return true;
+                    }
+                    catch (DecoderFallbackException)
+                    {
+                        errorMensaje = "El archivo presenta encabezado UTF-16 LE pero contiene secuencias de bytes no válidas.";
+                        return false;
+                    }
+                }
+
+                // 4. Detectar BOM UTF-16 BE (FE FF) y consumir los 2 bytes
+                if (bytes.Length >= 2 && bytes[0] == 0xFE && bytes[1] == 0xFF)
+                {
+                    try
+                    {
+                        var encU16Be = new UnicodeEncoding(bigEndian: true, byteOrderMark: false, throwOnInvalidBytes: true);
+                        contenido = encU16Be.GetString(bytes, 2, bytes.Length - 2);
+                        return true;
+                    }
+                    catch (DecoderFallbackException)
+                    {
+                        errorMensaje = "El archivo presenta encabezado UTF-16 BE pero contiene secuencias de bytes no válidas.";
+                        return false;
+                    }
+                }
+
+                // 5. Sin BOM: comprobar si contiene bytes nulos (archivo binario)
+                int limite = Math.Min(bytes.Length, 4096);
+                for (int i = 0; i < limite; i++)
+                {
+                    if (bytes[i] == 0x00)
+                    {
+                        errorMensaje = "El archivo contiene bytes nulos (0x00) y parece ser un archivo binario no admitido.";
+                        return false;
+                    }
+                }
+
+                // 6. Decodificación estricta UTF-8 sin BOM
                 try
                 {
-                    // Detectar BOM; UTF-8 por defecto
-                    byte[] bytes = File.ReadAllBytes(dlg.FileName);
-                    Encoding enc = DetectarCodificacion(bytes);
-                    if (enc == null)
-                    {
-                        MessageBox.Show(
-                            "El archivo seleccionado parece ser un archivo binario o usa una codificación no admitida.\nNo se cargará su contenido.",
-                            "Archivo no admitido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    string contenido = enc.GetString(bytes);
-                    CargarContenidoEnEditor(contenido, dlg.FileName);
+                    var encUtf8Strict = new UTF8Encoding(false, throwOnInvalidBytes: true);
+                    contenido = encUtf8Strict.GetString(bytes, 0, bytes.Length);
+                    return true;
                 }
-                catch (UnauthorizedAccessException)
+                catch (DecoderFallbackException)
                 {
-                    MessageBox.Show("Sin permisos para leer el archivo.", "Error de acceso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    errorMensaje = "El archivo no contiene una codificación UTF-8 válida y fue rechazado para evitar distorsión del código fuente.\nGuarde el archivo como texto UTF-8.";
+                    return false;
                 }
-                catch (IOException ex)
-                {
-                    MessageBox.Show($"Error al leer el archivo:\n{ex.Message}", "Error de lectura",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                errorMensaje = "Sin permisos de acceso para leer el archivo:\n" + ex.Message;
+                return false;
+            }
+            catch (IOException ex)
+            {
+                errorMensaje = "Error de lectura de archivo:\n" + ex.Message;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                errorMensaje = "Error inesperado al leer el archivo:\n" + ex.Message;
+                return false;
             }
         }
 
@@ -246,11 +205,13 @@ namespace C_Extended.UI
 
             _rutaArchivoCargado = ruta;
             lblFuente.Text      = Path.GetFileName(ruta);
-            lblFuente.Tag       = ruta; // ruta completa en tooltip
             toolTipPrincipal.SetToolTip(lblFuente, ruta);
 
             InvalidarResultados();
             pnlNumeros.Invalidate();
+
+            lblEstado.Text      = $"Archivo cargado: '{Path.GetFileName(ruta)}' ({contenido.Length} caracteres). Listo para analizar.";
+            lblEstado.ForeColor = ColorTexto;
         }
 
         // ---- Analizar ----
@@ -268,24 +229,35 @@ namespace C_Extended.UI
                 ? "Código escrito en el editor"
                 : Path.GetFileName(_rutaArchivoCargado);
 
-            var motor = new AnalizadorLexico();
-            var sw    = Stopwatch.StartNew();
-            motor.Analizar(texto);
-            sw.Stop();
+            try
+            {
+                var motor = new AnalizadorLexico();
+                var sw    = Stopwatch.StartNew();
+                motor.Analizar(texto);
+                sw.Stop();
 
-            _ultimoResultado = new ResultadoAnalisis(
-                motor.ObtenerTokens(),
-                motor.ObtenerErrores(),
-                motor.ObtenerSimbolos(),
-                motor.TotalLineas,
-                sw.ElapsedMilliseconds,
-                fuente,
-                texto);
+                _ultimoResultado = new ResultadoAnalisis(
+                    motor.ObtenerTokens(),
+                    motor.ObtenerErrores(),
+                    motor.ObtenerSimbolos(),
+                    motor.TotalLineas,
+                    sw.ElapsedMilliseconds,
+                    fuente,
+                    texto,
+                    DateTime.Now);
 
-            _resultadosValidos = true;
-            btnExportar.Enabled = true;
+                _resultadosValidos = true;
+                btnExportar.Enabled = true;
 
-            MostrarResultados(_ultimoResultado);
+                MostrarResultados(_ultimoResultado);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error inesperado durante el análisis léxico:\n{ex.Message}",
+                    "Error del motor léxico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblEstado.Text      = "Error en análisis: " + ex.Message;
+                lblEstado.ForeColor = ColorError;
+            }
         }
 
         // ---- Exportar ----
@@ -300,7 +272,7 @@ namespace C_Extended.UI
 
             using (var dlg = new SaveFileDialog
             {
-                Title       = "Exportar resultados",
+                Title       = "Exportar resultados del análisis",
                 Filter      = "Archivo de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*",
                 FilterIndex = 1,
                 FileName    = "resultados_c_extended.txt"
@@ -310,14 +282,7 @@ namespace C_Extended.UI
 
                 try
                 {
-                    Exportador.ExportarTxt(
-                        dlg.FileName,
-                        _ultimoResultado.NombreFuente,
-                        _ultimoResultado.Tokens,
-                        _ultimoResultado.Errores,
-                        _ultimoResultado.Simbolos,
-                        _ultimoResultado.TotalLineas,
-                        _ultimoResultado.TiempoMs);
+                    Exportador.ExportarTxt(dlg.FileName, _ultimoResultado);
 
                     MessageBox.Show($"Resultados exportados correctamente en:\n{dlg.FileName}",
                         "Exportación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -329,7 +294,7 @@ namespace C_Extended.UI
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Sin permisos para escribir en esa ubicación.",
+                    MessageBox.Show("Sin permisos para escribir en la ubicación seleccionada.",
                         "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -344,13 +309,17 @@ namespace C_Extended.UI
 
             _rutaArchivoCargado = null;
             lblFuente.Text      = "Código escrito en el editor";
-            toolTipPrincipal.SetToolTip(lblFuente, "");
+            toolTipPrincipal.SetToolTip(lblFuente, "Editor de código activo");
+
             InvalidarResultados();
             pnlNumeros.Invalidate();
+
+            lblEstado.Text      = "Editor limpio. Listo.";
+            lblEstado.ForeColor = ColorTexto;
         }
 
         // ================================================================
-        // Detección de modificaciones en el editor
+        // Eventos del Editor y Numeración
         // ================================================================
         private void rtbEditor_TextChanged(object sender, EventArgs e)
         {
@@ -362,16 +331,71 @@ namespace C_Extended.UI
             {
                 InvalidarResultados();
                 ActualizarBarraEstado(null);
-                lblEstado.Text      = "Código modificado. Vuelve a analizar.";
+                lblEstado.Text      = "Código modificado. Resultados anteriores invalidados. Vuelve a analizar.";
                 lblEstado.ForeColor = ColorAdvertencia;
             }
         }
 
-        private void rtbEditor_VScroll(object sender, EventArgs e)
-            => pnlNumeros.Invalidate();
+        private void rtbEditor_VScroll(object sender, EventArgs e) => pnlNumeros.Invalidate();
+        private void rtbEditor_Resize(object sender, EventArgs e)  => pnlNumeros.Invalidate();
+        private void rtbEditor_SelectionChanged(object sender, EventArgs e) => pnlNumeros.Invalidate();
+
+        private void pnlNumeros_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(pnlNumeros.BackColor);
+
+            int totalLineas = rtbEditor.Lines.Length;
+            if (totalLineas == 0) totalLineas = 1;
+
+            // Ajustar ancho del margen según la cantidad de dígitos
+            int digitos = (totalLineas + 1).ToString().Length;
+            int anchoRequerido = Math.Max(48, 16 + digitos * 9);
+            if (pnlNumeros.Width != anchoRequerido)
+            {
+                pnlNumeros.Width = anchoRequerido;
+                return;
+            }
+
+            int primerCharVisible = rtbEditor.GetCharIndexFromPosition(new Point(2, 2));
+            int primeraLineaVisible = rtbEditor.GetLineFromCharIndex(primerCharVisible);
+
+            using (var brush = new SolidBrush(pnlNumeros.ForeColor))
+            using (var fmt   = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near })
+            {
+                float altoLinea = rtbEditor.Font.GetHeight(e.Graphics);
+
+                for (int i = primeraLineaVisible; i < totalLineas; i++)
+                {
+                    int charIndex = rtbEditor.GetFirstCharIndexFromLine(i);
+                    if (charIndex < 0) break;
+
+                    Point pt = rtbEditor.GetPositionFromCharIndex(charIndex);
+                    if (pt.Y > pnlNumeros.Height) break;
+                    if (pt.Y + altoLinea < 0) continue;
+
+                    var rect = new RectangleF(0, pt.Y, pnlNumeros.Width - 6, altoLinea + 2);
+                    e.Graphics.DrawString((i + 1).ToString(), pnlNumeros.Font, brush, rect, fmt);
+                }
+
+                // Si el editor termina con salto de línea, dibujar la línea virtual final
+                if (rtbEditor.TextLength > 0)
+                {
+                    char ult = rtbEditor.Text[rtbEditor.TextLength - 1];
+                    if (ult == '\n' || ult == '\r')
+                    {
+                        Point ptFin = rtbEditor.GetPositionFromCharIndex(rtbEditor.TextLength);
+                        if (ptFin.Y <= pnlNumeros.Height && ptFin.Y + altoLinea >= 0)
+                        {
+                            var rectFin = new RectangleF(0, ptFin.Y, pnlNumeros.Width - 6, altoLinea + 2);
+                            e.Graphics.DrawString((totalLineas + 1).ToString(), pnlNumeros.Font, brush, rectFin, fmt);
+                        }
+                    }
+                }
+            }
+        }
 
         // ================================================================
-        // Mostrar resultados en las tablas
+        // Mostrar resultados en las tablas y resumen
         // ================================================================
         private void MostrarResultados(ResultadoAnalisis r)
         {
@@ -399,8 +423,7 @@ namespace C_Extended.UI
                 foreach (var err in r.Errores)
                 {
                     string seq = EscaparParaGrid(err.CaracterInvalido);
-                    int idx = dgvErrores.Rows.Add(ne++, seq, err.Linea, err.Columna, err.Descripcion);
-                    dgvErrores.Rows[idx].DefaultCellStyle.ForeColor = ColorError;
+                    dgvErrores.Rows.Add(ne++, seq, err.Linea, err.Columna, err.Descripcion);
                 }
             }
 
@@ -408,22 +431,30 @@ namespace C_Extended.UI
             dgvSimbolos.Rows.Clear();
             int ns = 1;
             foreach (var s in r.Simbolos)
+            {
                 dgvSimbolos.Rows.Add(ns++, s.NombreIdentificador, s.TipoToken,
                                      s.LineaPrimeraAparicion, s.ColumnaInicio);
+            }
 
-            // ---- Estadísticas ----
+            // ---- Estadísticas, Resumen y Estado ----
             MostrarEstadisticas(r);
+            ActualizarResumen(r);
             ActualizarBarraEstado(r);
         }
 
         private void MostrarEstadisticas(ResultadoAnalisis r)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"Tokens totales : {r.Tokens.Count}");
-            sb.AppendLine($"Errores        : {r.Errores.Count}");
-            sb.AppendLine($"Símbolos únicos: {r.Simbolos.Count}");
-            sb.AppendLine($"Líneas (motor) : {r.TotalLineas}");
-            sb.AppendLine($"Tiempo         : {r.TiempoMs} ms");
+            sb.AppendLine("=============================================================");
+            sb.AppendLine("  ESTADÍSTICAS DEL ANÁLISIS LÉXICO");
+            sb.AppendLine($"  Fecha y hora: {r.FechaHora:yyyy-MM-dd HH:mm:ss}");
+            sb.AppendLine($"  Fuente      : {r.NombreFuente}");
+            sb.AppendLine("=============================================================");
+            sb.AppendLine($"Tokens totales reconocidos : {r.Tokens.Count}");
+            sb.AppendLine($"Errores léxicos detectados : {r.Errores.Count}");
+            sb.AppendLine($"Identificadores únicos     : {r.Simbolos.Count}");
+            sb.AppendLine($"Total de líneas procesadas : {r.TotalLineas}");
+            sb.AppendLine($"Tiempo de ejecución        : {r.TiempoMs} ms");
             sb.AppendLine();
 
             var conteos = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -432,15 +463,42 @@ namespace C_Extended.UI
                 if (!conteos.ContainsKey(t.TipoToken)) conteos[t.TipoToken] = 0;
                 conteos[t.TipoToken]++;
             }
-            sb.AppendLine("Por categoría:");
-            int suma = 0;
-            foreach (var kv in conteos) { sb.AppendLine($"  {kv.Key}: {kv.Value}"); suma += kv.Value; }
-            sb.AppendLine($"  ─────────────────────");
-            sb.AppendLine($"  TOTAL: {suma}");
 
-            _suprimiendoCambio    = true;
-            txtEstadisticas.Text  = sb.ToString();
-            _suprimiendoCambio    = false;
+            sb.AppendLine("Distribución de tokens por categoría:");
+            int suma = 0;
+            foreach (var kv in conteos)
+            {
+                sb.AppendLine($"  {kv.Key,-30} : {kv.Value}");
+                suma += kv.Value;
+            }
+            sb.AppendLine("  " + new string('-', 45));
+            sb.AppendLine($"  {"TOTAL TOKENS",-30} : {suma}");
+
+            _suprimiendoCambio   = true;
+            txtEstadisticas.Text = sb.ToString();
+            _suprimiendoCambio   = false;
+        }
+
+        private void ActualizarResumen(ResultadoAnalisis r)
+        {
+            if (r == null)
+            {
+                lblResumenTokens.Text   = "Tokens: 0";
+                lblResumenErrores.Text  = "Errores: 0";
+                lblResumenErrores.ForeColor = Color.FromArgb(0, 200, 80);
+                lblResumenSimbolos.Text = "Símbolos: 0";
+                lblResumenLineas.Text   = "Líneas: 0";
+                lblResumenTiempo.Text   = "Tiempo: 0 ms";
+            }
+            else
+            {
+                lblResumenTokens.Text   = $"Tokens: {r.Tokens.Count}";
+                lblResumenErrores.Text  = $"Errores: {r.Errores.Count}";
+                lblResumenErrores.ForeColor = r.Errores.Count > 0 ? ColorError : Color.FromArgb(0, 200, 80);
+                lblResumenSimbolos.Text = $"Símbolos: {r.Simbolos.Count}";
+                lblResumenLineas.Text   = $"Líneas: {r.TotalLineas}";
+                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoMs} ms";
+            }
         }
 
         private void ActualizarBarraEstado(ResultadoAnalisis r)
@@ -452,72 +510,46 @@ namespace C_Extended.UI
             }
             else if (r.Errores.Count > 0)
             {
-                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores.";
+                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores detectados ({r.TiempoMs} ms).";
                 lblEstado.ForeColor = ColorError;
             }
             else
             {
-                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, 0 errores.";
+                lblEstado.Text      = $"Análisis completado con éxito: {r.Tokens.Count} tokens, 0 errores ({r.TiempoMs} ms).";
                 lblEstado.ForeColor = Color.FromArgb(0, 200, 80);
             }
         }
 
         private void InvalidarResultados()
         {
-            _resultadosValidos    = false;
-            _ultimoResultado      = null;
-            btnExportar.Enabled   = false;
+            _resultadosValidos  = false;
+            _ultimoResultado    = null;
+            btnExportar.Enabled = false;
+
             dgvTokens.Rows.Clear();
             dgvErrores.Rows.Clear();
             dgvSimbolos.Rows.Clear();
 
-            _suprimiendoCambio    = true;
+            _suprimiendoCambio   = true;
             txtEstadisticas.Clear();
-            _suprimiendoCambio    = false;
+            _suprimiendoCambio   = false;
 
             lblSinErrores.Visible = false;
             dgvErrores.Visible    = true;
+
+            ActualizarResumen(null);
         }
 
-        // ================================================================
-        // Helpers
-        // ================================================================
         /// <summary>
-        /// Reemplaza caracteres de control por secuencias visibles para el grid.
-        /// El valor original del objeto no se modifica.
+        /// Representación visible para las celdas del DataGridView en tiempo de ejecución.
         /// </summary>
         private static string EscaparParaGrid(string s)
-            => s.Replace("\r\n", "↵").Replace("\r", "↵").Replace("\n", "↵").Replace("\t", "→");
-
-        /// <summary>
-        /// Detecta la codificación a partir del BOM.
-        /// Devuelve null si el archivo parece binario.
-        /// </summary>
-        private static Encoding DetectarCodificacion(byte[] bytes)
         {
-            if (bytes.Length == 0) return Encoding.UTF8;
-
-            // BOM UTF-8
-            if (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
-                return new UTF8Encoding(true);
-            // BOM UTF-16 LE
-            if (bytes.Length >= 2 && bytes[0] == 0xFF && bytes[1] == 0xFE)
-                return Encoding.Unicode;
-            // BOM UTF-16 BE
-            if (bytes.Length >= 2 && bytes[0] == 0xFE && bytes[1] == 0xFF)
-                return Encoding.BigEndianUnicode;
-
-            // Heurística binaria: presencia de bytes nulos o bytes de control raros
-            int binario = 0;
-            int limite  = Math.Min(bytes.Length, 4096);
-            for (int i = 0; i < limite; i++)
-            {
-                byte b = bytes[i];
-                if (b == 0x00 || (b < 0x08)) binario++;
-            }
-            if (binario > limite / 20) return null; // probable binario
-
-            return Encoding.UTF8;
+            if (s == null) return "";
+            return s.Replace("\r\n", "↵")
+                    .Replace("\r", "↵")
+                    .Replace("\n", "↵")
+                    .Replace("\t", "→");
         }
     }
 }

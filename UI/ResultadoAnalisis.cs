@@ -11,13 +11,14 @@ namespace C_Extended.UI
     /// </summary>
     public sealed class ResultadoAnalisis
     {
-        public List<Token>        Tokens       { get; }
-        public List<ErrorLexico>  Errores      { get; }
-        public List<Simbolo>      Simbolos     { get; }
-        public int                TotalLineas  { get; }
-        public long               TiempoMs     { get; }
-        public string             NombreFuente { get; }
+        public List<Token>        Tokens         { get; }
+        public List<ErrorLexico>  Errores        { get; }
+        public List<Simbolo>      Simbolos       { get; }
+        public int                TotalLineas    { get; }
+        public long               TiempoMs       { get; }
+        public string             NombreFuente   { get; }
         public string             TextoAnalizado { get; }
+        public DateTime           FechaHora      { get; }
 
         public ResultadoAnalisis(
             List<Token>       tokens,
@@ -26,15 +27,17 @@ namespace C_Extended.UI
             int               totalLineas,
             long              tiempoMs,
             string            nombreFuente,
-            string            textoAnalizado)
+            string            textoAnalizado,
+            DateTime?         fechaHora = null)
         {
-            Tokens         = tokens;
-            Errores        = errores;
-            Simbolos       = simbolos;
+            Tokens         = tokens ?? new List<Token>();
+            Errores        = errores ?? new List<ErrorLexico>();
+            Simbolos       = simbolos ?? new List<Simbolo>();
             TotalLineas    = totalLineas;
             TiempoMs       = tiempoMs;
-            NombreFuente   = nombreFuente;
-            TextoAnalizado = textoAnalizado;
+            NombreFuente   = nombreFuente ?? "";
+            TextoAnalizado = textoAnalizado ?? "";
+            FechaHora      = fechaHora ?? DateTime.Now;
         }
     }
 }
