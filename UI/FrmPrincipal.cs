@@ -81,7 +81,33 @@ namespace C_Extended.UI
         /// validación estricta de codificación (sin sustitución silenciosa con U+FFFD)
         /// y rechazo claro de codificaciones no admitidas como UTF-32.
         /// </summary>
-        public static bool IntentarLeerArchivo(string ruta, out string contenido, out string errorMensaje)
+
+        public static bool IntentarLeerArchivo(
+        string ruta,
+        out string contenido,
+        out string errorMensaje)
+        {
+            if (!IntentarDecodificarArchivo(
+                ruta, out contenido, out errorMensaje))
+            {
+                return false;
+            }
+
+            if (contenido.IndexOf('\0') >= 0)
+            {
+                contenido = null;
+                errorMensaje =
+                    "El archivo contiene caracteres nulos y no puede " +
+                    "cargarse como código de texto.\n" +
+                    "Guárdalo nuevamente como texto UTF-8.";
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IntentarDecodificarArchivo(string ruta, out string contenido, out string errorMensaje)
         {
             contenido = null;
             errorMensaje = null;
@@ -253,9 +279,15 @@ namespace C_Extended.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error inesperado durante el análisis léxico:\n{ex.Message}",
-                    "Error del motor léxico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblEstado.Text      = "Error en análisis: " + ex.Message;
+                InvalidarResultados();
+
+                MessageBox.Show(
+                    $"Ocurrió un error inesperado durante el análisis léxico:\n{ex.Message}",
+                    "Error del motor léxico",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                lblEstado.Text = "Error en análisis: " + ex.Message;
                 lblEstado.ForeColor = ColorError;
             }
         }
@@ -344,23 +376,31 @@ namespace C_Extended.UI
         {
             e.Graphics.Clear(pnlNumeros.BackColor);
 
-            int totalLineas = rtbEditor.Lines.Length;
-            if (totalLineas == 0) totalLineas = 1;
+            int totalLineas = Math.Max(1, rtbEditor.Lines.Length);
 
-            // Ajustar ancho del margen según la cantidad de dígitos
-            int digitos = (totalLineas + 1).ToString().Length;
+            // Ajustar el margen a la cantidad real de líneas.
+            int digitos = totalLineas.ToString().Length;
             int anchoRequerido = Math.Max(48, 16 + digitos * 9);
+
             if (pnlNumeros.Width != anchoRequerido)
             {
                 pnlNumeros.Width = anchoRequerido;
+                pnlNumeros.Invalidate();
                 return;
             }
 
-            int primerCharVisible = rtbEditor.GetCharIndexFromPosition(new Point(2, 2));
-            int primeraLineaVisible = rtbEditor.GetLineFromCharIndex(primerCharVisible);
+            int primerCharVisible =
+                rtbEditor.GetCharIndexFromPosition(new Point(2, 2));
+
+            int primeraLineaVisible =
+                rtbEditor.GetLineFromCharIndex(primerCharVisible);
 
             using (var brush = new SolidBrush(pnlNumeros.ForeColor))
-            using (var fmt   = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near })
+            using (var fmt = new StringFormat
+            {
+                Alignment = StringAlignment.Far,
+                LineAlignment = StringAlignment.Near
+            })
             {
                 float altoLinea = rtbEditor.Font.GetHeight(e.Graphics);
 
@@ -370,26 +410,19 @@ namespace C_Extended.UI
                     if (charIndex < 0) break;
 
                     Point pt = rtbEditor.GetPositionFromCharIndex(charIndex);
+
                     if (pt.Y > pnlNumeros.Height) break;
                     if (pt.Y + altoLinea < 0) continue;
 
-                    var rect = new RectangleF(0, pt.Y, pnlNumeros.Width - 6, altoLinea + 2);
-                    e.Graphics.DrawString((i + 1).ToString(), pnlNumeros.Font, brush, rect, fmt);
-                }
+                    var rect = new RectangleF(
+                        0, pt.Y, pnlNumeros.Width - 6, altoLinea + 2);
 
-                // Si el editor termina con salto de línea, dibujar la línea virtual final
-                if (rtbEditor.TextLength > 0)
-                {
-                    char ult = rtbEditor.Text[rtbEditor.TextLength - 1];
-                    if (ult == '\n' || ult == '\r')
-                    {
-                        Point ptFin = rtbEditor.GetPositionFromCharIndex(rtbEditor.TextLength);
-                        if (ptFin.Y <= pnlNumeros.Height && ptFin.Y + altoLinea >= 0)
-                        {
-                            var rectFin = new RectangleF(0, ptFin.Y, pnlNumeros.Width - 6, altoLinea + 2);
-                            e.Graphics.DrawString((totalLineas + 1).ToString(), pnlNumeros.Font, brush, rectFin, fmt);
-                        }
-                    }
+                    e.Graphics.DrawString(
+                        (i + 1).ToString(),
+                        pnlNumeros.Font,
+                        brush,
+                        rect,
+                        fmt);
                 }
             }
         }
@@ -550,6 +583,11 @@ namespace C_Extended.UI
                     .Replace("\r", "↵")
                     .Replace("\n", "↵")
                     .Replace("\t", "→");
+        }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

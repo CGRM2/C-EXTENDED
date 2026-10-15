@@ -73,12 +73,12 @@ namespace C_Extended.UI
             this.tabEstadisticas = new System.Windows.Forms.TabPage();
             this.txtEstadisticas = new System.Windows.Forms.TextBox();
             this.pnlResumen = new System.Windows.Forms.Panel();
-            this.lblResumenTitulo = new System.Windows.Forms.Label();
-            this.lblResumenTokens = new System.Windows.Forms.Label();
-            this.lblResumenErrores = new System.Windows.Forms.Label();
-            this.lblResumenSimbolos = new System.Windows.Forms.Label();
-            this.lblResumenLineas = new System.Windows.Forms.Label();
             this.lblResumenTiempo = new System.Windows.Forms.Label();
+            this.lblResumenLineas = new System.Windows.Forms.Label();
+            this.lblResumenSimbolos = new System.Windows.Forms.Label();
+            this.lblResumenErrores = new System.Windows.Forms.Label();
+            this.lblResumenTokens = new System.Windows.Forms.Label();
+            this.lblResumenTitulo = new System.Windows.Forms.Label();
             this.pnlEstado = new System.Windows.Forms.Panel();
             this.lblEstado = new System.Windows.Forms.Label();
             this.pnlBarra.SuspendLayout();
@@ -233,7 +233,6 @@ namespace C_Extended.UI
             this.rtbEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.rtbEditor.Location = new System.Drawing.Point(48, 0);
             this.rtbEditor.Name = "rtbEditor";
-            this.rtbEditor.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Both;
             this.rtbEditor.Size = new System.Drawing.Size(392, 608);
             this.rtbEditor.TabIndex = 1;
             this.rtbEditor.Text = "";
@@ -282,10 +281,10 @@ namespace C_Extended.UI
             // 
             this.tabTokens.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabTokens.Controls.Add(this.dgvTokens);
-            this.tabTokens.Location = new System.Drawing.Point(4, 25);
+            this.tabTokens.Location = new System.Drawing.Point(4, 30);
             this.tabTokens.Name = "tabTokens";
             this.tabTokens.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTokens.Size = new System.Drawing.Size(748, 579);
+            this.tabTokens.Size = new System.Drawing.Size(748, 574);
             this.tabTokens.TabIndex = 0;
             this.tabTokens.Text = "Tokens";
             // 
@@ -319,18 +318,19 @@ namespace C_Extended.UI
             this.dgvTokens.Name = "dgvTokens";
             this.dgvTokens.ReadOnly = true;
             this.dgvTokens.RowHeadersVisible = false;
+            this.dgvTokens.RowHeadersWidth = 51;
             this.dgvTokens.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.dgvTokens.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.dgvTokens.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.dgvTokens.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvTokens.RowTemplate.Height = 22;
             this.dgvTokens.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTokens.Size = new System.Drawing.Size(742, 573);
+            this.dgvTokens.Size = new System.Drawing.Size(742, 568);
             this.dgvTokens.TabIndex = 0;
             // 
             // colTokenNum
             // 
             this.colTokenNum.HeaderText = "#";
+            this.colTokenNum.MinimumWidth = 6;
             this.colTokenNum.Name = "colTokenNum";
             this.colTokenNum.ReadOnly = true;
             this.colTokenNum.Width = 45;
@@ -338,6 +338,7 @@ namespace C_Extended.UI
             // colTokenLexema
             // 
             this.colTokenLexema.HeaderText = "Lexema";
+            this.colTokenLexema.MinimumWidth = 6;
             this.colTokenLexema.Name = "colTokenLexema";
             this.colTokenLexema.ReadOnly = true;
             this.colTokenLexema.Width = 240;
@@ -345,6 +346,7 @@ namespace C_Extended.UI
             // colTokenTipo
             // 
             this.colTokenTipo.HeaderText = "Tipo de token";
+            this.colTokenTipo.MinimumWidth = 6;
             this.colTokenTipo.Name = "colTokenTipo";
             this.colTokenTipo.ReadOnly = true;
             this.colTokenTipo.Width = 160;
@@ -352,6 +354,7 @@ namespace C_Extended.UI
             // colTokenLinea
             // 
             this.colTokenLinea.HeaderText = "Línea";
+            this.colTokenLinea.MinimumWidth = 6;
             this.colTokenLinea.Name = "colTokenLinea";
             this.colTokenLinea.ReadOnly = true;
             this.colTokenLinea.Width = 65;
@@ -359,6 +362,7 @@ namespace C_Extended.UI
             // colTokenColumna
             // 
             this.colTokenColumna.HeaderText = "Columna";
+            this.colTokenColumna.MinimumWidth = 6;
             this.colTokenColumna.Name = "colTokenColumna";
             this.colTokenColumna.ReadOnly = true;
             this.colTokenColumna.Width = 70;
@@ -368,10 +372,10 @@ namespace C_Extended.UI
             this.tabErrores.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabErrores.Controls.Add(this.dgvErrores);
             this.tabErrores.Controls.Add(this.lblSinErrores);
-            this.tabErrores.Location = new System.Drawing.Point(4, 25);
+            this.tabErrores.Location = new System.Drawing.Point(4, 30);
             this.tabErrores.Name = "tabErrores";
             this.tabErrores.Padding = new System.Windows.Forms.Padding(3);
-            this.tabErrores.Size = new System.Drawing.Size(748, 579);
+            this.tabErrores.Size = new System.Drawing.Size(748, 574);
             this.tabErrores.TabIndex = 1;
             this.tabErrores.Text = "Errores léxicos";
             // 
@@ -405,18 +409,19 @@ namespace C_Extended.UI
             this.dgvErrores.Name = "dgvErrores";
             this.dgvErrores.ReadOnly = true;
             this.dgvErrores.RowHeadersVisible = false;
+            this.dgvErrores.RowHeadersWidth = 51;
             this.dgvErrores.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.dgvErrores.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.dgvErrores.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.dgvErrores.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvErrores.RowTemplate.Height = 22;
             this.dgvErrores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvErrores.Size = new System.Drawing.Size(742, 573);
+            this.dgvErrores.Size = new System.Drawing.Size(742, 568);
             this.dgvErrores.TabIndex = 0;
             // 
             // colErrNum
             // 
             this.colErrNum.HeaderText = "#";
+            this.colErrNum.MinimumWidth = 6;
             this.colErrNum.Name = "colErrNum";
             this.colErrNum.ReadOnly = true;
             this.colErrNum.Width = 45;
@@ -424,6 +429,7 @@ namespace C_Extended.UI
             // colErrSecuencia
             // 
             this.colErrSecuencia.HeaderText = "Secuencia inválida";
+            this.colErrSecuencia.MinimumWidth = 6;
             this.colErrSecuencia.Name = "colErrSecuencia";
             this.colErrSecuencia.ReadOnly = true;
             this.colErrSecuencia.Width = 180;
@@ -431,6 +437,7 @@ namespace C_Extended.UI
             // colErrLinea
             // 
             this.colErrLinea.HeaderText = "Línea";
+            this.colErrLinea.MinimumWidth = 6;
             this.colErrLinea.Name = "colErrLinea";
             this.colErrLinea.ReadOnly = true;
             this.colErrLinea.Width = 65;
@@ -438,6 +445,7 @@ namespace C_Extended.UI
             // colErrColumna
             // 
             this.colErrColumna.HeaderText = "Columna";
+            this.colErrColumna.MinimumWidth = 6;
             this.colErrColumna.Name = "colErrColumna";
             this.colErrColumna.ReadOnly = true;
             this.colErrColumna.Width = 70;
@@ -445,6 +453,7 @@ namespace C_Extended.UI
             // colErrDesc
             // 
             this.colErrDesc.HeaderText = "Descripción";
+            this.colErrDesc.MinimumWidth = 6;
             this.colErrDesc.Name = "colErrDesc";
             this.colErrDesc.ReadOnly = true;
             this.colErrDesc.Width = 320;
@@ -456,7 +465,7 @@ namespace C_Extended.UI
             this.lblSinErrores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(200)))), ((int)(((byte)(80)))));
             this.lblSinErrores.Location = new System.Drawing.Point(3, 3);
             this.lblSinErrores.Name = "lblSinErrores";
-            this.lblSinErrores.Size = new System.Drawing.Size(742, 573);
+            this.lblSinErrores.Size = new System.Drawing.Size(742, 568);
             this.lblSinErrores.TabIndex = 1;
             this.lblSinErrores.Text = "No se encontraron errores léxicos.";
             this.lblSinErrores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -466,9 +475,9 @@ namespace C_Extended.UI
             // 
             this.tabSimbolos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabSimbolos.Controls.Add(this.dgvSimbolos);
-            this.tabSimbolos.Location = new System.Drawing.Point(4, 25);
+            this.tabSimbolos.Location = new System.Drawing.Point(4, 30);
             this.tabSimbolos.Name = "tabSimbolos";
-            this.tabSimbolos.Size = new System.Drawing.Size(748, 579);
+            this.tabSimbolos.Size = new System.Drawing.Size(748, 574);
             this.tabSimbolos.TabIndex = 2;
             this.tabSimbolos.Text = "Tabla de símbolos";
             // 
@@ -502,18 +511,19 @@ namespace C_Extended.UI
             this.dgvSimbolos.Name = "dgvSimbolos";
             this.dgvSimbolos.ReadOnly = true;
             this.dgvSimbolos.RowHeadersVisible = false;
+            this.dgvSimbolos.RowHeadersWidth = 51;
             this.dgvSimbolos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.dgvSimbolos.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.dgvSimbolos.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.dgvSimbolos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvSimbolos.RowTemplate.Height = 22;
             this.dgvSimbolos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSimbolos.Size = new System.Drawing.Size(748, 579);
+            this.dgvSimbolos.Size = new System.Drawing.Size(748, 574);
             this.dgvSimbolos.TabIndex = 0;
             // 
             // colSimNum
             // 
             this.colSimNum.HeaderText = "#";
+            this.colSimNum.MinimumWidth = 6;
             this.colSimNum.Name = "colSimNum";
             this.colSimNum.ReadOnly = true;
             this.colSimNum.Width = 45;
@@ -521,6 +531,7 @@ namespace C_Extended.UI
             // colSimIdentificador
             // 
             this.colSimIdentificador.HeaderText = "Identificador";
+            this.colSimIdentificador.MinimumWidth = 6;
             this.colSimIdentificador.Name = "colSimIdentificador";
             this.colSimIdentificador.ReadOnly = true;
             this.colSimIdentificador.Width = 200;
@@ -528,6 +539,7 @@ namespace C_Extended.UI
             // colSimTipo
             // 
             this.colSimTipo.HeaderText = "Tipo de token";
+            this.colSimTipo.MinimumWidth = 6;
             this.colSimTipo.Name = "colSimTipo";
             this.colSimTipo.ReadOnly = true;
             this.colSimTipo.Width = 150;
@@ -535,13 +547,14 @@ namespace C_Extended.UI
             // colSimLinea
             // 
             this.colSimLinea.HeaderText = "Primera línea";
+            this.colSimLinea.MinimumWidth = 6;
             this.colSimLinea.Name = "colSimLinea";
             this.colSimLinea.ReadOnly = true;
-            this.colSimLinea.Width = 100;
             // 
             // colSimColumna
             // 
             this.colSimColumna.HeaderText = "Primera columna";
+            this.colSimColumna.MinimumWidth = 6;
             this.colSimColumna.Name = "colSimColumna";
             this.colSimColumna.ReadOnly = true;
             this.colSimColumna.Width = 110;
@@ -550,10 +563,10 @@ namespace C_Extended.UI
             // 
             this.tabEstadisticas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.tabEstadisticas.Controls.Add(this.txtEstadisticas);
-            this.tabEstadisticas.Location = new System.Drawing.Point(4, 25);
+            this.tabEstadisticas.Location = new System.Drawing.Point(4, 30);
             this.tabEstadisticas.Name = "tabEstadisticas";
             this.tabEstadisticas.Padding = new System.Windows.Forms.Padding(6);
-            this.tabEstadisticas.Size = new System.Drawing.Size(748, 579);
+            this.tabEstadisticas.Size = new System.Drawing.Size(748, 574);
             this.tabEstadisticas.TabIndex = 3;
             this.tabEstadisticas.Text = "Estadísticas";
             // 
@@ -569,7 +582,7 @@ namespace C_Extended.UI
             this.txtEstadisticas.Name = "txtEstadisticas";
             this.txtEstadisticas.ReadOnly = true;
             this.txtEstadisticas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEstadisticas.Size = new System.Drawing.Size(736, 567);
+            this.txtEstadisticas.Size = new System.Drawing.Size(736, 562);
             this.txtEstadisticas.TabIndex = 0;
             // 
             // pnlResumen
@@ -589,46 +602,15 @@ namespace C_Extended.UI
             this.pnlResumen.Size = new System.Drawing.Size(1200, 36);
             this.pnlResumen.TabIndex = 2;
             // 
-            // lblResumenTitulo
+            // lblResumenTiempo
             // 
-            this.lblResumenTitulo.AutoSize = true;
-            this.lblResumenTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResumenTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
-            this.lblResumenTitulo.Location = new System.Drawing.Point(12, 10);
-            this.lblResumenTitulo.Name = "lblResumenTitulo";
-            this.lblResumenTitulo.Size = new System.Drawing.Size(61, 15);
-            this.lblResumenTitulo.TabIndex = 0;
-            this.lblResumenTitulo.Text = "RESUMEN:";
-            // 
-            // lblResumenTokens
-            // 
-            this.lblResumenTokens.AutoSize = true;
-            this.lblResumenTokens.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblResumenTokens.Location = new System.Drawing.Point(95, 10);
-            this.lblResumenTokens.Name = "lblResumenTokens";
-            this.lblResumenTokens.Size = new System.Drawing.Size(56, 15);
-            this.lblResumenTokens.TabIndex = 1;
-            this.lblResumenTokens.Text = "Tokens: 0";
-            // 
-            // lblResumenErrores
-            // 
-            this.lblResumenErrores.AutoSize = true;
-            this.lblResumenErrores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(200)))), ((int)(((byte)(80)))));
-            this.lblResumenErrores.Location = new System.Drawing.Point(215, 10);
-            this.lblResumenErrores.Name = "lblResumenErrores";
-            this.lblResumenErrores.Size = new System.Drawing.Size(56, 15);
-            this.lblResumenErrores.TabIndex = 2;
-            this.lblResumenErrores.Text = "Errores: 0";
-            // 
-            // lblResumenSimbolos
-            // 
-            this.lblResumenSimbolos.AutoSize = true;
-            this.lblResumenSimbolos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblResumenSimbolos.Location = new System.Drawing.Point(335, 10);
-            this.lblResumenSimbolos.Name = "lblResumenSimbolos";
-            this.lblResumenSimbolos.Size = new System.Drawing.Size(68, 15);
-            this.lblResumenSimbolos.TabIndex = 3;
-            this.lblResumenSimbolos.Text = "Símbolos: 0";
+            this.lblResumenTiempo.AutoSize = true;
+            this.lblResumenTiempo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.lblResumenTiempo.Location = new System.Drawing.Point(585, 10);
+            this.lblResumenTiempo.Name = "lblResumenTiempo";
+            this.lblResumenTiempo.Size = new System.Drawing.Size(98, 20);
+            this.lblResumenTiempo.TabIndex = 5;
+            this.lblResumenTiempo.Text = "Tiempo: 0 ms";
             // 
             // lblResumenLineas
             // 
@@ -636,19 +618,50 @@ namespace C_Extended.UI
             this.lblResumenLineas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
             this.lblResumenLineas.Location = new System.Drawing.Point(465, 10);
             this.lblResumenLineas.Name = "lblResumenLineas";
-            this.lblResumenLineas.Size = new System.Drawing.Size(53, 15);
+            this.lblResumenLineas.Size = new System.Drawing.Size(65, 20);
             this.lblResumenLineas.TabIndex = 4;
             this.lblResumenLineas.Text = "Líneas: 0";
             // 
-            // lblResumenTiempo
+            // lblResumenSimbolos
             // 
-            this.lblResumenTiempo.AutoSize = true;
-            this.lblResumenTiempo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
-            this.lblResumenTiempo.Location = new System.Drawing.Point(585, 10);
-            this.lblResumenTiempo.Name = "lblResumenTiempo";
-            this.lblResumenTiempo.Size = new System.Drawing.Size(74, 15);
-            this.lblResumenTiempo.TabIndex = 5;
-            this.lblResumenTiempo.Text = "Tiempo: 0 ms";
+            this.lblResumenSimbolos.AutoSize = true;
+            this.lblResumenSimbolos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.lblResumenSimbolos.Location = new System.Drawing.Point(335, 10);
+            this.lblResumenSimbolos.Name = "lblResumenSimbolos";
+            this.lblResumenSimbolos.Size = new System.Drawing.Size(86, 20);
+            this.lblResumenSimbolos.TabIndex = 3;
+            this.lblResumenSimbolos.Text = "Símbolos: 0";
+            // 
+            // lblResumenErrores
+            // 
+            this.lblResumenErrores.AutoSize = true;
+            this.lblResumenErrores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(200)))), ((int)(((byte)(80)))));
+            this.lblResumenErrores.Location = new System.Drawing.Point(215, 10);
+            this.lblResumenErrores.Name = "lblResumenErrores";
+            this.lblResumenErrores.Size = new System.Drawing.Size(70, 20);
+            this.lblResumenErrores.TabIndex = 2;
+            this.lblResumenErrores.Text = "Errores: 0";
+            // 
+            // lblResumenTokens
+            // 
+            this.lblResumenTokens.AutoSize = true;
+            this.lblResumenTokens.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.lblResumenTokens.Location = new System.Drawing.Point(95, 10);
+            this.lblResumenTokens.Name = "lblResumenTokens";
+            this.lblResumenTokens.Size = new System.Drawing.Size(69, 20);
+            this.lblResumenTokens.TabIndex = 1;
+            this.lblResumenTokens.Text = "Tokens: 0";
+            // 
+            // lblResumenTitulo
+            // 
+            this.lblResumenTitulo.AutoSize = true;
+            this.lblResumenTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResumenTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(255)))));
+            this.lblResumenTitulo.Location = new System.Drawing.Point(12, 10);
+            this.lblResumenTitulo.Name = "lblResumenTitulo";
+            this.lblResumenTitulo.Size = new System.Drawing.Size(83, 20);
+            this.lblResumenTitulo.TabIndex = 0;
+            this.lblResumenTitulo.Text = "RESUMEN:";
             // 
             // pnlEstado
             // 
@@ -675,7 +688,7 @@ namespace C_Extended.UI
             // 
             // FrmPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1200, 720);
@@ -689,6 +702,7 @@ namespace C_Extended.UI
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "C-extended | Analizador léxico";
+            this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.pnlBarra.ResumeLayout(false);
             this.splitMain.Panel1.ResumeLayout(false);
             this.splitMain.Panel2.ResumeLayout(false);
