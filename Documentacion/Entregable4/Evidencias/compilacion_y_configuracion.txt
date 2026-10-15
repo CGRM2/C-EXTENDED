@@ -1,0 +1,4 @@
+App.config guardado: CLR v4.0, SKU .NETFramework v4.8
+Compilacion de solucion: Debug aprobada; Release aprobada
+Los dos archivos .exe.config generados contienen el SKU correcto
+Solo cambio App.config desde la ejecucion de las suites 76/76,25/25,28/28,12/12

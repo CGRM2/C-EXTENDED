@@ -1,0 +1,168 @@
+=============================================================
+  C-extended | Analizador Léxico — Informe de resultados
+  Fecha y hora de análisis   : 2026-10-15 15:37:55
+  Fecha y hora de exportación: 2026-10-15 15:40:00
+  Fuente analizada           : prueba6_interfaz_exportacion.txt
+=============================================================
+  Convención de escape reversible aplicada:
+    '\\'     -> barra invertida literal (\)
+    '\n'     -> salto de línea (LF)
+    '\r'     -> retorno de carro (CR)
+    '\t'     -> tabulación horizontal
+    '\"'    -> comilla doble (")
+    '\0'     -> byte nulo
+    '\uXXXX' -> código Unicode hexadecimal para otros caracteres de control
+=============================================================
+
+--- RESUMEN ---
+Total de tokens     : 98
+Total de errores    : 1
+Símbolos únicos     : 15
+Total de líneas     : 32
+Tiempo de análisis  : 2 ms
+
+--- TOKENS POR CATEGORÍA ---
+  TK_RESERVADA                   : 19
+  TK_IDENTIFICADOR               : 20
+  TK_DELIMITADOR                 : 26
+  TK_OP_ASIGNACION               : 13
+  TK_NUM_ENTERO                  : 6
+  TK_CADENA                      : 3
+  TK_CARACTER                    : 3
+  TK_COMENTARIO_BLOQUE           : 3
+  TK_OP_LOGICO                   : 1
+  TK_OP_RELACIONAL               : 1
+  TK_COMENTARIO_LINEA            : 1
+  TK_NUM_DECIMAL                 : 1
+  TK_OP_ARITMETICO               : 1
+  TOTAL                          : 98
+
+--- TOKENS ---
+  #     Lexema (escapado)                             Tipo de token             Línea   Columna
+  -----------------------------------------------------------------------------------------------
+  1     namespace                                     TK_RESERVADA              1       1
+  2     ExportacionAvanzada                           TK_IDENTIFICADOR          1       11
+  3     {                                             TK_DELIMITADOR            2       1
+  4     class                                         TK_RESERVADA              3       5
+  5     Demostracion                                  TK_IDENTIFICADOR          3       11
+  6     {                                             TK_DELIMITADOR            4       5
+  7     func                                          TK_RESERVADA              5       9
+  8     ejecutar                                      TK_IDENTIFICADOR          5       14
+  9     (                                             TK_DELIMITADOR            5       22
+  10    )                                             TK_DELIMITADOR            5       23
+  11    {                                             TK_DELIMITADOR            6       9
+  12    var                                           TK_RESERVADA              7       13
+  13    contador                                      TK_IDENTIFICADOR          7       17
+  14    =                                             TK_OP_ASIGNACION          7       26
+  15    0                                             TK_NUM_ENTERO             7       28
+  16    ;                                             TK_DELIMITADOR            7       29
+  17    string                                        TK_RESERVADA              8       13
+  18    ruta                                          TK_IDENTIFICADOR          8       20
+  19    =                                             TK_OP_ASIGNACION          8       25
+  20    \"C:\\\\Archivos\\\\Proyecto\\\\test.txt\"    TK_CADENA                 8       27
+  21    ;                                             TK_DELIMITADOR            8       61
+  22    string                                        TK_RESERVADA              9       13
+  23    mensaje                                       TK_IDENTIFICADOR          9       20
+  24    =                                             TK_OP_ASIGNACION          9       28
+  25    \"Hola,\\t\\\"C-extended\\\"\"                TK_CADENA                 9       30
+  26    ;                                             TK_DELIMITADOR            9       53
+  27    char                                          TK_RESERVADA              10      13
+  28    barra                                         TK_IDENTIFICADOR          10      18
+  29    =                                             TK_OP_ASIGNACION          10      24
+  30    '\\\\'                                        TK_CARACTER               10      26
+  31    ;                                             TK_DELIMITADOR            10      30
+  32    char                                          TK_RESERVADA              11      13
+  33    comilla                                       TK_IDENTIFICADOR          11      18
+  34    =                                             TK_OP_ASIGNACION          11      26
+  35    '\\''                                         TK_CARACTER               11      28
+  36    ;                                             TK_DELIMITADOR            11      32
+  37    char                                          TK_RESERVADA              12      13
+  38    salto                                         TK_IDENTIFICADOR          12      18
+  39    =                                             TK_OP_ASIGNACION          12      24
+  40    '\\n'                                         TK_CARACTER               12      26
+  41    ;                                             TK_DELIMITADOR            12      30
+  42    bool                                          TK_RESERVADA              13      13
+  43    activo                                        TK_IDENTIFICADOR          13      18
+  44    =                                             TK_OP_ASIGNACION          13      25
+  45    true                                          TK_RESERVADA              13      27
+  46    ;                                             TK_DELIMITADOR            13      31
+  47    /*<LF>*/                                      TK_COMENTARIO_BLOQUE      14      13
+  48    /*<CRLF>*/                                    TK_COMENTARIO_BLOQUE      15      13
+  49    /* Comentario con salto real\n               segunda linea del comentario */ TK_COMENTARIO_BLOQUE      16      13
+  50    if                                            TK_RESERVADA              18      13
+  51    (                                             TK_DELIMITADOR            18      16
+  52    activo                                        TK_IDENTIFICADOR          18      17
+  53    &&                                            TK_OP_LOGICO              18      24
+  54    contador                                      TK_IDENTIFICADOR          18      27
+  55    <=                                            TK_OP_RELACIONAL          18      36
+  56    2                                             TK_NUM_ENTERO             18      39
+  57    )                                             TK_DELIMITADOR            18      40
+  58    {                                             TK_DELIMITADOR            19      13
+  59    contador                                      TK_IDENTIFICADOR          20      17
+  60    +=                                            TK_OP_ASIGNACION          20      26
+  61    1                                             TK_NUM_ENTERO             20      29
+  62    ;                                             TK_DELIMITADOR            20      30
+  63    }                                             TK_DELIMITADOR            21      13
+  64    // Comentario de linea para exportar.         TK_COMENTARIO_LINEA       22      13
+  65    var                                           TK_RESERVADA              23      13
+  66    decimalValido                                 TK_IDENTIFICADOR          23      17
+  67    =                                             TK_OP_ASIGNACION          23      31
+  68    2.5                                           TK_NUM_DECIMAL            23      33
+  69    ;                                             TK_DELIMITADOR            23      36
+  70    var                                           TK_RESERVADA              24      13
+  71    copia                                         TK_IDENTIFICADOR          24      17
+  72    =                                             TK_OP_ASIGNACION          24      23
+  73    contador                                      TK_IDENTIFICADOR          24      25
+  74    ;                                             TK_DELIMITADOR            24      33
+  75    string                                        TK_RESERVADA              25      13
+  76    cierre                                        TK_IDENTIFICADOR          25      20
+  77    =                                             TK_OP_ASIGNACION          25      27
+  78    \"Fin\"                                       TK_CADENA                 25      29
+  79    ;                                             TK_DELIMITADOR            25      34
+  80    var                                           TK_RESERVADA              26      13
+  81    dato                                          TK_IDENTIFICADOR          26      17
+  82    =                                             TK_OP_ASIGNACION          26      22
+  83    1                                             TK_NUM_ENTERO             26      24
+  84    2                                             TK_NUM_ENTERO             26      28
+  85    ;                                             TK_DELIMITADOR            26      29
+  86    var                                           TK_RESERVADA              27      13
+  87    recuperado                                    TK_IDENTIFICADOR          27      17
+  88    =                                             TK_OP_ASIGNACION          27      28
+  89    dato                                          TK_IDENTIFICADOR          27      30
+  90    +                                             TK_OP_ARITMETICO          27      35
+  91    1                                             TK_NUM_ENTERO             27      37
+  92    ;                                             TK_DELIMITADOR            27      38
+  93    return                                        TK_RESERVADA              28      13
+  94    nil                                           TK_RESERVADA              28      20
+  95    ;                                             TK_DELIMITADOR            28      23
+  96    }                                             TK_DELIMITADOR            29      9
+  97    }                                             TK_DELIMITADOR            30      5
+  98    }                                             TK_DELIMITADOR            31      1
+
+--- ERRORES LÉXICOS ---
+  #     Secuencia inválida (escapada)            Línea   Columna   Descripción
+  ----------------------------------------------------------------------------------------------------
+  1     #                                        26      26        Carácter no permitido
+
+--- TABLA DE SÍMBOLOS ---
+  #     Identificador                       Tipo de token        Primera línea   Primera columna
+  ------------------------------------------------------------------------------------------
+  1     ExportacionAvanzada                 TK_IDENTIFICADOR     1               11
+  2     Demostracion                        TK_IDENTIFICADOR     3               11
+  3     ejecutar                            TK_IDENTIFICADOR     5               14
+  4     contador                            TK_IDENTIFICADOR     7               17
+  5     ruta                                TK_IDENTIFICADOR     8               20
+  6     mensaje                             TK_IDENTIFICADOR     9               20
+  7     barra                               TK_IDENTIFICADOR     10              18
+  8     comilla                             TK_IDENTIFICADOR     11              18
+  9     salto                               TK_IDENTIFICADOR     12              18
+  10    activo                              TK_IDENTIFICADOR     13              18
+  11    decimalValido                       TK_IDENTIFICADOR     23              17
+  12    copia                               TK_IDENTIFICADOR     24              17
+  13    cierre                              TK_IDENTIFICADOR     25              20
+  14    dato                                TK_IDENTIFICADOR     26              17
+  15    recuperado                          TK_IDENTIFICADOR     27              17
+
+=============================================================
+  Fin del informe
+=============================================================

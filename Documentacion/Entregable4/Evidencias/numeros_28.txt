@@ -1,0 +1,29 @@
+APROBADA | 12.abc: error completo y posicion
+APROBADA | 12.abc: recuperacion sin identificador artificial
+APROBADA | 1..2abc: error completo y posicion
+APROBADA | 1..2abc: recuperacion sin identificador artificial
+APROBADA | 12._dato: error completo y posicion
+APROBADA | 12._dato: recuperacion sin identificador artificial
+APROBADA | 12variable: error completo y posicion
+APROBADA | 12variable: recuperacion sin identificador artificial
+APROBADA | 45.12.3: error completo y posicion
+APROBADA | 45.12.3: recuperacion sin identificador artificial
+APROBADA | 1.2abc: error completo y posicion
+APROBADA | 1.2abc: recuperacion sin identificador artificial
+APROBADA | 1.: error completo y posicion
+APROBADA | 1.: recuperacion sin identificador artificial
+APROBADA | 1..2: error completo y posicion
+APROBADA | 1..2: recuperacion sin identificador artificial
+APROBADA | Recuperacion conserva separador  
+APROBADA | Recuperacion conserva separador \t
+APROBADA | Recuperacion conserva separador \r\n
+APROBADA | Recuperacion conserva separador \n
+APROBADA | Recuperacion conserva separador +
+APROBADA | Enteros y decimales validos
+APROBADA | Conserva politica actual de .5
+APROBADA | prueba1_sencillo.txt: conteos historicos
+APROBADA | prueba2_medio.txt: conteos historicos
+APROBADA | prueba3_errores.txt: conteos historicos
+APROBADA | prueba4_recuperacion.txt: conteos historicos
+APROBADA | prueba5_categorias.txt: conteos historicos
+TOTAL | aprobadas=28 | fallidas=0

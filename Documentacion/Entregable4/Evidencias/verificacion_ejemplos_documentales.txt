@@ -1,0 +1,3 @@
+EJEMPLOS Y RESERVADAS | aprobadas=69 fallidas=0
+FORMULA DE COMENTARIO DE BLOQUE | coincidencias=3286 diferencias=0
+La expresion regular se uso solo como comprobacion independiente de la documentacion; el motor de C-extended sigue siendo manual.
