@@ -54,7 +54,7 @@ namespace C_Extended.Core
         /// Continuación de identificador: letra, dígito o guion bajo.
         /// </summary>
         public static bool EsParteIdentificador(char c)
-            => EsInicioIdentificador(c) || char.IsDigit(c);
+             => EsInicioIdentificador(c) || EsDigito(c);
 
         /// <summary>Devuelve true si el lexema completo es una palabra reservada.</summary>
         public static bool EsReservada(string lexema)
@@ -67,6 +67,12 @@ namespace C_Extended.Core
         public static bool EsEscapeValido(char c)
             => c == 'n' || c == 't' || c == 'r' || c == '0' ||
                c == '\\' || c == '"' || c == '\'';
+
+        /// <summary>
+        /// Reconoce exclusivamente dígitos ASCII del 0 al 9.
+        /// </summary>
+        public static bool EsDigito(char c)
+            => c >= '0' && c <= '9';
     }
 }
 

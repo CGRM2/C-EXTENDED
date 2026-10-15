@@ -1,0 +1,31 @@
+namespace ExportacionAvanzada
+{
+    class Demostracion
+    {
+        func ejecutar()
+        {
+            var contador = 0;
+            string ruta = "C:\\Archivos\\Proyecto\\test.txt";
+            string mensaje = "Hola,\t\"C-extended\"";
+            char barra = '\\';
+            char comilla = '\'';
+            char salto = '\n';
+            bool activo = true;
+            /*<LF>*/
+            /*<CRLF>*/
+            /* Comentario con salto real
+               segunda linea del comentario */
+            if (activo && contador <= 2)
+            {
+                contador += 1;
+            }
+            // Comentario de linea para exportar.
+            var decimalValido = 2.5;
+            var copia = contador;
+            string cierre = "Fin";
+            var dato = 1 # 2;
+            var recuperado = dato + 1;
+            return nil;
+        }
+    }
+}
