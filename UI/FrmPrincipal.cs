@@ -551,6 +551,11 @@ namespace C_Extended.UI
                     .Replace("\n", "↵")
                     .Replace("\t", "→");
         }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
