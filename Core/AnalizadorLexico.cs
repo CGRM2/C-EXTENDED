@@ -71,7 +71,7 @@ namespace C_Extended.Core
                 {
                     LeerIdentificador();
                 }
-                else if (char.IsDigit(actual))
+                else if (AutomataAFD.EsDigito(actual))
                 {
                     LeerNumero();
                 }
@@ -186,7 +186,7 @@ namespace C_Extended.Core
             int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
 
             // Consumir dígitos enteros (S2)
-            while (!Fin && char.IsDigit(Actual)) Avanzar();
+            while (!Fin && AutomataAFD.EsDigito(Actual)) Avanzar();
 
             bool decimalValido = false;
 
@@ -195,11 +195,16 @@ namespace C_Extended.Core
             {
                 Avanzar(); // consume el punto
 
-                if (Fin || !char.IsDigit(Actual))
+                if (Fin || !AutomataAFD.EsDigito(Actual))
                 {
-                    // Punto sin dígito después → número mal formado.
-                    // Consumir puntos y dígitos adicionales para evitar cascada.
-                    while (!Fin && (Actual == '.' || char.IsDigit(Actual))) Avanzar();
+                    // Consumir la secuencia inválida completa, incluidas letras
+                    // y guiones bajos, sin consumir el separador posterior.
+                    while (!Fin && (Actual == '.' ||
+                                    AutomataAFD.EsParteIdentificador(Actual)))
+                    {
+                        Avanzar();
+                    }
+
                     ErrorDesde(inicio, linea, columna,
                         "Número decimal mal formado: falta un dígito después del punto");
                     return;
@@ -207,14 +212,14 @@ namespace C_Extended.Core
 
                 // S4: dígitos decimales
                 decimalValido = true;
-                while (!Fin && char.IsDigit(Actual)) Avanzar();
+                while (!Fin && AutomataAFD.EsDigito(Actual)) Avanzar();
             }
 
             // Detectar continuación inválida: punto adicional o inicio de identificador
             if (!Fin && (Actual == '.' || AutomataAFD.EsInicioIdentificador(Actual)))
             {
                 // Consumir toda la secuencia inválida
-                while (!Fin && (char.IsDigit(Actual) || Actual == '.' ||
+                while (!Fin && (AutomataAFD.EsDigito(Actual) || Actual == '.' ||
                                 AutomataAFD.EsInicioIdentificador(Actual))) Avanzar();
                 ErrorDesde(inicio, linea, columna,
                     decimalValido || LexemaDesde(inicio).Contains(".")

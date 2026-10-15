@@ -30,9 +30,17 @@ namespace C_Extended.UI
             string            textoAnalizado,
             DateTime?         fechaHora = null)
         {
-            Tokens         = tokens ?? new List<Token>();
-            Errores        = errores ?? new List<ErrorLexico>();
-            Simbolos       = simbolos ?? new List<Simbolo>();
+            Tokens = tokens == null
+                ? new List<Token>()
+                : new List<Token>(tokens);
+
+            Errores = errores == null
+                ? new List<ErrorLexico>()
+                : new List<ErrorLexico>(errores);
+
+            Simbolos = simbolos == null
+                ? new List<Simbolo>()
+                : new List<Simbolo>(simbolos);
             TotalLineas    = totalLineas;
             TiempoMs       = tiempoMs;
             NombreFuente   = nombreFuente ?? "";
