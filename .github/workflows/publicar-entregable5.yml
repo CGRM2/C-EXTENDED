@@ -1,0 +1,60 @@
+name: Publicar entrega final C-Extended
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - Documentacion/Entregable5/publicar_release.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - name: Obtener el codigo publicado
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Compilar la aplicacion en Release
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $msbuild = @(& $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe')[0]
+          if (-not $msbuild) { throw 'No se encontro MSBuild.' }
+          & $msbuild C-Extended.csproj /p:Configuration=Release /p:UseSharedCompilation=false /verbosity:minimal
+          if ($LASTEXITCODE -ne 0) { throw 'La compilacion no fue correcta.' }
+
+      - name: Preparar paquete completo
+        shell: pwsh
+        run: |
+          $stage = Join-Path $env:RUNNER_TEMP 'C-Extended-Entregable5'
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          $docs = 'Documentacion/Entregable5'
+          foreach ($name in @('Memoria_Final_C_Extended.pdf','Matriz_Pruebas_Entregable5.pdf','Matriz_Pruebas_Entregable5.csv','Presentacion_Final_C_Extended.pptx','Guia_Sustentacion.md','LEEME_PRUEBAS.md','ACTUALIZACION_ASCII.md','LEEME_ENTREGA.md')) {
+            Copy-Item -LiteralPath (Join-Path $docs $name) -Destination $stage
+          }
+          Copy-Item -LiteralPath 'Prueba_Unica_C_Extended.txt' -Destination $stage
+          Copy-Item -LiteralPath (Join-Path $docs 'Evidencias') -Destination $stage -Recurse
+          $app = Join-Path $stage 'Aplicacion'
+          New-Item -ItemType Directory -Force $app | Out-Null
+          foreach ($name in @('C-Extended.exe','C-Extended.exe.config','Manual_de_Uso.txt')) {
+            Copy-Item -LiteralPath (Join-Path 'bin/Release' $name) -Destination $app
+          }
+          $sourceZip = Join-Path $env:RUNNER_TEMP 'fuente.zip'
+          git archive --format=zip -o $sourceZip HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'No se pudo empaquetar el codigo.' }
+          Expand-Archive -LiteralPath $sourceZip -DestinationPath (Join-Path $stage 'Codigo')
+          $zip = Join-Path $env:RUNNER_TEMP 'Entrega_Final_C_Extended.zip'
+          Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -CompressionLevel Optimal
+          "PAQUETE_FINAL=$zip" >> $env:GITHUB_ENV
+
+      - name: Crear etiqueta y release final
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create entregable-5-final "$env:PAQUETE_FINAL" --repo "$env:GITHUB_REPOSITORY" --target "$env:GITHUB_SHA" --title 'Entregable 5 - version final de C-Extended' --notes-file 'Documentacion/Entregable5/NOTAS_RELEASE.md'
+          if ($LASTEXITCODE -ne 0) { throw 'No se pudo crear la release final.' }

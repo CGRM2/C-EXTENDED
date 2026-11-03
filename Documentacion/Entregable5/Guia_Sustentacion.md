@@ -1,14 +1,16 @@
 # Guia para la sustentacion de C-Extended
 
-Duracion propuesta: 12 minutos, dentro de los 10 a 15 solicitados. Las diapositivas incluyen notas del presentador con los pasos y tiempos. El reparto siguiente es una propuesta de exposicion, no una atribucion de autoria del codigo.
+Duracion propuesta: 14 minutos, dentro de los 10 a 15 solicitados. Las diapositivas incluyen notas del presentador con los pasos y tiempos. El reparto siguiente es una propuesta de exposicion, no una atribucion de autoria del codigo.
 
 ## Reparto sugerido
 
 | Integrante | Diapositivas | Tema | Tiempo |
 | --- | --- | --- | --- |
-| Cristian | 1 a 4 | Objetivo, especificacion, expresiones regulares y estados | 3:30 |
-| Enrique | 5 a 7 | Arquitectura, recuperacion y pruebas | 3:00 |
-| Jose Roberto | 8 a 11 | Demostracion, exportacion y limites | 5:30 |
+| Cristian | 1 a 7 | Objetivo, antecedentes, tokens, expresiones regulares y automata | 4:45 |
+| Enrique | 8 a 14 | Literales, recuperacion, arquitectura, sintaxis y pruebas | 5:05 |
+| Jose Roberto | 15 a 18 | Demostracion, exportacion y conclusiones | 4:10 |
+
+La presentacion contiene 21 diapositivas: 18 principales y 3 de apoyo para preguntas. No es necesario exponer los anexos si no se consultan.
 
 Todos deben conocer las preguntas basicas siguientes. Pueden intercambiar el reparto segun lo que realmente trabajo cada uno.
 

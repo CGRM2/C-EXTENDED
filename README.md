@@ -31,7 +31,7 @@ El proyecto de sintaxis conserva su ruta de salida bin/Debug incluso con Configu
 
 No es un compilador completo de C#. No comprueba tipos de valores, resolucion de ambitos, variables sin declarar o nombres duplicados. No acepta toda la sintaxis de C#. Que no haya errores significa que se cumplen las comprobaciones implementadas.
 
-Los documentos bajo Documentacion/Entregable4 y README_Entregable4.md conservan el estado historico del entregable lexico. Para la version actual, consulta este README, SINTAXIS.md y Manual_de_Uso.txt. La revision documental final, el video y la ejecucion en otro equipo deben verificarse por separado; las pruebas locales no los sustituyen.
+Los documentos bajo Documentacion/Entregable4 y README_Entregable4.md conservan el estado historico del entregable lexico. Para la version actual, consulta este README, SINTAXIS.md y Manual_de_Uso.txt. La memoria y matriz finales se revisaron contra los antecedentes y la version ASCII. La sustentacion presencial y la ejecucion en el equipo de la exposicion deben comprobarse por separado.
 
 Se utilizo Codex como apoyo para revisar e implementar estas mejoras y ejecutar pruebas.
 
@@ -39,7 +39,7 @@ Se utilizo Codex como apoyo para revisar e implementar estas mejoras y ejecutar 
 
 La documentacion final se encuentra en [Documentacion/Entregable5](Documentacion/Entregable5): memoria con manual tecnico y manual de usuario, matriz detallada, CSV de resultados, diapositivas y guia de sustentacion.
 
-La matriz final contiene 22 casos aprobados, con entradas e informes TXT reales. Ademas, se ejecutaron 76 comprobaciones lexicas y 125 de sintaxis e integracion, todas aprobadas. Las evidencias quedan en Documentacion/Entregable5/Evidencias.
+La matriz final contiene 22 casos aprobados y enlaza el TXT unico y los informes consolidados reales. Ademas, se ejecutaron 76 comprobaciones lexicas y 125 de sintaxis e integracion, todas aprobadas. Las evidencias quedan en Documentacion/Entregable5/Evidencias.
 
 Para repetir los casos finales:
 
@@ -49,3 +49,13 @@ PruebasFinales/bin/Release/PruebasFinales.exe evidencia_final
 ```
 
 El paquete de entrega incluye el ejecutable con su configuracion y manual. Debe extraerse antes de ejecutarlo. La prueba en otra computadora y la sustentacion presencial deben realizarlas los integrantes.
+
+## Acceso para el docente
+
+- [Release final y paquete ejecutable](https://github.com/CGRM2/C-EXTENDED/releases/tag/entregable-5-final)
+- [Memoria final con ambos manuales](Documentacion/Entregable5/Memoria_Final_C_Extended.pdf)
+- [Matriz de pruebas](Documentacion/Entregable5/Matriz_Pruebas_Entregable5.pdf)
+- [Presentacion ampliada de 21 diapositivas](Documentacion/Entregable5/Presentacion_Final_C_Extended.pptx)
+- [Prueba manual unica](Prueba_Unica_C_Extended.txt)
+
+La memoria integra el material de los entregables 1 a 4 y la consolidacion final. La matriz corresponde a la version ASCII verificada. La release se genera mediante el flujo Publicar entrega final C-Extended, que compila el codigo en Windows antes de empaquetarlo.

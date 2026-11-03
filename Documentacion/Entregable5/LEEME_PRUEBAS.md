@@ -1,7 +1,7 @@
-# Ubicacion simplificada de las pruebas
+# Ubicacion actual de las pruebas
 
-Las 22 entradas separadas se reunieron en `Prueba_Unica_C_Extended.txt`, en la raiz del repositorio y del paquete. Los 22 informes TXT se consolidaron en `Resultados_Consolidados.md` dentro de Evidencias/PruebasFinales.
+Prueba_Unica_C_Extended.txt, en la raiz, contiene los bloques manuales P01 a P22. Copiar un bloque a la vez para comprobarlo. Cargar todo el archivo contiene errores lexicos deliberados y deja pendiente la sintaxis.
 
-La matriz PDF y sus resultados historicos se conservan. Sus referencias a Entradas/Pxx.txt e Informes/Pxx.txt corresponden a la organizacion anterior. Ahora cada entrada se identifica por el encabezado Pxx del archivo unico, y el informe completo por el mismo encabezado en Resultados_Consolidados.md. El JSON conserva las entradas, tokens y diagnosticos originales.
+La matriz PDF ya utiliza esta organizacion y enlaza los apartados Pxx de Resultados_Consolidados.md y los registros de matriz_resultados.json. Ya no es necesario buscar archivos Entradas/Pxx.txt o Informes/Pxx.txt.
 
-Para comprobar cada resultado de la matriz, copiar un bloque de entrada a la vez en el editor. Cargar el archivo completo permite una demostracion combinada, pero los errores lexicos deliberados impiden ejecutar la sintaxis. El ejecutor automatico PruebasFinales sigue comprobando los 22 casos de forma independiente.
+P04 automatico comprueba un identificador Unicode mediante escapes C# en el fuente. P04 manual usa anio para conservar el TXT en ASCII. La matriz explica esta diferencia y mantiene la evidencia de la prueba automatica.
