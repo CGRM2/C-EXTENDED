@@ -1,0 +1,2 @@
+string x = "sin cierre
+var ok = 1;

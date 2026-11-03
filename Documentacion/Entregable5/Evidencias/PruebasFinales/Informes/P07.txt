@@ -1,0 +1,89 @@
+=============================================================
+  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
+  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
+  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  Fuente analizada           : P07
+=============================================================
+  Convenci�n de escape reversible aplicada:
+    '\\'     -> barra invertida literal (\)
+    '\n'     -> salto de l�nea (LF)
+    '\r'     -> retorno de carro (CR)
+    '\t'     -> tabulaci�n horizontal
+    '\"'    -> comilla doble (")
+    '\0'     -> byte nulo
+    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+=============================================================
+
+--- RESUMEN ---
+Total de tokens     : 27
+Total de errores detectados: 0
+Errores l�xicos      : 0
+Estado sint�ctico   : Evaluado
+Errores sint�cticos : 0
+Estructuras         : 5
+Declaraciones       : 1
+Tiempo sint�ctico   : 0 ms
+Tiempo total        : 0 ms
+S�mbolos �nicos     : 1
+Total de l�neas     : 1
+Tiempo de an�lisis  : 0 ms
+
+--- TOKENS POR CATEGOR�A ---
+  TK_RESERVADA                   : 3
+  TK_IDENTIFICADOR               : 5
+  TK_OP_ASIGNACION               : 2
+  TK_NUM_ENTERO                  : 4
+  TK_DELIMITADOR                 : 7
+  TK_OP_RELACIONAL               : 2
+  TK_OP_LOGICO                   : 3
+  TK_OP_ARITMETICO               : 1
+  TOTAL                          : 27
+
+--- TOKENS ---
+  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  -----------------------------------------------------------------------------------------------
+  1     var                                           TK_RESERVADA              1       1
+  2     x                                             TK_IDENTIFICADOR          1       5
+  3     =                                             TK_OP_ASIGNACION          1       7
+  4     1                                             TK_NUM_ENTERO             1       9
+  5     ;                                             TK_DELIMITADOR            1       10
+  6     if                                            TK_RESERVADA              1       12
+  7     (                                             TK_DELIMITADOR            1       15
+  8     x                                             TK_IDENTIFICADOR          1       16
+  9     >=                                            TK_OP_RELACIONAL          1       18
+  10    1                                             TK_NUM_ENTERO             1       21
+  11    &&                                            TK_OP_LOGICO              1       23
+  12    x                                             TK_IDENTIFICADOR          1       26
+  13    !=                                            TK_OP_RELACIONAL          1       28
+  14    2                                             TK_NUM_ENTERO             1       31
+  15    ||                                            TK_OP_LOGICO              1       33
+  16    !                                             TK_OP_LOGICO              1       36
+  17    false                                         TK_RESERVADA              1       37
+  18    )                                             TK_DELIMITADOR            1       42
+  19    {                                             TK_DELIMITADOR            1       44
+  20    x                                             TK_IDENTIFICADOR          1       46
+  21    +=                                            TK_OP_ASIGNACION          1       48
+  22    2                                             TK_NUM_ENTERO             1       51
+  23    ;                                             TK_DELIMITADOR            1       52
+  24    x                                             TK_IDENTIFICADOR          1       54
+  25    ++                                            TK_OP_ARITMETICO          1       55
+  26    ;                                             TK_DELIMITADOR            1       57
+  27    }                                             TK_DELIMITADOR            1       59
+
+--- ERRORES L�XICOS ---
+  No se encontraron errores l�xicos.
+
+--- ERRORES SINT�CTICOS ---
+  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+
+--- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+  x | var | variable | 1:5
+
+--- TABLA DE S�MBOLOS ---
+  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+  ------------------------------------------------------------------------------------------
+  1     x                                   TK_IDENTIFICADOR     1               5
+
+=============================================================
+  Fin del informe
+=============================================================
