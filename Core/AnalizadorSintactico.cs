@@ -28,6 +28,7 @@ namespace C_Extended.Core
         private int profundidad;
         private int ciclos;
         private int selecciones;
+        private int funciones;
         private int limiteExpresion;
         private bool ultimaAccion;
         private int lineaFin;
@@ -45,7 +46,8 @@ namespace C_Extended.Core
         public void Analizar(List<Token> entrada, string fuente)
         {
             tokens = (entrada ?? new List<Token>()).Where(t => !t.TipoToken.StartsWith("TK_COMENTARIO")).ToList();
-            posicion = profundidad = ciclos = selecciones = limiteExpresion = TotalInstrucciones = 0;
+            posicion = profundidad = ciclos = selecciones = funciones = limiteExpresion = TotalInstrucciones = 0;
+            ultimaAccion = false;
             Errores.Clear();
             Declaraciones.Clear();
             string normalizado = (fuente ?? "").Replace("\r\n", "\n").Replace('\r', '\n');
@@ -105,13 +107,30 @@ namespace C_Extended.Core
             finally { profundidad--; }
         }
 
+        private bool EsDeclaracion()
+        {
+            if (EsTipo(Lexema)) return true;
+            if (!Identificador) return false;
+            int siguiente = posicion + 1;
+            while (siguiente + 1 < tokens.Count && tokens[siguiente].Lexema == "[" &&
+                tokens[siguiente + 1].Lexema == "]") siguiente += 2;
+            return siguiente < tokens.Count && tokens[siguiente].TipoToken == "TK_IDENTIFICADOR";
+        }
+
         private void LeerInstruccion()
         {
             if (Tomar(";")) return;
             if (Lexema == "{") { Bloque(); return; }
             bool modificador = false;
+            var modificadores = new HashSet<string>(StringComparer.Ordinal);
             while (Lexema == "public" || Lexema == "private" || Lexema == "static")
-            { posicion++; modificador = true; }
+            {
+                if (!modificadores.Add(Lexema)) Error("Modificador repetido: '" + Lexema + "'.");
+                if ((Lexema == "public" && modificadores.Contains("private")) ||
+                    (Lexema == "private" && modificadores.Contains("public")))
+                    Error("No se permite combinar 'public' y 'private'.");
+                posicion++; modificador = true;
+            }
             if (Tomar("namespace"))
             {
                 Nombre("espacio de nombres", "namespace");
@@ -127,7 +146,7 @@ namespace C_Extended.Core
                 Esperar(";"); return;
             }
             if (Tomar("func")) { Nombre("función", "func"); Funcion(); return; }
-            if (EsTipo(Lexema) || (Identificador && posicion + 1 < tokens.Count && tokens[posicion + 1].TipoToken == "TK_IDENTIFICADOR"))
+            if (EsDeclaracion())
             { Declaracion(true); return; }
             if (modificador) { Error("Se esperaba una declaración después del modificador."); return; }
             if (Tomar("if"))
@@ -143,7 +162,11 @@ namespace C_Extended.Core
             if (Tomar("for")) { Para(); return; }
             if (Tomar("switch")) { Seleccion(); return; }
             if (Tomar("return"))
-            { if (Lexema != ";" && Lexema != "}" && !Fin) Expresion(); Esperar(";"); return; }
+            {
+                if (funciones == 0) Error("'return' está fuera de una función.");
+                if (Lexema != ";" && Lexema != "}" && !Fin) Expresion();
+                Esperar(";"); return;
+            }
             if (Lexema == "break" || Lexema == "continue")
             {
                 bool continuar = Lexema == "continue";
@@ -186,6 +209,7 @@ namespace C_Extended.Core
             string tipo = Lexema;
             posicion++;
             while (Tomar("[")) { Esperar("]"); tipo += "[]"; }
+            if (tipo.StartsWith("void[")) Error("No se permiten arreglos de void.");
             Token nombre = Nombre("variable", tipo);
             if (nombre == null) { Recuperar(); return; }
             if (Lexema == "(")
@@ -193,7 +217,7 @@ namespace C_Extended.Core
                 Declaraciones[Declaraciones.Count - 1].Rol = "función";
                 Funcion(); return;
             }
-            if (tipo == "void") Error("'void' solo puede usarse como retorno de una función.");
+            if (tipo == "void" || tipo.StartsWith("void[")) Error("'void' solo puede usarse como retorno de una función.");
             if (Tomar("=")) Expresion();
             while (Tomar(","))
             { Nombre("variable", tipo); if (Tomar("=")) Expresion(); }
@@ -216,7 +240,12 @@ namespace C_Extended.Core
                 } while (Tomar(","));
             }
             Esperar(")");
-            Bloque();
+            // Una función tiene su propio contexto de control de flujo.
+            int ciclosExternos = ciclos, seleccionesExternas = selecciones;
+            ciclos = selecciones = 0;
+            funciones++;
+            try { Bloque(); }
+            finally { funciones--; ciclos = ciclosExternos; selecciones = seleccionesExternas; }
         }
 
         private void Enumeracion()
@@ -240,7 +269,7 @@ namespace C_Extended.Core
             Esperar("(");
             if (Lexema != ";")
             {
-                if (EsTipo(Lexema)) Declaracion(false);
+                if (EsDeclaracion()) Declaracion(false);
                 else ListaExpresiones();
             }
             Esperar(";");
@@ -334,6 +363,8 @@ namespace C_Extended.Core
             {
                 accion = true;
                 if (!Identificador && !EsTipo(Lexema)) { Error("Se esperaba un tipo después de 'new'."); return false; }
+                if (Lexema == "void" || Lexema == "var")
+                    Error("No se puede construir un valor de tipo '" + Lexema + "'.");
                 posicion++;
                 if (Tomar("(")) { if (Lexema != ")") ListaExpresiones(); Esperar(")"); }
                 else if (Tomar("[")) { Expresion(); Esperar("]"); }

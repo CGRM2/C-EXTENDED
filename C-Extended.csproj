@@ -58,6 +58,7 @@
     <Compile Include="UI\FrmPrincipal.Diccionario.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\FrmPrincipal.Navegacion.cs" />
     <Compile Include="UI\Exportador.cs" />
     <Compile Include="UI\ResultadoAnalisis.cs" />
     <Compile Include="UI\FrmPrincipal.cs">

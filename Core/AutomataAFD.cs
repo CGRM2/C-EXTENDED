@@ -11,8 +11,8 @@ namespace C_Extended.Core
     /// No usa Regex. Define qué caracteres pertenecen a cada clase.
     ///
     /// Alfabeto (ASCII + letras Unicode):
-    ///   L  = letra Unicode (char.IsLetter) o guion bajo '_'
-    ///   D  = dígito ASCII 0–9 (char.IsDigit en subconjunto ASCII)
+    ///   L  = letra Unicode (char.IsLetter); G = guion bajo '_'
+    ///   D  = dígito ASCII 0–9 (EsDigito)
     ///   L|D|_ = conjunto de continuación de identificador
     ///
     /// Reservadas definitivas de C-extended (30 palabras):
@@ -85,6 +85,7 @@ namespace C_Extended.Core
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "C-Extended", "diccionario.xml");
         private static List<EntradaDiccionario> entradas;
+        private static Dictionary<string, string> tipos;
 
         public static List<EntradaDiccionario> ObtenerDiccionario()
         {
@@ -109,8 +110,11 @@ namespace C_Extended.Core
 
         public static string ObtenerTipo(string palabra)
         {
-            var entrada = ObtenerDiccionario().Find(x => x.Palabra == palabra);
-            return entrada == null ? "TK_IDENTIFICADOR" : entrada.Tipo;
+            if (tipos == null)
+                tipos = ObtenerDiccionario().GroupBy(x => x.Palabra, StringComparer.Ordinal)
+                    .ToDictionary(g => g.Key, g => g.First().Tipo, StringComparer.Ordinal);
+            string tipo;
+            return palabra != null && tipos.TryGetValue(palabra, out tipo) ? tipo : "TK_IDENTIFICADOR";
         }
 
         public static void GuardarEntrada(string original, string palabra, string tipo, string descripcion)
@@ -147,6 +151,7 @@ namespace C_Extended.Core
             File.Copy(temporal, RutaDiccionario, true);
             File.Delete(temporal);
             entradas = lista;
+            tipos = null;
         }
         public static bool EsDigito(char c)
             => c >= '0' && c <= '9';

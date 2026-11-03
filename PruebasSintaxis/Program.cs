@@ -31,6 +31,9 @@ class Program
             string salida = args.Length > 0 ? Path.GetFullPath(args[0]) : AppDomain.CurrentDomain.BaseDirectory;
             Directory.CreateDirectory(salida);
             string[] validos = {
+                "Persona[] datos;", "Persona[][] datos;", "Persona[] crear() { return datos; }",
+                "for (Persona p = origen; listo; p++) { break; }",
+                "while (true) { func f() { while (true) { break; } return; } break; }",
                 "", "// comentario", "var x = 1;", "int x;", "int x = 1, y = 2;",
                 "string saludo = \"hola\";", "char letra = 'a';", "bool listo = true;",
                 "x = 2 + 3 * 4;", "x += 2;", "x++; --x;", "obj.x = 1; a[0] = 2;",
@@ -50,6 +53,11 @@ class Program
                 Verificar("Válido " + i + " " + validos[i], r.Errores.Count == 0 && r.SintaxisEvaluada && r.ErroresSintacticos.Count == 0);
             }
             string[] invalidos = {
+                "return 1;", "return;", "public public int x;", "public private int x;",
+                "void[] datos;", "void[] crear() {}", "var x = new void();", "var x = new var();",
+                "while (true) { func f() { break; } }",
+                "while (true) { func f() { continue; } }",
+                "switch (x) { default: func f() { break; } }",
                 "var x = 1", "var x = ;", "var = 1;", "int int = 2;", "x = 50 10;", "x = 1 + ;",
                 "if true { x++; }", "if () x++;", "if (true)", "if (true) { x++;", "}", "x = (1 + 2;",
                 "x = a[1;", "else x++;", "for (var i = 0 i < 5; i++) { }", "for (;;) ",
@@ -63,6 +71,12 @@ class Program
             {
                 var r = Analizar(invalidos[i]);
                 Verificar("Inválido " + i + " " + invalidos[i], r.Errores.Count == 0 && r.SintaxisEvaluada && r.ErroresSintacticos.Count > 0);
+            }
+            string ejemplos = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Pruebas"));
+            foreach (string archivo in new[] { "prueba1_sencillo.txt", "prueba2_medio.txt", "prueba5_categorias.txt" })
+            {
+                var original = Analizar(File.ReadAllText(Path.Combine(ejemplos, archivo)));
+                Verificar("Ejemplo original " + archivo, original.SintaxisEvaluada && original.TotalErrores == 0);
             }
             var pendiente = Analizar("var x = @;");
             Verificar("No afirmar sintaxis correcta con errores léxicos", !pendiente.SintaxisEvaluada && pendiente.ErroresSintacticos.Count == 0);
@@ -99,6 +113,14 @@ class Program
                 analizar.Invoke(f, new object[] { null, EventArgs.Empty });
                 var tabla = (DataGridView)typeof(FrmPrincipal).GetField("dgvSintacticos", flags).GetValue(f);
                 Verificar("Pestaña muestra errores sintácticos", tabla.Rows.Count > 0);
+                typeof(FrmPrincipal).GetMethod("IrAFila", flags).Invoke(f, new object[] { tabla, 0, 2, 3 });
+                Verificar("Navegación al error selecciona el token", editor.SelectionStart == 8 && editor.SelectedText == ";");
+                typeof(FrmPrincipal).GetMethod("IrAUbicacion", flags).Invoke(f, new object[] { 1, 999 });
+                Verificar("Navegación limita columna al final", editor.SelectionStart == editor.TextLength);
+                typeof(FrmPrincipal).GetField("_rutaArchivoCargado", flags).SetValue(f, Path.Combine(salida, "fuente.txt"));
+                var proteger = typeof(FrmPrincipal).GetMethod("EsArchivoFuente", flags);
+                Verificar("Exportación protege archivo fuente", (bool)proteger.Invoke(f, new object[] { Path.Combine(salida, "FUENTE.txt") }));
+                Verificar("Exportación permite otro destino", !(bool)proteger.Invoke(f, new object[] { Path.Combine(salida, "informe.txt") }));
                 var resumen = (Label)typeof(FrmPrincipal).GetField("lblResumenErrores", flags).GetValue(f);
                 var estadisticas = (TextBox)typeof(FrmPrincipal).GetField("txtEstadisticas", flags).GetValue(f);
                 var avisoLexico = (Label)typeof(FrmPrincipal).GetField("lblSinErrores", flags).GetValue(f);
@@ -121,6 +143,10 @@ class Program
                     f.DrawToBitmap(imagen, new Rectangle(0, 0, f.Width, f.Height));
                     imagen.Save(Path.Combine(salida, "sintaxis.png"));
                 }
+                editor.Text = "int x = 1;\nvar y = ;";
+                analizar.Invoke(f, new object[] { null, EventArgs.Empty });
+                typeof(FrmPrincipal).GetMethod("IrAFila", flags).Invoke(f, new object[] { tabla, 0, 2, 3 });
+                Verificar("Navegación respeta línea y columna", editor.GetLineFromCharIndex(editor.SelectionStart) == 1 && editor.SelectedText == ";");
                 editor.Text = "var x = @;";
                 analizar.Invoke(f, new object[] { null, EventArgs.Empty });
                 var estado = (Label)typeof(FrmPrincipal).GetField("lblEstadoSintactico", flags).GetValue(f);

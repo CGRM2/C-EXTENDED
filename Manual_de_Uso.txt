@@ -134,3 +134,12 @@ COHERENCIA DE RESULTADOS LÉXICOS Y SINTÁCTICOS
 - El TXT incluye el total de errores detectados y las secciones de ambas etapas.
 - La pestaña sin errores léxicos puede coexistir con errores sintácticos: consulta también esa pestaña.
 - Editar, cargar o limpiar invalida ambas etapas y deshabilita la exportación hasta el siguiente análisis.
+
+
+MEJORAS DE REVISIÓN
+- Doble clic en errores, tokens o símbolos: ir a su ubicación en el editor. En EOF, el cursor queda al final.
+- Atajos: F5 analizar, Ctrl+O cargar, Ctrl+E exportar.
+- La exportación no permite sobrescribir el archivo fuente cargado.
+- Se admiten arreglos de tipos propios, como Persona[] datos;.
+- return requiere una función; break y continue no heredan ciclos de una función exterior.
+- Se diagnostican modificadores repetidos o public/private simultáneos y usos inválidos de void como arreglo o construcción con new.

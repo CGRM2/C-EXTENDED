@@ -1,6 +1,6 @@
 # Análisis léxico y sintáctico de C-Extended
 
-Abre C-Extended.slnx y ejecuta el proyecto. El botón Analizar y el análisis al editar ejecutan las dos etapas. La pestaña Errores sintácticos muestra ubicación y descripción; su panel inferior explica la gramática admitida.
+Abre C-Extended.csproj y ejecuta el proyecto. El botón Analizar y el análisis al editar ejecutan las dos etapas. La pestaña Errores sintácticos muestra ubicación y descripción; su botón Ayuda permite consultar la gramática admitida.
 
 Si hay errores léxicos, el análisis sintáctico queda pendiente. Corrige primero esos errores: no se interpretan tokens incompletos como un programa válido.
 
@@ -32,4 +32,12 @@ Compila PruebasSintaxis/PruebasSintaxis.csproj con MSBuild de Visual Studio y ej
 - C-Extended.csproj: inclusión de los archivos nuevos.
 - PruebasSintaxis/: proyecto de pruebas y ejemplos para cargar.
 
-Validación final: compilación Debug correcta, 92 pruebas sintácticas/de integración, 45 comprobaciones léxicas y 11 de actualización/CRUD aprobadas. Los ejemplos originales válidos 1, 2 y 5 también se aceptan sintácticamente. Se revisaron visualmente las pestañas afectadas.
+Validación de esta revisión: compilación Release correcta; 125 comprobaciones de sintaxis e integración y 76 comprobaciones de regresión léxica aprobadas. La suite incluye los ejemplos originales válidos 1, 2 y 5. Se inspeccionó una captura de la pestaña de errores sintácticos.
+
+## Revisión de calidad
+
+La navegación por doble clic funciona en errores léxicos, sintácticos, tokens y símbolos. F5 analiza, Ctrl+O carga y Ctrl+E exporta. El informe no puede reemplazar el archivo fuente cargado.
+
+Se reconocen arreglos de tipos propios en declaraciones y cabeceras de for. Cada función mantiene un contexto de ciclos y switch independiente, return requiere una función y se diagnostican modificadores duplicados o incompatibles. Se rechazan arreglos de void y construcciones new void/new var. Estas comprobaciones no constituyen un análisis semántico de tipos.
+
+El diccionario almacena en caché las clasificaciones para evitar copiar todas las entradas por cada identificador; los cambios del CRUD invalidan esa caché.

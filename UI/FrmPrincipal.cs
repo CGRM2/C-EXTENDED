@@ -40,6 +40,7 @@ namespace C_Extended.UI
             InicializarEstadoFormulario();
             InicializarDiccionario();
             InicializarSintaxis();
+            InicializarNavegacion();
         }
 
         private void InicializarEstadoFormulario()
@@ -314,6 +315,12 @@ namespace C_Extended.UI
             })
             {
                 if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (EsArchivoFuente(dlg.FileName))
+                {
+                    MessageBox.Show("Elige otro nombre: el informe no debe sobrescribir el código fuente cargado.",
+                        "Proteger código fuente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 try
                 {
@@ -333,6 +340,13 @@ namespace C_Extended.UI
                         "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private bool EsArchivoFuente(string destino)
+        {
+            return !string.IsNullOrEmpty(_rutaArchivoCargado) &&
+                string.Equals(Path.GetFullPath(destino), Path.GetFullPath(_rutaArchivoCargado),
+                    StringComparison.OrdinalIgnoreCase);
         }
 
         // ---- Limpiar ----
