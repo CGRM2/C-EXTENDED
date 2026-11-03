@@ -1,0 +1,12 @@
+namespace Demo {
+    class Ejemplo {
+        func ejecutar() {
+            int numero = 10;
+            for (var i = 0; i < numero; i++) {
+                if (i == 5) { continue; }
+                numero += 1;
+            }
+            return;
+        }
+    }
+}

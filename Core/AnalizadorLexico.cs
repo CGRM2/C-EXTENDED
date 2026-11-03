@@ -75,6 +75,20 @@ namespace C_Extended.Core
                 {
                     LeerNumero();
                 }
+                else if (actual == '.' && AutomataAFD.EsDigito(Siguiente))
+                {
+                    int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
+                    Avanzar();
+                    while (!Fin && (AutomataAFD.EsParteIdentificador(Actual) || Actual == '.')) Avanzar();
+                    ErrorDesde(inicio, linea, columna,
+                        "Número decimal mal formado: falta un dígito antes del punto");
+                }
+                else if (actual == '*' && Siguiente == '/')
+                {
+                    int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
+                    Avanzar(); Avanzar();
+                    ErrorDesde(inicio, linea, columna, "Cierre de comentario sin apertura /*");
+                }
                 else if (actual == '"')
                 {
                     LeerCadena();
@@ -241,6 +255,7 @@ namespace C_Extended.Core
         {
             int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
             bool escapeInvalido = false;
+            bool controlInvalido = false;
             Avanzar(); // comilla inicial
 
             while (!Fin && Actual != '\r' && Actual != '\n')
@@ -248,7 +263,9 @@ namespace C_Extended.Core
                 if (Actual == '"')
                 {
                     Avanzar(); // comilla de cierre
-                    if (escapeInvalido)
+                    if (controlInvalido)
+                        ErrorDesde(inicio, linea, columna, "Carácter de control no permitido en literal; utiliza una secuencia de escape");
+                    else if (escapeInvalido)
                         ErrorDesde(inicio, linea, columna, "Secuencia de escape no válida en cadena");
                     else
                         TokenDesde(inicio, linea, columna, "TK_CADENA");
@@ -263,6 +280,7 @@ namespace C_Extended.Core
                 }
                 else
                 {
+                    if (char.IsControl(Actual) && Actual != '\t') controlInvalido = true;
                     Avanzar();
                 }
             }
@@ -277,6 +295,7 @@ namespace C_Extended.Core
         {
             int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
             bool escapeInvalido = false;
+            bool controlInvalido = false;
             int  caracteres     = 0;
             Avanzar(); // comilla inicial
 
@@ -285,7 +304,9 @@ namespace C_Extended.Core
                 if (Actual == '\'')
                 {
                     Avanzar(); // comilla de cierre
-                    if (escapeInvalido)
+                    if (controlInvalido)
+                        ErrorDesde(inicio, linea, columna, "Carácter de control no permitido en literal; utiliza una secuencia de escape");
+                    else if (escapeInvalido)
                         ErrorDesde(inicio, linea, columna, "Secuencia de escape no válida en carácter literal");
                     else if (caracteres != 1)
                         ErrorDesde(inicio, linea, columna,
@@ -303,6 +324,7 @@ namespace C_Extended.Core
                 }
                 else
                 {
+                    if (char.IsControl(Actual) && Actual != '\t') controlInvalido = true;
                     Avanzar();
                 }
                 caracteres++;
@@ -398,7 +420,23 @@ namespace C_Extended.Core
             }
 
             if (tipo == null)
-                ErrorDesde(inicio, linea, columna, "Carácter no permitido");
+            {
+                string descripcion;
+                switch (c)
+                {
+                    case '&': descripcion = "Operador lógico incompleto: utiliza &&"; break;
+                    case '|': descripcion = "Operador lógico incompleto: utiliza ||"; break;
+                    case '\\': descripcion = "Barra invertida fuera de una cadena o carácter literal"; break;
+                    case '\u201c': case '\u201d': case '\u2018': case '\u2019':
+                        descripcion = "Comilla tipográfica no permitida: utiliza comillas rectas"; break;
+                    default:
+                        descripcion = char.IsControl(c)
+                            ? "Carácter de control no permitido (U+" + ((int)c).ToString("X4") + ")"
+                            : "Carácter no permitido";
+                        break;
+                }
+                ErrorDesde(inicio, linea, columna, descripcion);
+            }
             else
                 TokenDesde(inicio, linea, columna, tipo);
         }

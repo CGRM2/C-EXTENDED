@@ -1,0 +1,10 @@
+namespace Demo {
+    class Ejemplo {
+        func ejecutar() {
+            int numero = 10
+            numero = 50 10;
+            numero = 5 + ;
+            if (numero > 0 { numero++; }
+        }
+    }
+}

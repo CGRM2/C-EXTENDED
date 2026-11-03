@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using C_Extended.Core;
 
 namespace C_Extended.UI
@@ -11,6 +12,13 @@ namespace C_Extended.UI
     /// </summary>
     public sealed class ResultadoAnalisis
     {
+        public List<ErrorSintactico> ErroresSintacticos { get; } = new List<ErrorSintactico>();
+        public List<DeclaracionSintactica> Declaraciones { get; } = new List<DeclaracionSintactica>();
+        public bool SintaxisEvaluada { get; private set; }
+        public long TiempoSintacticoMs { get; private set; }
+        public long TiempoTotalMs => TiempoMs + TiempoSintacticoMs;
+        public int TotalInstrucciones { get; private set; }
+        public int TotalErrores => Errores.Count + ErroresSintacticos.Count;
         public List<Token>        Tokens         { get; }
         public List<ErrorLexico>  Errores        { get; }
         public List<Simbolo>      Simbolos       { get; }
@@ -46,6 +54,18 @@ namespace C_Extended.UI
             NombreFuente   = nombreFuente ?? "";
             TextoAnalizado = textoAnalizado ?? "";
             FechaHora      = fechaHora ?? DateTime.Now;
+            if (Errores.Count == 0)
+            {
+                var reloj = Stopwatch.StartNew();
+                var sintactico = new AnalizadorSintactico();
+                sintactico.Analizar(Tokens, TextoAnalizado);
+                reloj.Stop();
+                ErroresSintacticos.AddRange(sintactico.Errores);
+                Declaraciones.AddRange(sintactico.Declaraciones);
+                TotalInstrucciones = sintactico.TotalInstrucciones;
+                TiempoSintacticoMs = reloj.ElapsedMilliseconds;
+                SintaxisEvaluada = true;
+            }
         }
     }
 }
