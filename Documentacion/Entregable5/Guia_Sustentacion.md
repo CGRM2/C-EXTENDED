@@ -23,7 +23,7 @@ Todos deben conocer las preguntas b�sicas siguientes. Pueden intercambiar el r
 7. Pulsar Ctrl+E y guardar un informe TXT con otro nombre. Abrirlo y se�alar los apartados de ambas etapas.
 8. Terminar con un caso v�lido y explicar los l�mites del analizador.
 
-La demostraci�n utiliza entradas peque�as para que el docente pueda seguirlas. Los 22 archivos de prueba quedan disponibles en `Evidencias/PruebasFinales/Entradas`.
+La demostraci�n utiliza entradas peque�as para que el docente pueda seguirlas. Las 22 entradas est�n reunidas en `Prueba_Unica_C_Extended.txt`, en la ra�z. Copiar solamente un bloque a la vez para reproducir un caso de la matriz.
 
 ## Preguntas b�sicas y respuestas
 

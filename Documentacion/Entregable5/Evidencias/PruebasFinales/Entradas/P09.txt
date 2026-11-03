@@ -1,1 +1,0 @@
-func sumar(int a, int b) { return a + b; } for (var i=0; i<3; i++) { sumar(i, 1); }

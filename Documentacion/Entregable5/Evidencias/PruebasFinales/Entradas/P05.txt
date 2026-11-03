@@ -1,1 +1,0 @@
-string texto = "Hola\n\"CUNOR\"";
