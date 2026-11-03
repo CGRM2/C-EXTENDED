@@ -156,11 +156,13 @@ namespace C_Extended.UI
             // ---- Resumen ----
             sb.AppendLine("--- RESUMEN ---");
             sb.AppendLine($"Total de tokens     : {tokens.Count}");
+            sb.AppendLine($"Total de errores detectados: {errores.Count + (sintaxisEvaluada ? erroresSintacticos.Count : 0)}");
             sb.AppendLine($"Errores léxicos      : {errores.Count}");
             sb.AppendLine("Estado sintáctico   : " + (sintaxisEvaluada ? "Evaluado" : "Pendiente / no evaluado"));
             sb.AppendLine("Errores sintácticos : " + (sintaxisEvaluada ? erroresSintacticos.Count.ToString() : "No evaluados"));
-            sb.AppendLine("Estructuras         : " + instrucciones);
-            sb.AppendLine("Tiempo sintáctico   : " + tiempoSintacticoMs + " ms");
+            sb.AppendLine("Estructuras         : " + (sintaxisEvaluada ? instrucciones.ToString() : "No evaluadas"));
+            sb.AppendLine("Declaraciones       : " + (sintaxisEvaluada ? declaraciones.Count.ToString() : "No evaluadas"));
+            sb.AppendLine("Tiempo sintáctico   : " + (sintaxisEvaluada ? tiempoSintacticoMs + " ms" : "No evaluado"));
             sb.AppendLine("Tiempo total        : " + (tiempoMs + tiempoSintacticoMs) + " ms");
             sb.AppendLine($"Símbolos únicos     : {simbolos.Count}");
             sb.AppendLine($"Total de líneas     : {totalLineas}");
@@ -227,7 +229,9 @@ namespace C_Extended.UI
                 sb.AppendLine("  " + error.Linea + ":" + error.Columna + " | " + EscaparCadena(error.Encontrado) + " | " + error.Descripcion);
             sb.AppendLine();
             sb.AppendLine("--- DECLARACIONES SINTÁCTICAS ENCONTRADAS (SIN RESOLUCIÓN DE ÁMBITOS) ---");
-            foreach (var declaracion in declaraciones)
+            if (!sintaxisEvaluada) sb.AppendLine("  No evaluadas: análisis sintáctico pendiente.");
+            else if (declaraciones.Count == 0) sb.AppendLine("  No se encontraron declaraciones.");
+            else foreach (var declaracion in declaraciones)
                 sb.AppendLine("  " + EscaparCadena(declaracion.Nombre) + " | " + EscaparCadena(declaracion.Tipo) + " | " + declaracion.Rol + " | " + declaracion.Linea + ":" + declaracion.Columna);
             sb.AppendLine();
 

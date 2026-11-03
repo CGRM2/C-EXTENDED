@@ -10,7 +10,7 @@ using C_Extended.Core;
 namespace C_Extended.UI
 {
     /// <summary>
-    /// Formulario principal de C-extended | Analizador léxico.
+    /// Formulario principal de C-extended | Analizador léxico y sintáctico.
     /// Organización: barra de acciones (arriba) · editor con numeración (izquierda) ·
     ///               pestañas de resultados (derecha) · panel de resumen (abajo) ·
     ///               barra de estado (inferior).
@@ -285,8 +285,8 @@ namespace C_Extended.UI
                 InvalidarResultados();
 
                 MessageBox.Show(
-                    $"Ocurrió un error inesperado durante el análisis léxico:\n{ex.Message}",
-                    "Error del motor léxico",
+                    $"Ocurrió un error inesperado durante el análisis léxico o sintáctico:\n{ex.Message}",
+                    "Error del analizador",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
@@ -448,6 +448,9 @@ namespace C_Extended.UI
             dgvErrores.Rows.Clear();
             if (r.Errores.Count == 0)
             {
+                lblSinErrores.Text = r.ErroresSintacticos.Count > 0
+                    ? "No se encontraron errores léxicos.\nHay errores sintácticos; consulta su pestaña."
+                    : "No se encontraron errores léxicos.\nConsulta también el resultado sintáctico.";
                 lblSinErrores.Visible = true;
                 dgvErrores.Visible    = false;
             }
@@ -491,10 +494,11 @@ namespace C_Extended.UI
             sb.AppendLine($"Errores léxicos detectados : {r.Errores.Count}");
             sb.AppendLine("Estado sintáctico          : " + (r.SintaxisEvaluada ? "Evaluado" : "Pendiente por errores léxicos"));
             sb.AppendLine("Errores sintácticos        : " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "No evaluados"));
-            sb.AppendLine("Estructuras procesadas     : " + r.TotalInstrucciones);
-            sb.AppendLine("Declaraciones encontradas  : " + r.Declaraciones.Count);
+            sb.AppendLine("Errores totales detectados : " + r.TotalErrores);
+            sb.AppendLine("Estructuras procesadas     : " + (r.SintaxisEvaluada ? r.TotalInstrucciones.ToString() : "No evaluadas"));
+            sb.AppendLine("Declaraciones encontradas  : " + (r.SintaxisEvaluada ? r.Declaraciones.Count.ToString() : "No evaluadas"));
             sb.AppendLine("Tiempo léxico              : " + r.TiempoMs + " ms");
-            sb.AppendLine("Tiempo sintáctico          : " + r.TiempoSintacticoMs + " ms");
+            sb.AppendLine("Tiempo sintáctico          : " + (r.SintaxisEvaluada ? r.TiempoSintacticoMs + " ms" : "No evaluado"));
             sb.AppendLine($"Identificadores únicos     : {r.Simbolos.Count}");
             sb.AppendLine($"Total de líneas procesadas : {r.TotalLineas}");
             sb.AppendLine($"Tiempo total                : {r.TiempoTotalMs} ms");
@@ -528,7 +532,8 @@ namespace C_Extended.UI
             {
                 lblResumenTokens.Text   = "Tokens: 0";
                 lblResumenErrores.Text  = "Errores: 0";
-                lblResumenErrores.ForeColor = Color.FromArgb(0, 200, 80);
+                lblResumenErrores.ForeColor = ColorTexto;
+                toolTipPrincipal.SetToolTip(lblResumenErrores, "Sin resultados vigentes. Ambas etapas están pendientes.");
                 lblResumenSimbolos.Text = "Símbolos: 0";
                 lblResumenLineas.Text   = "Líneas: 0";
                 lblResumenTiempo.Text   = "Tiempo: 0 ms";
@@ -588,6 +593,7 @@ namespace C_Extended.UI
             dgvErrores.Visible    = true;
 
             ActualizarResumen(null);
+            ActualizarBarraEstado(null);
         }
 
         /// <summary>

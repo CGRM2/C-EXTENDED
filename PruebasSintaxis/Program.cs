@@ -82,8 +82,12 @@ class Program
             Exportador.ExportarTxt(destino, ubicacion);
             string informe = File.ReadAllText(destino);
             Verificar("Exportación separa ambas etapas", informe.Contains("--- ERRORES LÉXICOS ---") && informe.Contains("--- ERRORES SINTÁCTICOS ---") && informe.Contains("Se esperaba una expresión"));
+            Verificar("Exportación totaliza errores sintácticos", informe.Contains("Total de errores detectados: " + ubicacion.TotalErrores));
+            Exportador.ExportarTxt(destino, Analizar("int x = 1;"));
+            Verificar("Exportación incluye declaraciones", File.ReadAllText(destino).Contains("x | int |"));
             Exportador.ExportarTxt(destino, pendiente);
             Verificar("Exportación indica sintaxis pendiente", File.ReadAllText(destino).Contains("Análisis sintáctico pendiente"));
+            Verificar("Exportación distingue datos no evaluados", File.ReadAllText(destino).Contains("No evaluadas: análisis sintáctico pendiente."));
             Application.EnableVisualStyles();
             using (var f = new FrmPrincipal())
             {
@@ -95,6 +99,12 @@ class Program
                 analizar.Invoke(f, new object[] { null, EventArgs.Empty });
                 var tabla = (DataGridView)typeof(FrmPrincipal).GetField("dgvSintacticos", flags).GetValue(f);
                 Verificar("Pestaña muestra errores sintácticos", tabla.Rows.Count > 0);
+                var resumen = (Label)typeof(FrmPrincipal).GetField("lblResumenErrores", flags).GetValue(f);
+                var estadisticas = (TextBox)typeof(FrmPrincipal).GetField("txtEstadisticas", flags).GetValue(f);
+                var avisoLexico = (Label)typeof(FrmPrincipal).GetField("lblSinErrores", flags).GetValue(f);
+                Verificar("Resumen suma sintaxis", resumen.Text != "Errores: 0");
+                Verificar("Sin errores léxicos remite a sintaxis", avisoLexico.Text.Contains("Hay errores sintácticos"));
+                Verificar("Estadísticas incluyen total", estadisticas.Text.Contains("Errores totales detectados"));
                 editor.Text = "int x = 1;";
                 analizar.Invoke(f, new object[] { null, EventArgs.Empty });
                 Verificar("Reanálisis limpia errores sintácticos", tabla.Rows.Count == 0);
@@ -115,6 +125,12 @@ class Program
                 analizar.Invoke(f, new object[] { null, EventArgs.Empty });
                 var estado = (Label)typeof(FrmPrincipal).GetField("lblEstadoSintactico", flags).GetValue(f);
                 Verificar("Interfaz indica pendiente por error léxico", estado.Text.Contains("PENDIENTE") && tabla.Rows.Count == 0);
+                Verificar("Estadísticas no confunden pendiente con cero", estadisticas.Text.Contains("No evaluadas"));
+                var limpiar = typeof(FrmPrincipal).GetMethod("btnLimpiar_Click", flags);
+                limpiar.Invoke(f, new object[] { null, EventArgs.Empty });
+                var tooltip = (ToolTip)typeof(FrmPrincipal).GetField("toolTipPrincipal", flags).GetValue(f);
+                Verificar("Limpiar borra tooltip anterior", tooltip.GetToolTip(resumen).Contains("Ambas etapas están pendientes"));
+                Verificar("Limpiar impide exportar resultados anteriores", !((Button)typeof(FrmPrincipal).GetField("btnExportar", flags).GetValue(f)).Enabled);
                 editor.Clear();
                 Verificar("Limpiar editor invalida ambas etapas", tabla.Rows.Count == 0 && estado.Text.Contains("Pendiente"));
                 f.Close();

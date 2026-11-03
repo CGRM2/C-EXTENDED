@@ -6,7 +6,7 @@ using C_Extended.Core;
 namespace C_Extended.UI
 {
     /// <summary>
-    /// Instantánea coherente de un análisis léxico completado.
+    /// Instantánea coherente de las etapas léxica y sintáctica del mismo código.
     /// Todas las tablas y estadísticas de la UI se derivan de esta clase,
     /// garantizando que los datos mostrados corresponden siempre al mismo análisis.
     /// </summary>

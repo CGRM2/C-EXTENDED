@@ -701,7 +701,7 @@ namespace C_Extended.UI
             this.MinimumSize = new System.Drawing.Size(1000, 640);
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "C-extended | Analizador léxico";
+            this.Text = "C-extended | Analizador léxico y sintáctico";
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.pnlBarra.ResumeLayout(false);
             this.splitMain.Panel1.ResumeLayout(false);
