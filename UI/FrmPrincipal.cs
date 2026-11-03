@@ -38,6 +38,8 @@ namespace C_Extended.UI
         {
             InitializeComponent();
             InicializarEstadoFormulario();
+            InicializarDiccionario();
+            InicializarSintaxis();
         }
 
         private void InicializarEstadoFormulario()
@@ -243,6 +245,7 @@ namespace C_Extended.UI
         // ---- Analizar ----
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
+            temporizadorAnalisis.Stop();
             string texto = rtbEditor.Text;
             if (string.IsNullOrWhiteSpace(texto))
             {
@@ -359,15 +362,15 @@ namespace C_Extended.UI
 
             if (_suprimiendoCambio) return;
 
-            if (_resultadosValidos)
+            temporizadorAnalisis.Stop();
+            InvalidarResultados();
+            ActualizarBarraEstado(null);
+            if (!string.IsNullOrWhiteSpace(rtbEditor.Text))
             {
-                InvalidarResultados();
-                ActualizarBarraEstado(null);
-                lblEstado.Text      = "Código modificado. Resultados anteriores invalidados. Vuelve a analizar.";
-                lblEstado.ForeColor = ColorAdvertencia;
+                lblEstado.Text = "Código modificado. Actualizando análisis...";
+                temporizadorAnalisis.Start();
             }
         }
-
         private void rtbEditor_VScroll(object sender, EventArgs e) => pnlNumeros.Invalidate();
         private void rtbEditor_Resize(object sender, EventArgs e)  => pnlNumeros.Invalidate();
         private void rtbEditor_SelectionChanged(object sender, EventArgs e) => pnlNumeros.Invalidate();
@@ -470,6 +473,7 @@ namespace C_Extended.UI
             }
 
             // ---- Estadísticas, Resumen y Estado ----
+            MostrarSintaxis(r);
             MostrarEstadisticas(r);
             ActualizarResumen(r);
             ActualizarBarraEstado(r);
@@ -479,15 +483,21 @@ namespace C_Extended.UI
         {
             var sb = new StringBuilder();
             sb.AppendLine("=============================================================");
-            sb.AppendLine("  ESTADÍSTICAS DEL ANÁLISIS LÉXICO");
+            sb.AppendLine("  ESTADÍSTICAS DEL ANÁLISIS LÉXICO Y SINTÁCTICO");
             sb.AppendLine($"  Fecha y hora: {r.FechaHora:yyyy-MM-dd HH:mm:ss}");
             sb.AppendLine($"  Fuente      : {r.NombreFuente}");
             sb.AppendLine("=============================================================");
             sb.AppendLine($"Tokens totales reconocidos : {r.Tokens.Count}");
             sb.AppendLine($"Errores léxicos detectados : {r.Errores.Count}");
+            sb.AppendLine("Estado sintáctico          : " + (r.SintaxisEvaluada ? "Evaluado" : "Pendiente por errores léxicos"));
+            sb.AppendLine("Errores sintácticos        : " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "No evaluados"));
+            sb.AppendLine("Estructuras procesadas     : " + r.TotalInstrucciones);
+            sb.AppendLine("Declaraciones encontradas  : " + r.Declaraciones.Count);
+            sb.AppendLine("Tiempo léxico              : " + r.TiempoMs + " ms");
+            sb.AppendLine("Tiempo sintáctico          : " + r.TiempoSintacticoMs + " ms");
             sb.AppendLine($"Identificadores únicos     : {r.Simbolos.Count}");
             sb.AppendLine($"Total de líneas procesadas : {r.TotalLineas}");
-            sb.AppendLine($"Tiempo de ejecución        : {r.TiempoMs} ms");
+            sb.AppendLine($"Tiempo total                : {r.TiempoTotalMs} ms");
             sb.AppendLine();
 
             var conteos = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -526,11 +536,12 @@ namespace C_Extended.UI
             else
             {
                 lblResumenTokens.Text   = $"Tokens: {r.Tokens.Count}";
-                lblResumenErrores.Text  = $"Errores: {r.Errores.Count}";
-                lblResumenErrores.ForeColor = r.Errores.Count > 0 ? ColorError : Color.FromArgb(0, 200, 80);
+                lblResumenErrores.Text  = $"Errores: {r.TotalErrores}";
+                toolTipPrincipal.SetToolTip(lblResumenErrores, "Léxicos: " + r.Errores.Count + "; sintácticos: " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "pendientes"));
+                lblResumenErrores.ForeColor = r.TotalErrores > 0 ? ColorError : Color.FromArgb(0, 200, 80);
                 lblResumenSimbolos.Text = $"Símbolos: {r.Simbolos.Count}";
                 lblResumenLineas.Text   = $"Líneas: {r.TotalLineas}";
-                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoMs} ms";
+                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoTotalMs} ms";
             }
         }
 
@@ -541,14 +552,14 @@ namespace C_Extended.UI
                 lblEstado.Text      = "Listo";
                 lblEstado.ForeColor = ColorTexto;
             }
-            else if (r.Errores.Count > 0)
+            else if (r.TotalErrores > 0)
             {
-                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores detectados ({r.TiempoMs} ms).";
+                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores léxicos, sintácticos: {(r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "pendientes")} ({r.TiempoTotalMs} ms).";
                 lblEstado.ForeColor = ColorError;
             }
             else
             {
-                lblEstado.Text      = $"Análisis completado con éxito: {r.Tokens.Count} tokens, 0 errores ({r.TiempoMs} ms).";
+                lblEstado.Text      = $"Análisis completado con éxito: {r.Tokens.Count} tokens, 0 errores léxicos y sintácticos ({r.TiempoTotalMs} ms).";
                 lblEstado.ForeColor = Color.FromArgb(0, 200, 80);
             }
         }
@@ -562,6 +573,12 @@ namespace C_Extended.UI
             dgvTokens.Rows.Clear();
             dgvErrores.Rows.Clear();
             dgvSimbolos.Rows.Clear();
+            if (dgvSintacticos != null)
+            {
+                dgvSintacticos.Rows.Clear();
+                lblEstadoSintactico.Text = "Pendiente de análisis.";
+                lblEstadoSintactico.ForeColor = ColorTexto;
+            }
 
             _suprimiendoCambio   = true;
             txtEstadisticas.Clear();
