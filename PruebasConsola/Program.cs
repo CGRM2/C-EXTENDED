@@ -352,7 +352,7 @@ namespace PruebasConsola
                 using (var form = new FrmPrincipal())
                 {
                     Verificar("FrmPrincipal: inicializa sin lanzar InvalidOperationException ni NullReferenceException", form != null);
-                    Verificar("FrmPrincipal: título correcto", form.Text == "C-extended | Analizador léxico");
+                    Verificar("FrmPrincipal: título correcto", form.Text == "C-extended | Analizador léxico y sintáctico");
                     Verificar("FrmPrincipal: tamaño de cliente inicial compatible (1200x720)",
                         form.ClientSize.Width == 1200 && form.ClientSize.Height == 720);
 

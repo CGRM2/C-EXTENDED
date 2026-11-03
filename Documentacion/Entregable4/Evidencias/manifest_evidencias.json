@@ -1,0 +1,142 @@
+[
+  {
+    "archivo": "Evidencias/compilacion_y_configuracion.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/evidencia_configuracion_final.txt",
+    "sha256": "3782a22e6135af5ffaa9817be4f9e321aa8b34a2f21acedfba9052dfa435a969"
+  },
+  {
+    "archivo": "Evidencias/suite_proyecto_76.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/evidencia_pruebas_entregable4.txt",
+    "sha256": "8290b847e4bdb3a4bfcf8ba51e3ed18c0948314b04552c8aea503f2e1cd4a87a"
+  },
+  {
+    "archivo": "Evidencias/carga_25.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/qa_carga/evidencia_carga.txt",
+    "sha256": "872f26dc714cd25abcc1e39ccc9e43cddfae7299fcd010268807a45d699da8fc"
+  },
+  {
+    "archivo": "Evidencias/numeros_28.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/evidencia_numeros.txt",
+    "sha256": "a1d7d1a64dd04d0d9a96f71cf87d446d7752cb453e2c9731db6292cb14ced4d8"
+  },
+  {
+    "archivo": "Evidencias/digitos_12.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/evidencia_digitos.txt",
+    "sha256": "637ca7269a484c30a0f74511372236afd720d6be683d2f7420ecdb77aa21b42d"
+  },
+  {
+    "archivo": "Evidencias/exportacion_real_prueba6_nueva.txt",
+    "fuente": "resultados_prueba6_desde_interfaz.txt",
+    "sha256": "bed264fed484316c7cd8cc7bc9f022ebfba1de03927079e7fe98971662c69043"
+  },
+  {
+    "archivo": "Evidencias/comprobacion_exportacion_real.txt",
+    "fuente": "revision_actual_2026_10_15/verificacion_integrada/evidencia_exportacion_usuario.txt",
+    "sha256": "555989ac0c51d7506b61542fac721288d14524586fc12504593cefe63793b2c9"
+  },
+  {
+    "archivo": "Entradas/Prueba6_nueva/prueba6_interfaz_exportacion.txt",
+    "fuente": "prueba6_interfaz_exportacion.txt",
+    "sha256": "b8a20db23383ea2a989139a2f8faa07301a01dd478984c14a90a5b0285a39980"
+  },
+  {
+    "archivo": "Entradas/Archivos_invalidos/utf8_invalido.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/qa_carga/utf8_invalido.txt",
+    "sha256": "caf573f0daa6960ecb26f8eddbc4e2059277ad5afc6f72ffd59a0ecead602a22"
+  },
+  {
+    "archivo": "Entradas/Proyecto/prueba1_sencillo.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/prueba1_sencillo.txt",
+    "sha256": "ce11a629628480c9409b99963b79c6fb261d9ea123b07ee7bd3d2bc9592d60ed"
+  },
+  {
+    "archivo": "Entradas/Proyecto/prueba2_medio.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/prueba2_medio.txt",
+    "sha256": "aca7f87680d0810c969e830862a35070519cd1369eb071b0dc8b37ad801c4a61"
+  },
+  {
+    "archivo": "Entradas/Proyecto/prueba3_errores.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/prueba3_errores.txt",
+    "sha256": "af81c139545c2e076adae5e288f6497e62367e5d2d73ee998ec3e6c486ab968e"
+  },
+  {
+    "archivo": "Entradas/Proyecto/prueba4_recuperacion.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/prueba4_recuperacion.txt",
+    "sha256": "c0bd17d143dda62a80d7fdfdc779d1cbfa81330da4c5fdfa3d48e748f2ec31c4"
+  },
+  {
+    "archivo": "Entradas/Proyecto/prueba5_categorias.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/prueba5_categorias.txt",
+    "sha256": "a9dbbc7c582295dfb4a062dcc07eb0632b030f22cff5d09b441c05a9cb01dba4"
+  },
+  {
+    "archivo": "Entradas/Proyecto/prueba6_interfaz_exportacion.txt",
+    "fuente": "revision_actual_2026_10_15/proyecto_verificacion_2/Pruebas/prueba6_interfaz_exportacion.txt",
+    "sha256": "10cc8d4dd78b93ad49bba44e5a80da9c52f71eedd4dc00b5b9494ce6c498e634"
+  },
+  {
+    "archivo": "Evidencias/captura_rechazo_UTF8.png",
+    "fuente": "Captura adjunta por el usuario en este chat",
+    "sha256": "a9f40aaba7bc4748cf5ef70f21b8ad54643ca6e97127cf66ab236863712688d7"
+  },
+  {
+    "archivo": "Evidencias/captura_tokens_y_resumen.png",
+    "fuente": "Captura original adjunta por el usuario en este chat",
+    "sha256": "50ec2d05f5cec3e2ace977691f6261a83c275f8c09b41ab83b6d2cd345149640"
+  },
+  {
+    "archivo": "Evidencias/captura_errores_lexicos.png",
+    "fuente": "Captura original adjunta por el usuario en este chat",
+    "sha256": "23e18020404afc777e50da7370bc03636f303025f2e633f46fe3d1f533a51046"
+  },
+  {
+    "archivo": "Evidencias/captura_tabla_simbolos.png",
+    "fuente": "Captura original adjunta por el usuario en este chat",
+    "sha256": "fc2747befb02f7756df2e6aa92be3af0b14ae80a936e9fbfa34e6a63afa739ba"
+  },
+  {
+    "archivo": "Evidencias/captura_estadisticas.png",
+    "fuente": "Captura original adjunta por el usuario en este chat",
+    "sha256": "3b2e101c3509805f3f18cc2246e7b0af56ff074d99369eb778b3e36c8c4fe56c"
+  },
+  {
+    "archivo": "Manual_de_uso_C_extended.docx",
+    "fuente": "Manual de seis paginas elaborado con cuatro capturas originales; exportado con Microsoft Word y revisado visualmente",
+    "sha256": "20a47580a1a3b764f8d17fc69c88a5cdd318b1e7dec4cbb8f6c178507313e2e7"
+  },
+  {
+    "archivo": "Manual_de_uso_C_extended.pdf",
+    "fuente": "Manual de seis paginas elaborado con cuatro capturas originales; exportado con Microsoft Word y revisado visualmente",
+    "sha256": "71f20e65b1ccffbed39e6b21048edca063bfe96355abe09ae2384bd04a3afbf3"
+  },
+  {
+    "archivo": "Cambios_lexicos_y_ajustes_entregables.md",
+    "fuente": "Actualización documental; revisión del 15 de octubre de 2026",
+    "sha256": "aefa1ec47f56b91c110ac010c92e21de1719c33c7e83130affa31cd117076581"
+  },
+  {
+    "archivo": "Textos_para_actualizar_E1_E2_E3.md",
+    "fuente": "Actualización documental; revisión del 15 de octubre de 2026",
+    "sha256": "e3c8bd76a884e6db6288da075e940cf212fa2b71ef788b76ef867245988adbf1"
+  },
+  {
+    "archivo": "Actualizaciones_E1_E2_E3.docx",
+    "fuente": "Actualización documental; revisión del 15 de octubre de 2026",
+    "sha256": "f24ca955c7b4fd9f7066de5eb0301afce67bb7449a8af9b6501f753b93a50423"
+  },
+  {
+    "archivo": "Actualizaciones_E1_E2_E3.pdf",
+    "fuente": "Actualización documental; revisión del 15 de octubre de 2026",
+    "sha256": "e7554eb64d221482953b179111ba145dfee4c6f7c549e5e96664907297d7266c"
+  },
+  {
+    "archivo": "Evidencias/verificacion_ejemplos_documentales.txt",
+    "fuente": "Actualización documental; revisión del 15 de octubre de 2026",
+    "sha256": "346a1bd3665660a11388b5d4331326f81ed1b50eb44c91c1f8f3fa9f70b3361d"
+  },
+  {
+    "archivo": "Evidencias/conservacion_originales.json",
+    "fuente": "Actualización documental; revisión del 15 de octubre de 2026",
+    "sha256": "c66ce215a9d5b74b83fe9bdf5677f4312e74e12b656ee50c631e6581005507a7"
+  }
+]

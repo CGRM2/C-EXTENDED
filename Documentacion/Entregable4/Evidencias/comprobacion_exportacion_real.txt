@@ -1,0 +1,11 @@
+Verificacion de resultados_prueba6_desde_interfaz.txt entregado por el usuario
+APROBADA | Codificacion UTF-8 valida
+APROBADA | 98 tokens: registros completos, orden, numeracion y todos los campos coinciden
+APROBADA | 1 errores: registros completos, orden, numeracion y todos los campos coinciden
+APROBADA | 15 simbolos: registros completos, orden, numeracion y todos los campos coinciden
+APROBADA | Resumen: tokens=98, errores=1, simbolos=15, lineas=32
+APROBADA | Las 13 categorias suman 98 tokens y coinciden con sus registros
+APROBADA | Error unico: # en 26:26, caracter no permitido
+APROBADA | Lexemas restaurados desde escapes conservan comillas, barras, tabulaciones y saltos de linea
+APROBADA | recuperado, return y nil reconocidos despues del error
+LIMITACION | Esta comprobacion valida la exportacion del caso 6; no compila el proyecto original ni demuestra todos los cambios manuales

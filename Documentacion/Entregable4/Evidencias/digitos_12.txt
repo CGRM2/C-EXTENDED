@@ -1,0 +1,13 @@
+APROBADA | Predicado admite solo 0-9 en los 65536 valores char
+APROBADA | Numero ASCII valido 0
+APROBADA | Numero ASCII valido 9
+APROBADA | Numero ASCII valido 123
+APROBADA | Numero ASCII valido 12.50
+APROBADA | Digitos fuera del alfabeto ١٢
+APROBADA | Digitos fuera del alfabeto １２
+APROBADA | Identificador conservado niño2
+APROBADA | Identificador conservado _dato9
+APROBADA | Identificador conservado área1
+APROBADA | Continuacion usa mismo alfabeto
+APROBADA | Conserva arreglo numerico anterior
+TOTAL | aprobadas=12 | fallidas=0

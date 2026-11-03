@@ -1,7 +1,7 @@
 =============================================================
   BATERÍA DE PRUEBAS DE VERIFICACIÓN — ENTREGABLE 4
   C-EXTENDED | CORRECCIONES Y ROBUSTEZ
-  Fecha de ejecución: 2026-10-12 19:54:18
+  Fecha de ejecución: 2026-10-15 16:15:19
 =============================================================
 
 --- 1. VERIFICACIÓN DE LOS CINCO CASOS HISTÓRICOS ---
@@ -54,7 +54,7 @@ APROBADA | Prueba 5: categoría cubierta TK_COMENTARIO_LINEA
 APROBADA | Prueba 5: categoría cubierta TK_COMENTARIO_BLOQUE
 
 --- 2. VERIFICACIÓN DEL CASO NUEVO (PRUEBA 6) ---
-ARCHIVO | prueba6_interfaz_exportacion.txt | tokens=67 | símbolos=11 | errores=1 | líneas=29
+ARCHIVO | prueba6_interfaz_exportacion.txt | tokens=67 | símbolos=11 | errores=1 | líneas=30
   ERROR 26:26 | Carácter no permitido | #
 APROBADA | Prueba 6: procesada con motor real
 APROBADA | Prueba 6: detecta comentario literal /*<LF>*/
@@ -67,7 +67,7 @@ APROBADA | Prueba 6: contiene exactamente 1 error léxico controlado (# en 26:26
 
 --- 3. VERIFICACIÓN DE CARGA FIABLE Y DETECCIÓN DE BOM ---
 APROBADA | Carga BOM: UTF-8 con BOM se lee correctamente
-FALLIDA  | Carga BOM: U+FEFF es consumido y no pasa al texto ('var x = 1;' sin BOM) -> Obtenido=[var x = 1;] chars=118,97,114,32,120,32,61,32,49,59
+APROBADA | Carga BOM: U+FEFF es consumido y no pasa al texto ('var x = 1;' sin BOM)
 APROBADA | Carga BOM: el primer token es 'var' en línea 1 columna 1 sin error de BOM
 APROBADA | Carga BOM: UTF-16 LE con BOM se lee y consume correctamente
 APROBADA | Carga BOM: UTF-16 BE con BOM se lee y consume correctamente
@@ -105,6 +105,6 @@ APROBADA | pnlResumen: contiene etiquetas de resumen (Tokens, Errores, Símbolos
 APROBADA | pnlEstado: barra de estado presente
 
 =============================================================
-TOTAL DE VERIFICACIONES | Aprobadas=75 | Fallidas=1
-RESULTADO FINAL: CON FALLAS DETECTADAS
+TOTAL DE VERIFICACIONES | Aprobadas=76 | Fallidas=0
+RESULTADO FINAL: SATISFACTORIO (100% APROBADO)
 =============================================================

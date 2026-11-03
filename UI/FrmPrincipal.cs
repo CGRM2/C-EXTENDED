@@ -10,7 +10,7 @@ using C_Extended.Core;
 namespace C_Extended.UI
 {
     /// <summary>
-    /// Formulario principal de C-extended | Analizador léxico.
+    /// Formulario principal de C-extended | Analizador léxico y sintáctico.
     /// Organización: barra de acciones (arriba) · editor con numeración (izquierda) ·
     ///               pestañas de resultados (derecha) · panel de resumen (abajo) ·
     ///               barra de estado (inferior).
@@ -38,6 +38,9 @@ namespace C_Extended.UI
         {
             InitializeComponent();
             InicializarEstadoFormulario();
+            InicializarDiccionario();
+            InicializarSintaxis();
+            InicializarNavegacion();
         }
 
         private void InicializarEstadoFormulario()
@@ -81,7 +84,33 @@ namespace C_Extended.UI
         /// validación estricta de codificación (sin sustitución silenciosa con U+FFFD)
         /// y rechazo claro de codificaciones no admitidas como UTF-32.
         /// </summary>
-        public static bool IntentarLeerArchivo(string ruta, out string contenido, out string errorMensaje)
+
+        public static bool IntentarLeerArchivo(
+        string ruta,
+        out string contenido,
+        out string errorMensaje)
+        {
+            if (!IntentarDecodificarArchivo(
+                ruta, out contenido, out errorMensaje))
+            {
+                return false;
+            }
+
+            if (contenido.IndexOf('\0') >= 0)
+            {
+                contenido = null;
+                errorMensaje =
+                    "El archivo contiene caracteres nulos y no puede " +
+                    "cargarse como código de texto.\n" +
+                    "Guárdalo nuevamente como texto UTF-8.";
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IntentarDecodificarArchivo(string ruta, out string contenido, out string errorMensaje)
         {
             contenido = null;
             errorMensaje = null;
@@ -217,6 +246,7 @@ namespace C_Extended.UI
         // ---- Analizar ----
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
+            temporizadorAnalisis.Stop();
             string texto = rtbEditor.Text;
             if (string.IsNullOrWhiteSpace(texto))
             {
@@ -253,9 +283,15 @@ namespace C_Extended.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error inesperado durante el análisis léxico:\n{ex.Message}",
-                    "Error del motor léxico", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                lblEstado.Text      = "Error en análisis: " + ex.Message;
+                InvalidarResultados();
+
+                MessageBox.Show(
+                    $"Ocurrió un error inesperado durante el análisis léxico o sintáctico:\n{ex.Message}",
+                    "Error del analizador",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                lblEstado.Text = "Error en análisis: " + ex.Message;
                 lblEstado.ForeColor = ColorError;
             }
         }
@@ -279,6 +315,12 @@ namespace C_Extended.UI
             })
             {
                 if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (EsArchivoFuente(dlg.FileName))
+                {
+                    MessageBox.Show("Elige otro nombre: el informe no debe sobrescribir el código fuente cargado.",
+                        "Proteger código fuente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 try
                 {
@@ -298,6 +340,13 @@ namespace C_Extended.UI
                         "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private bool EsArchivoFuente(string destino)
+        {
+            return !string.IsNullOrEmpty(_rutaArchivoCargado) &&
+                string.Equals(Path.GetFullPath(destino), Path.GetFullPath(_rutaArchivoCargado),
+                    StringComparison.OrdinalIgnoreCase);
         }
 
         // ---- Limpiar ----
@@ -327,15 +376,15 @@ namespace C_Extended.UI
 
             if (_suprimiendoCambio) return;
 
-            if (_resultadosValidos)
+            temporizadorAnalisis.Stop();
+            InvalidarResultados();
+            ActualizarBarraEstado(null);
+            if (!string.IsNullOrWhiteSpace(rtbEditor.Text))
             {
-                InvalidarResultados();
-                ActualizarBarraEstado(null);
-                lblEstado.Text      = "Código modificado. Resultados anteriores invalidados. Vuelve a analizar.";
-                lblEstado.ForeColor = ColorAdvertencia;
+                lblEstado.Text = "Código modificado. Actualizando análisis...";
+                temporizadorAnalisis.Start();
             }
         }
-
         private void rtbEditor_VScroll(object sender, EventArgs e) => pnlNumeros.Invalidate();
         private void rtbEditor_Resize(object sender, EventArgs e)  => pnlNumeros.Invalidate();
         private void rtbEditor_SelectionChanged(object sender, EventArgs e) => pnlNumeros.Invalidate();
@@ -344,23 +393,31 @@ namespace C_Extended.UI
         {
             e.Graphics.Clear(pnlNumeros.BackColor);
 
-            int totalLineas = rtbEditor.Lines.Length;
-            if (totalLineas == 0) totalLineas = 1;
+            int totalLineas = Math.Max(1, rtbEditor.Lines.Length);
 
-            // Ajustar ancho del margen según la cantidad de dígitos
-            int digitos = (totalLineas + 1).ToString().Length;
+            // Ajustar el margen a la cantidad real de líneas.
+            int digitos = totalLineas.ToString().Length;
             int anchoRequerido = Math.Max(48, 16 + digitos * 9);
+
             if (pnlNumeros.Width != anchoRequerido)
             {
                 pnlNumeros.Width = anchoRequerido;
+                pnlNumeros.Invalidate();
                 return;
             }
 
-            int primerCharVisible = rtbEditor.GetCharIndexFromPosition(new Point(2, 2));
-            int primeraLineaVisible = rtbEditor.GetLineFromCharIndex(primerCharVisible);
+            int primerCharVisible =
+                rtbEditor.GetCharIndexFromPosition(new Point(2, 2));
+
+            int primeraLineaVisible =
+                rtbEditor.GetLineFromCharIndex(primerCharVisible);
 
             using (var brush = new SolidBrush(pnlNumeros.ForeColor))
-            using (var fmt   = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Near })
+            using (var fmt = new StringFormat
+            {
+                Alignment = StringAlignment.Far,
+                LineAlignment = StringAlignment.Near
+            })
             {
                 float altoLinea = rtbEditor.Font.GetHeight(e.Graphics);
 
@@ -370,26 +427,19 @@ namespace C_Extended.UI
                     if (charIndex < 0) break;
 
                     Point pt = rtbEditor.GetPositionFromCharIndex(charIndex);
+
                     if (pt.Y > pnlNumeros.Height) break;
                     if (pt.Y + altoLinea < 0) continue;
 
-                    var rect = new RectangleF(0, pt.Y, pnlNumeros.Width - 6, altoLinea + 2);
-                    e.Graphics.DrawString((i + 1).ToString(), pnlNumeros.Font, brush, rect, fmt);
-                }
+                    var rect = new RectangleF(
+                        0, pt.Y, pnlNumeros.Width - 6, altoLinea + 2);
 
-                // Si el editor termina con salto de línea, dibujar la línea virtual final
-                if (rtbEditor.TextLength > 0)
-                {
-                    char ult = rtbEditor.Text[rtbEditor.TextLength - 1];
-                    if (ult == '\n' || ult == '\r')
-                    {
-                        Point ptFin = rtbEditor.GetPositionFromCharIndex(rtbEditor.TextLength);
-                        if (ptFin.Y <= pnlNumeros.Height && ptFin.Y + altoLinea >= 0)
-                        {
-                            var rectFin = new RectangleF(0, ptFin.Y, pnlNumeros.Width - 6, altoLinea + 2);
-                            e.Graphics.DrawString((totalLineas + 1).ToString(), pnlNumeros.Font, brush, rectFin, fmt);
-                        }
-                    }
+                    e.Graphics.DrawString(
+                        (i + 1).ToString(),
+                        pnlNumeros.Font,
+                        brush,
+                        rect,
+                        fmt);
                 }
             }
         }
@@ -412,6 +462,9 @@ namespace C_Extended.UI
             dgvErrores.Rows.Clear();
             if (r.Errores.Count == 0)
             {
+                lblSinErrores.Text = r.ErroresSintacticos.Count > 0
+                    ? "No se encontraron errores léxicos.\nHay errores sintácticos; consulta su pestaña."
+                    : "No se encontraron errores léxicos.\nConsulta también el resultado sintáctico.";
                 lblSinErrores.Visible = true;
                 dgvErrores.Visible    = false;
             }
@@ -437,6 +490,7 @@ namespace C_Extended.UI
             }
 
             // ---- Estadísticas, Resumen y Estado ----
+            MostrarSintaxis(r);
             MostrarEstadisticas(r);
             ActualizarResumen(r);
             ActualizarBarraEstado(r);
@@ -446,15 +500,22 @@ namespace C_Extended.UI
         {
             var sb = new StringBuilder();
             sb.AppendLine("=============================================================");
-            sb.AppendLine("  ESTADÍSTICAS DEL ANÁLISIS LÉXICO");
+            sb.AppendLine("  ESTADÍSTICAS DEL ANÁLISIS LÉXICO Y SINTÁCTICO");
             sb.AppendLine($"  Fecha y hora: {r.FechaHora:yyyy-MM-dd HH:mm:ss}");
             sb.AppendLine($"  Fuente      : {r.NombreFuente}");
             sb.AppendLine("=============================================================");
             sb.AppendLine($"Tokens totales reconocidos : {r.Tokens.Count}");
             sb.AppendLine($"Errores léxicos detectados : {r.Errores.Count}");
+            sb.AppendLine("Estado sintáctico          : " + (r.SintaxisEvaluada ? "Evaluado" : "Pendiente por errores léxicos"));
+            sb.AppendLine("Errores sintácticos        : " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "No evaluados"));
+            sb.AppendLine("Errores totales detectados : " + r.TotalErrores);
+            sb.AppendLine("Estructuras procesadas     : " + (r.SintaxisEvaluada ? r.TotalInstrucciones.ToString() : "No evaluadas"));
+            sb.AppendLine("Declaraciones encontradas  : " + (r.SintaxisEvaluada ? r.Declaraciones.Count.ToString() : "No evaluadas"));
+            sb.AppendLine("Tiempo léxico              : " + r.TiempoMs + " ms");
+            sb.AppendLine("Tiempo sintáctico          : " + (r.SintaxisEvaluada ? r.TiempoSintacticoMs + " ms" : "No evaluado"));
             sb.AppendLine($"Identificadores únicos     : {r.Simbolos.Count}");
             sb.AppendLine($"Total de líneas procesadas : {r.TotalLineas}");
-            sb.AppendLine($"Tiempo de ejecución        : {r.TiempoMs} ms");
+            sb.AppendLine($"Tiempo total                : {r.TiempoTotalMs} ms");
             sb.AppendLine();
 
             var conteos = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -485,7 +546,8 @@ namespace C_Extended.UI
             {
                 lblResumenTokens.Text   = "Tokens: 0";
                 lblResumenErrores.Text  = "Errores: 0";
-                lblResumenErrores.ForeColor = Color.FromArgb(0, 200, 80);
+                lblResumenErrores.ForeColor = ColorTexto;
+                toolTipPrincipal.SetToolTip(lblResumenErrores, "Sin resultados vigentes. Ambas etapas están pendientes.");
                 lblResumenSimbolos.Text = "Símbolos: 0";
                 lblResumenLineas.Text   = "Líneas: 0";
                 lblResumenTiempo.Text   = "Tiempo: 0 ms";
@@ -493,11 +555,12 @@ namespace C_Extended.UI
             else
             {
                 lblResumenTokens.Text   = $"Tokens: {r.Tokens.Count}";
-                lblResumenErrores.Text  = $"Errores: {r.Errores.Count}";
-                lblResumenErrores.ForeColor = r.Errores.Count > 0 ? ColorError : Color.FromArgb(0, 200, 80);
+                lblResumenErrores.Text  = $"Errores: {r.TotalErrores}";
+                toolTipPrincipal.SetToolTip(lblResumenErrores, "Léxicos: " + r.Errores.Count + "; sintácticos: " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "pendientes"));
+                lblResumenErrores.ForeColor = r.TotalErrores > 0 ? ColorError : Color.FromArgb(0, 200, 80);
                 lblResumenSimbolos.Text = $"Símbolos: {r.Simbolos.Count}";
                 lblResumenLineas.Text   = $"Líneas: {r.TotalLineas}";
-                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoMs} ms";
+                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoTotalMs} ms";
             }
         }
 
@@ -508,14 +571,14 @@ namespace C_Extended.UI
                 lblEstado.Text      = "Listo";
                 lblEstado.ForeColor = ColorTexto;
             }
-            else if (r.Errores.Count > 0)
+            else if (r.TotalErrores > 0)
             {
-                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores detectados ({r.TiempoMs} ms).";
+                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores léxicos, sintácticos: {(r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "pendientes")} ({r.TiempoTotalMs} ms).";
                 lblEstado.ForeColor = ColorError;
             }
             else
             {
-                lblEstado.Text      = $"Análisis completado con éxito: {r.Tokens.Count} tokens, 0 errores ({r.TiempoMs} ms).";
+                lblEstado.Text      = $"Análisis completado con éxito: {r.Tokens.Count} tokens, 0 errores léxicos y sintácticos ({r.TiempoTotalMs} ms).";
                 lblEstado.ForeColor = Color.FromArgb(0, 200, 80);
             }
         }
@@ -529,6 +592,12 @@ namespace C_Extended.UI
             dgvTokens.Rows.Clear();
             dgvErrores.Rows.Clear();
             dgvSimbolos.Rows.Clear();
+            if (dgvSintacticos != null)
+            {
+                dgvSintacticos.Rows.Clear();
+                lblEstadoSintactico.Text = "Pendiente de análisis.";
+                lblEstadoSintactico.ForeColor = ColorTexto;
+            }
 
             _suprimiendoCambio   = true;
             txtEstadisticas.Clear();
@@ -538,6 +607,7 @@ namespace C_Extended.UI
             dgvErrores.Visible    = true;
 
             ActualizarResumen(null);
+            ActualizarBarraEstado(null);
         }
 
         /// <summary>
@@ -550,6 +620,11 @@ namespace C_Extended.UI
                     .Replace("\r", "↵")
                     .Replace("\n", "↵")
                     .Replace("\t", "→");
+        }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

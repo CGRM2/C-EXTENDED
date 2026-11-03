@@ -103,7 +103,9 @@ namespace C_Extended.UI
                 resultado.Errores,
                 resultado.Simbolos,
                 resultado.TotalLineas,
-                resultado.TiempoMs);
+                resultado.TiempoMs,
+                resultado.ErroresSintacticos, resultado.SintaxisEvaluada,
+                resultado.TotalInstrucciones, resultado.TiempoSintacticoMs, resultado.Declaraciones);
         }
 
         /// <summary>
@@ -118,17 +120,24 @@ namespace C_Extended.UI
             List<ErrorLexico> errores,
             List<Simbolo>     simbolos,
             int               totalLineas,
-            long              tiempoMs)
+            long              tiempoMs,
+            List<ErrorSintactico> erroresSintacticos = null,
+            bool sintaxisEvaluada = false,
+            int instrucciones = 0,
+            long tiempoSintacticoMs = 0,
+            List<DeclaracionSintactica> declaraciones = null)
         {
             tokens   = tokens   ?? new List<Token>();
             errores  = errores  ?? new List<ErrorLexico>();
             simbolos = simbolos ?? new List<Simbolo>();
 
+            erroresSintacticos = erroresSintacticos ?? new List<ErrorSintactico>();
+            declaraciones = declaraciones ?? new List<DeclaracionSintactica>();
             var sb = new StringBuilder();
 
             // ---- Encabezado ----
             sb.AppendLine("=============================================================");
-            sb.AppendLine("  C-extended | Analizador Léxico — Informe de resultados");
+            sb.AppendLine("  C-extended | Analizador Léxico y Sintáctico — Informe de resultados");
             sb.AppendLine($"  Fecha y hora de análisis   : {fechaHoraAnalisis:yyyy-MM-dd HH:mm:ss}");
             sb.AppendLine($"  Fecha y hora de exportación: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             sb.AppendLine($"  Fuente analizada           : {nombreFuente}");
@@ -147,7 +156,14 @@ namespace C_Extended.UI
             // ---- Resumen ----
             sb.AppendLine("--- RESUMEN ---");
             sb.AppendLine($"Total de tokens     : {tokens.Count}");
-            sb.AppendLine($"Total de errores    : {errores.Count}");
+            sb.AppendLine($"Total de errores detectados: {errores.Count + (sintaxisEvaluada ? erroresSintacticos.Count : 0)}");
+            sb.AppendLine($"Errores léxicos      : {errores.Count}");
+            sb.AppendLine("Estado sintáctico   : " + (sintaxisEvaluada ? "Evaluado" : "Pendiente / no evaluado"));
+            sb.AppendLine("Errores sintácticos : " + (sintaxisEvaluada ? erroresSintacticos.Count.ToString() : "No evaluados"));
+            sb.AppendLine("Estructuras         : " + (sintaxisEvaluada ? instrucciones.ToString() : "No evaluadas"));
+            sb.AppendLine("Declaraciones       : " + (sintaxisEvaluada ? declaraciones.Count.ToString() : "No evaluadas"));
+            sb.AppendLine("Tiempo sintáctico   : " + (sintaxisEvaluada ? tiempoSintacticoMs + " ms" : "No evaluado"));
+            sb.AppendLine("Tiempo total        : " + (tiempoMs + tiempoSintacticoMs) + " ms");
             sb.AppendLine($"Símbolos únicos     : {simbolos.Count}");
             sb.AppendLine($"Total de líneas     : {totalLineas}");
             sb.AppendLine($"Tiempo de análisis  : {tiempoMs} ms");
@@ -204,6 +220,19 @@ namespace C_Extended.UI
                     n++;
                 }
             }
+            sb.AppendLine();
+
+            sb.AppendLine("--- ERRORES SINTÁCTICOS ---");
+            if (!sintaxisEvaluada) sb.AppendLine("  Análisis sintáctico pendiente / no evaluado. Corrige primero los errores léxicos si existen.");
+            else if (erroresSintacticos.Count == 0) sb.AppendLine("  Sin errores según la gramática de C-Extended. No se verifican tipos ni nombres declarados.");
+            else foreach (var error in erroresSintacticos)
+                sb.AppendLine("  " + error.Linea + ":" + error.Columna + " | " + EscaparCadena(error.Encontrado) + " | " + error.Descripcion);
+            sb.AppendLine();
+            sb.AppendLine("--- DECLARACIONES SINTÁCTICAS ENCONTRADAS (SIN RESOLUCIÓN DE ÁMBITOS) ---");
+            if (!sintaxisEvaluada) sb.AppendLine("  No evaluadas: análisis sintáctico pendiente.");
+            else if (declaraciones.Count == 0) sb.AppendLine("  No se encontraron declaraciones.");
+            else foreach (var declaracion in declaraciones)
+                sb.AppendLine("  " + EscaparCadena(declaracion.Nombre) + " | " + EscaparCadena(declaracion.Tipo) + " | " + declaracion.Rol + " | " + declaracion.Linea + ":" + declaracion.Columna);
             sb.AppendLine();
 
             // ---- Tabla de símbolos ----

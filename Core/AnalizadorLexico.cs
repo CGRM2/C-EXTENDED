@@ -71,9 +71,23 @@ namespace C_Extended.Core
                 {
                     LeerIdentificador();
                 }
-                else if (char.IsDigit(actual))
+                else if (AutomataAFD.EsDigito(actual))
                 {
                     LeerNumero();
+                }
+                else if (actual == '.' && AutomataAFD.EsDigito(Siguiente))
+                {
+                    int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
+                    Avanzar();
+                    while (!Fin && (AutomataAFD.EsParteIdentificador(Actual) || Actual == '.')) Avanzar();
+                    ErrorDesde(inicio, linea, columna,
+                        "Número decimal mal formado: falta un dígito antes del punto");
+                }
+                else if (actual == '*' && Siguiente == '/')
+                {
+                    int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
+                    Avanzar(); Avanzar();
+                    ErrorDesde(inicio, linea, columna, "Cierre de comentario sin apertura /*");
                 }
                 else if (actual == '"')
                 {
@@ -186,7 +200,7 @@ namespace C_Extended.Core
             int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
 
             // Consumir dígitos enteros (S2)
-            while (!Fin && char.IsDigit(Actual)) Avanzar();
+            while (!Fin && AutomataAFD.EsDigito(Actual)) Avanzar();
 
             bool decimalValido = false;
 
@@ -195,11 +209,16 @@ namespace C_Extended.Core
             {
                 Avanzar(); // consume el punto
 
-                if (Fin || !char.IsDigit(Actual))
+                if (Fin || !AutomataAFD.EsDigito(Actual))
                 {
-                    // Punto sin dígito después → número mal formado.
-                    // Consumir puntos y dígitos adicionales para evitar cascada.
-                    while (!Fin && (Actual == '.' || char.IsDigit(Actual))) Avanzar();
+                    // Consumir la secuencia inválida completa, incluidas letras
+                    // y guiones bajos, sin consumir el separador posterior.
+                    while (!Fin && (Actual == '.' ||
+                                    AutomataAFD.EsParteIdentificador(Actual)))
+                    {
+                        Avanzar();
+                    }
+
                     ErrorDesde(inicio, linea, columna,
                         "Número decimal mal formado: falta un dígito después del punto");
                     return;
@@ -207,14 +226,14 @@ namespace C_Extended.Core
 
                 // S4: dígitos decimales
                 decimalValido = true;
-                while (!Fin && char.IsDigit(Actual)) Avanzar();
+                while (!Fin && AutomataAFD.EsDigito(Actual)) Avanzar();
             }
 
             // Detectar continuación inválida: punto adicional o inicio de identificador
             if (!Fin && (Actual == '.' || AutomataAFD.EsInicioIdentificador(Actual)))
             {
                 // Consumir toda la secuencia inválida
-                while (!Fin && (char.IsDigit(Actual) || Actual == '.' ||
+                while (!Fin && (AutomataAFD.EsDigito(Actual) || Actual == '.' ||
                                 AutomataAFD.EsInicioIdentificador(Actual))) Avanzar();
                 ErrorDesde(inicio, linea, columna,
                     decimalValido || LexemaDesde(inicio).Contains(".")
@@ -236,6 +255,7 @@ namespace C_Extended.Core
         {
             int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
             bool escapeInvalido = false;
+            bool controlInvalido = false;
             Avanzar(); // comilla inicial
 
             while (!Fin && Actual != '\r' && Actual != '\n')
@@ -243,7 +263,9 @@ namespace C_Extended.Core
                 if (Actual == '"')
                 {
                     Avanzar(); // comilla de cierre
-                    if (escapeInvalido)
+                    if (controlInvalido)
+                        ErrorDesde(inicio, linea, columna, "Carácter de control no permitido en literal; utiliza una secuencia de escape");
+                    else if (escapeInvalido)
                         ErrorDesde(inicio, linea, columna, "Secuencia de escape no válida en cadena");
                     else
                         TokenDesde(inicio, linea, columna, "TK_CADENA");
@@ -258,6 +280,7 @@ namespace C_Extended.Core
                 }
                 else
                 {
+                    if (char.IsControl(Actual) && Actual != '\t') controlInvalido = true;
                     Avanzar();
                 }
             }
@@ -272,6 +295,7 @@ namespace C_Extended.Core
         {
             int inicio = indiceActual, linea = lineaActual, columna = columnaActual;
             bool escapeInvalido = false;
+            bool controlInvalido = false;
             int  caracteres     = 0;
             Avanzar(); // comilla inicial
 
@@ -280,7 +304,9 @@ namespace C_Extended.Core
                 if (Actual == '\'')
                 {
                     Avanzar(); // comilla de cierre
-                    if (escapeInvalido)
+                    if (controlInvalido)
+                        ErrorDesde(inicio, linea, columna, "Carácter de control no permitido en literal; utiliza una secuencia de escape");
+                    else if (escapeInvalido)
                         ErrorDesde(inicio, linea, columna, "Secuencia de escape no válida en carácter literal");
                     else if (caracteres != 1)
                         ErrorDesde(inicio, linea, columna,
@@ -298,6 +324,7 @@ namespace C_Extended.Core
                 }
                 else
                 {
+                    if (char.IsControl(Actual) && Actual != '\t') controlInvalido = true;
                     Avanzar();
                 }
                 caracteres++;
@@ -393,7 +420,23 @@ namespace C_Extended.Core
             }
 
             if (tipo == null)
-                ErrorDesde(inicio, linea, columna, "Carácter no permitido");
+            {
+                string descripcion;
+                switch (c)
+                {
+                    case '&': descripcion = "Operador lógico incompleto: utiliza &&"; break;
+                    case '|': descripcion = "Operador lógico incompleto: utiliza ||"; break;
+                    case '\\': descripcion = "Barra invertida fuera de una cadena o carácter literal"; break;
+                    case '\u201c': case '\u201d': case '\u2018': case '\u2019':
+                        descripcion = "Comilla tipográfica no permitida: utiliza comillas rectas"; break;
+                    default:
+                        descripcion = char.IsControl(c)
+                            ? "Carácter de control no permitido (U+" + ((int)c).ToString("X4") + ")"
+                            : "Carácter no permitido";
+                        break;
+                }
+                ErrorDesde(inicio, linea, columna, descripcion);
+            }
             else
                 TokenDesde(inicio, linea, columna, tipo);
         }

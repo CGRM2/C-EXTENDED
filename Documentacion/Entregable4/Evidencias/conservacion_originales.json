@@ -1,0 +1,20 @@
+[
+  {
+    "archivo": "Especificación_léxica_y_diseño_conceptual.docx",
+    "sha256_antes": "12a6ca0e6f34edacf816300e63043ee6dcba843911a050113779f8b6581cd362",
+    "sha256_despues": "12a6ca0e6f34edacf816300e63043ee6dcba843911a050113779f8b6581cd362",
+    "sin_cambios": true
+  },
+  {
+    "archivo": "SEGUNDO ENTREGABLE - ANALIZADOR LEXICO.dotx",
+    "sha256_antes": "fffc97725fa2e23bb0ca6b1fab955bf6e9ba5ae66866e4bc9ea27a90b2e05d04",
+    "sha256_despues": "fffc97725fa2e23bb0ca6b1fab955bf6e9ba5ae66866e4bc9ea27a90b2e05d04",
+    "sin_cambios": true
+  },
+  {
+    "archivo": "Entregable3_final.pdf",
+    "sha256_antes": "38cddddf67213074a6f5c968b2fad87163d9576a0acc1bc85100e29726ba9060",
+    "sha256_despues": "38cddddf67213074a6f5c968b2fad87163d9576a0acc1bc85100e29726ba9060",
+    "sin_cambios": true
+  }
+]
