@@ -5,7 +5,7 @@ namespace Demo {
         string texto = "A\tB\"C";
         bool activo = true;
         if (activo && !false || 2 >= 1) {
-            letra = 'b'; // comentario de línea
+            letra = 'b'; // comentario de linea
         }
         /* comentario
            de bloque */

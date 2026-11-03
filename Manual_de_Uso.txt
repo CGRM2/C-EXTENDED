@@ -1,0 +1,145 @@
+C-EXTENDED - MANUAL DE USO
+Analizador lexico y sintactico
+
+1. INICIAR Y ANALIZAR
+
+Ejecuta el proyecto C-Extended desde Visual Studio o abre C-Extended.exe.
+Pulsa Cargar archivo para abrir un TXT, o escribe directamente en el editor.
+Pulsa Analizar para obtener los resultados. Al editar, los resultados se actualizan automaticamente despues de una pausa de 0.4 segundos.
+Los numeros al lado del editor identifican cada linea del codigo.
+Limpiar vacia el editor y los resultados. Guarda por tu cuenta el codigo que quieras conservar antes de limpiar o cerrar: el programa no guarda automaticamente el codigo del editor.
+
+2. PESTANAS DE RESULTADOS
+
+Tokens
+Muestra los fragmentos reconocidos, su categoria, linea y columna. La columna Declaracion sintactica indica los identificadores encontrados en declaraciones.
+
+Errores lexicos
+Muestra caracteres o secuencias que no pertenecen al lenguaje: simbolos invalidos, numeros mal formados, cadenas sin cerrar y comentarios sin cerrar, entre otros.
+Corrige primero estos errores. Si el codigo contiene errores lexicos, el analisis sintactico queda pendiente; una tabla sintactica vacia en ese estado no significa que el codigo sea correcto.
+
+Errores sintacticos
+Muestra errores de organizacion de los tokens: falta de punto y coma, parentesis o llaves sin cerrar, expresiones incompletas y declaraciones mal formadas.
+Encontrado indica el token donde se detecto el problema. Linea y Columna senalan esa ubicacion; si falta un simbolo al final, pueden indicar el final del archivo.
+Descripcion / correccion explica lo esperado. La ubicacion puede estar despues del caracter que falta.
+Corrige primero las primeras filas y vuelve a analizar: un error inicial puede ocasionar otros diagnosticos.
+El boton Ayuda ofrece instrucciones breves y permite abrir este manual.
+
+Tabla de simbolos
+Muestra los identificadores unicos, su primera ubicacion y las declaraciones encontradas por nombre. No determina ambitos ni comprueba que una variable este declarada antes de utilizarla.
+
+Estadisticas
+Muestra conteos de tokens, errores de cada etapa, declaraciones, estructuras procesadas, lineas y tiempos. El resumen inferior muestra el total de errores detectados.
+
+Diccionario
+Permite consultar, agregar, modificar y eliminar palabras del diccionario lexico.
+
+3. UTILIZAR EL DICCIONARIO
+
+Para agregar una palabra:
+- Pulsa Nuevo para limpiar los campos.
+- Escribe la palabra, selecciona su tipo y escribe una descripcion.
+- Selecciona TK_RESERVADA si debe reconocerse como palabra reservada, o TK_IDENTIFICADOR para clasificarla como identificador.
+- Pulsa Agregar.
+
+Para modificar una palabra, selecciona su fila, edita los campos y pulsa Modificar.
+Para eliminarla, selecciona su fila, pulsa Eliminar y confirma.
+No se admiten palabras duplicadas, espacios ni nombres que comiencen con un numero.
+Los cambios se guardan en %LOCALAPPDATA%\C-Extended\diccionario.xml y se conservan al cerrar el programa. Al cambiar el diccionario se vuelve a analizar el codigo actual.
+
+Agregar una palabra reservada no crea una regla de sintaxis. Si se utiliza como instruccion una reservada nueva sin regla, el analizador sintactico lo indica. El diccionario no es un editor de gramaticas.
+
+4. GRAMATICA ADMITIDA
+
+Se utiliza el C-Extended simplificado de los ejemplos del curso. Se permiten sentencias dentro de las clases, igual que en esos ejemplos.
+
+Declaraciones:
+    int numero = 10;
+    var total = 0;
+    string mensaje = "Hola";
+    int[] datos;
+
+Tipos reconocidos: var, int, float, double, char, bool y string. Tambien se admiten nombres de tipos definidos por el usuario. void se admite como retorno de funciones.
+
+Funciones:
+    func sumar(int a, int b) {
+        return a + b;
+    }
+
+Tambien se admiten funciones con tipo de retorno, por ejemplo:
+    int sumar(int a, int b) {
+        return a + b;
+    }
+
+Estructuras admitidas: namespace, class, enum, using, if/else, while, for y switch con case/default. Se admiten los modificadores public, private y static en declaraciones.
+Sentencias admitidas: declaraciones, asignaciones, llamadas, incrementos/decrementos, return, break, continue y bloques entre llaves.
+Las expresiones admiten operadores aritmeticos, relacionales y logicos, parentesis, llamadas, acceso a miembros y arreglos. Tambien se admite new con constructor o tamano de arreglo.
+break debe aparecer dentro de un ciclo o switch; continue dentro de un ciclo.
+
+Ejemplo valido:
+    int numero = 10;
+    if (numero > 0) {
+        numero--;
+    }
+
+5. DIFERENCIAR LOS ERRORES
+
+    var x = @;
+Error lexico: @ no pertenece al lenguaje.
+
+    var x = .5;
+Error lexico: las reglas actuales exigen un digito antes del punto; escribe 0.5.
+
+    /* comentario sin cierre
+Error lexico: falta */. Todo el contenido posterior pertenece al comentario y no se analiza como instrucciones.
+
+    int x = 10
+Error sintactico: falta el punto y coma.
+
+    x = 50 10;
+Error sintactico: los numeros son tokens validos, pero falta un operador entre ellos.
+
+    x = 5 + ;
+Error sintactico: falta una expresion despues de +.
+
+    if (x > 0 { x++; }
+Error sintactico: falta cerrar el parentesis antes de la llave.
+
+6. EXPORTAR RESULTADOS
+
+Despues de analizar, pulsa Exportar resultados y elige donde guardar el informe TXT. Incluye tokens, errores lexicos y sintacticos, declaraciones y tabla de simbolos, con el estado de cada etapa y sus tiempos.
+Si la sintaxis quedo pendiente, el informe lo indica.
+Si editas el codigo, espera a que termine el analisis automatico o pulsa Analizar antes de exportar.
+
+7. ALCANCE Y LIMITACIONES
+
+No es un compilador completo de C# y no ejecuta el codigo analizado.
+No comprueba tipos, variables sin declarar, nombres duplicados ni compatibilidad de valores. Por ejemplo, puede aceptar sintacticamente una asignacion cuyo tipo sea incorrecto.
+No admite construcciones ajenas al subconjunto implementado, como herencia, genericos o try/catch. Tampoco admite cadenas interpoladas, numeros hexadecimales ni comentarios de bloque anidados.
+Si no encuentra errores, significa que el texto cumple las comprobaciones implementadas; no garantiza que un programa completo pueda compilarse o ejecutarse.
+
+8. ARCHIVOS PARA PRACTICAR
+
+En la carpeta PruebasSintaxis del proyecto:
+- codigo_valido.txt: ejemplo sin errores.
+- errores_sintacticos.txt: ejemplo con errores de estructura.
+- errores_lexicos.txt: ejemplo con un simbolo invalido.
+
+Para consultarlos en el programa, pulsa Cargar archivo y selecciona el TXT correspondiente.
+
+
+COHERENCIA DE RESULTADOS LEXICOS Y SINTACTICOS
+- El resumen cuenta los errores detectados en ambas etapas; el tooltip separa los conteos.
+- Si hay errores lexicos, la sintaxis queda pendiente. Las estructuras y declaraciones se muestran como no evaluadas, no como cero.
+- El TXT incluye el total de errores detectados y las secciones de ambas etapas.
+- La pestana sin errores lexicos puede coexistir con errores sintacticos: consulta tambien esa pestana.
+- Editar, cargar o limpiar invalida ambas etapas y deshabilita la exportacion hasta el siguiente analisis.
+
+
+MEJORAS DE REVISION
+- Doble clic en errores, tokens o simbolos: ir a su ubicacion en el editor. En EOF, el cursor queda al final.
+- Atajos: F5 analizar, Ctrl+O cargar, Ctrl+E exportar.
+- La exportacion no permite sobrescribir el archivo fuente cargado.
+- Se admiten arreglos de tipos propios, como Persona[] datos;.
+- return requiere una funcion; break y continue no heredan ciclos de una funcion exterior.
+- Se diagnostican modificadores repetidos o public/private simultaneos y usos invalidos de void como arreglo o construccion con new.

@@ -1,15 +1,15 @@
-// Prueba 6: Verificación de interfaz y exportación sin ambigüedad
+// Prueba 6: Verificacion de interfaz y exportacion sin ambiguedad
 namespace ExportacionAvanzada {
     class CasoEspecial {
         // 1. Comentarios con marcadores literales vs saltos reales
         /*<LF>*/
         /*<CRLF>*/
-        /* Comentario multilínea
-           con salto real de línea */
+        /* Comentario multilinea
+           con salto real de linea */
 
         // 2. Cadenas con escapes y delimitadores
         string ruta = "C:\\Archivos\\Proyecto\\test.txt";
-        string mensaje = "Línea 1\nLínea 2\tTabulado: \"Valor\"";
+        string mensaje = "Linea 1\nLinea 2\tTabulado: \"Valor\"";
         string literalMarcador = "Contiene <LF> y <CRLF> como texto plano";
 
         // 3. Caracteres especiales
@@ -17,12 +17,12 @@ namespace ExportacionAvanzada {
         char comilla = '\'';
         char salto = '\n';
 
-        // 4. Variables, operadores y números
+        // 4. Variables, operadores y numeros
         var contador = 100;
         var factor = 2.71828;
         contador += 5;
 
-        // 5. Error léxico controlado para validar exportación de errores
+        // 5. Error lexico controlado para validar exportacion de errores
         var calculo = 50 # 10;
     }
 }

@@ -1,0 +1,126 @@
+APROBADA: Valido 0 Persona[] datos;
+APROBADA: Valido 1 Persona[][] datos;
+APROBADA: Valido 2 Persona[] crear() { return datos; }
+APROBADA: Valido 3 for (Persona p = origen; listo; p++) { break; }
+APROBADA: Valido 4 while (true) { func f() { while (true) { break; } return; } break; }
+APROBADA: Valido 5 
+APROBADA: Valido 6 // comentario
+APROBADA: Valido 7 var x = 1;
+APROBADA: Valido 8 int x;
+APROBADA: Valido 9 int x = 1, y = 2;
+APROBADA: Valido 10 string saludo = "hola";
+APROBADA: Valido 11 char letra = 'a';
+APROBADA: Valido 12 bool listo = true;
+APROBADA: Valido 13 x = 2 + 3 * 4;
+APROBADA: Valido 14 x += 2;
+APROBADA: Valido 15 x++; --x;
+APROBADA: Valido 16 obj.x = 1; a[0] = 2;
+APROBADA: Valido 17 imprimir(x, 2);
+APROBADA: Valido 18 var x = funcion(2);
+APROBADA: Valido 19 var a = new int[4];
+APROBADA: Valido 20 var x = new Clase();
+APROBADA: Valido 21 if (x > 0) x--; else x++;
+APROBADA: Valido 22 if (true) { if (false) x++; else x--; }
+APROBADA: Valido 23 while (x < 5) { x++; continue; }
+APROBADA: Valido 24 for (var i = 0; i < 5; i++) { if (i == 2) break; }
+APROBADA: Valido 25 for (;;) { break; }
+APROBADA: Valido 26 switch (x) { case 1: x++; break; default: x = 0; break; }
+APROBADA: Valido 27 enum Estado { Activo, Inactivo }
+APROBADA: Valido 28 enum Estado { A = 1, B = 2, }
+APROBADA: Valido 29 namespace Demo { class C { func suma(int a, int b) { return a + b; } } }
+APROBADA: Valido 30 public static int suma(int a) { return a; }
+APROBADA: Valido 31 void ejecutar() { return; }
+APROBADA: Valido 32 using Sistema.Texto;
+APROBADA: Valido 33 MiClase objeto;
+APROBADA: Valido 34 int[] datos;
+APROBADA: Valido 35 var x = (a + b) * -2;
+APROBADA: Valido 36 namespace A.B { class C { var n = 0; if (n == 0) { n += 1; } } }
+APROBADA: Invalido 0 return 1;
+APROBADA: Invalido 1 return;
+APROBADA: Invalido 2 public public int x;
+APROBADA: Invalido 3 public private int x;
+APROBADA: Invalido 4 void[] datos;
+APROBADA: Invalido 5 void[] crear() {}
+APROBADA: Invalido 6 var x = new void();
+APROBADA: Invalido 7 var x = new var();
+APROBADA: Invalido 8 while (true) { func f() { break; } }
+APROBADA: Invalido 9 while (true) { func f() { continue; } }
+APROBADA: Invalido 10 switch (x) { default: func f() { break; } }
+APROBADA: Invalido 11 var x = 1
+APROBADA: Invalido 12 var x = ;
+APROBADA: Invalido 13 var = 1;
+APROBADA: Invalido 14 int int = 2;
+APROBADA: Invalido 15 x = 50 10;
+APROBADA: Invalido 16 x = 1 + ;
+APROBADA: Invalido 17 if true { x++; }
+APROBADA: Invalido 18 if () x++;
+APROBADA: Invalido 19 if (true)
+APROBADA: Invalido 20 if (true) { x++;
+APROBADA: Invalido 21 }
+APROBADA: Invalido 22 x = (1 + 2;
+APROBADA: Invalido 23 x = a[1;
+APROBADA: Invalido 24 else x++;
+APROBADA: Invalido 25 for (var i = 0 i < 5; i++) { }
+APROBADA: Invalido 26 for (;;) 
+APROBADA: Invalido 27 while (x > 0 { x--; }
+APROBADA: Invalido 28 switch (x) { case 1 x++; }
+APROBADA: Invalido 29 switch (x) { default: ; default: ; }
+APROBADA: Invalido 30 case 1: x++;
+APROBADA: Invalido 31 func () {}
+APROBADA: Invalido 32 func f(int) {}
+APROBADA: Invalido 33 func f(int x, ) {}
+APROBADA: Invalido 34 func f() return;
+APROBADA: Invalido 35 class { }
+APROBADA: Invalido 36 namespace { }
+APROBADA: Invalido 37 enum E { A B }
+APROBADA: Invalido 38 void x;
+APROBADA: Invalido 39 x;
+APROBADA: Invalido 40 break;
+APROBADA: Invalido 41 continue;
+APROBADA: Invalido 42 1 = 2;
+APROBADA: Invalido 43 1++;
+APROBADA: Invalido 44 ++1;
+APROBADA: Invalido 45 f() = 2;
+APROBADA: Invalido 46 x = ; var y = 2;
+APROBADA: Invalido 47 f(1,);
+APROBADA: Invalido 48 obj. = 2;
+APROBADA: Invalido 49 x = new ;
+APROBADA: Invalido 50 if (true) else x++;
+APROBADA: Invalido 51 (x);
+APROBADA: Invalido 52 x + f();
+APROBADA: Invalido 53 f() + 1;
+APROBADA: Invalido 54 void f(void x) {}
+APROBADA: Ejemplo original prueba1_sencillo.txt
+APROBADA: Ejemplo original prueba2_medio.txt
+APROBADA: Ejemplo original prueba5_categorias.txt
+APROBADA: No afirmar sintaxis correcta con errores lexicos
+APROBADA: Linea y columna CRLF
+APROBADA: Recuperacion conserva siguiente declaracion
+APROBADA: Ubicacion al final de archivo
+APROBADA: Limite de anidamiento
+APROBADA: Limite de expresiones
+APROBADA: Reservada personalizada requiere regla
+APROBADA: Reutilizacion reinicia resultados
+APROBADA: Exportacion separa ambas etapas
+APROBADA: Exportacion totaliza errores sintacticos
+APROBADA: Exportacion incluye declaraciones
+APROBADA: Exportacion indica sintaxis pendiente
+APROBADA: Exportacion distingue datos no evaluados
+APROBADA: Pestana muestra errores sintacticos
+APROBADA: Navegacion al error selecciona el token
+APROBADA: Navegacion limita columna al final
+APROBADA: Exportacion protege archivo fuente
+APROBADA: Exportacion permite otro destino
+APROBADA: Resumen suma sintaxis
+APROBADA: Sin errores lexicos remite a sintaxis
+APROBADA: Estadisticas incluyen total
+APROBADA: Reanalisis limpia errores sintacticos
+APROBADA: Tabla de simbolos muestra declaracion
+APROBADA: Apartados separados
+APROBADA: Navegacion respeta linea y columna
+APROBADA: Interfaz indica pendiente por error lexico
+APROBADA: Estadisticas no confunden pendiente con cero
+APROBADA: Limpiar borra tooltip anterior
+APROBADA: Limpiar impide exportar resultados anteriores
+APROBADA: Limpiar editor invalida ambas etapas
+TOTAL: 125 pruebas aprobadas.

@@ -36,9 +36,9 @@ namespace PruebasConsola
             analizador.AnalizarArchivo(ruta);
             informe.AppendLine("ARCHIVO | " + Path.GetFileName(ruta) +
                 " | tokens=" + analizador.ObtenerTokens().Count +
-                " | símbolos=" + analizador.ObtenerSimbolos().Count +
+                " | simbolos=" + analizador.ObtenerSimbolos().Count +
                 " | errores=" + analizador.ObtenerErrores().Count +
-                " | líneas=" + analizador.TotalLineas);
+                " | lineas=" + analizador.TotalLineas);
             foreach (var error in analizador.ObtenerErrores())
             {
                 informe.AppendLine("  ERROR " + error.Linea + ":" + error.Columna +
@@ -61,25 +61,25 @@ namespace PruebasConsola
                 raiz = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "Pruebas"));
 
             informe.AppendLine("=============================================================");
-            informe.AppendLine("  BATERÍA DE PRUEBAS DE VERIFICACIÓN — ENTREGABLE 4");
+            informe.AppendLine("  BATERIA DE PRUEBAS DE VERIFICACION - ENTREGABLE 4");
             informe.AppendLine("  C-EXTENDED | CORRECCIONES Y ROBUSTEZ");
-            informe.AppendLine("  Fecha de ejecución: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            informe.AppendLine("  Fecha de ejecucion: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             informe.AppendLine("=============================================================");
             informe.AppendLine();
 
             // ==============================================================
-            // 1. CINCO CASOS HISTÓRICOS
+            // 1. CINCO CASOS HISTORICOS
             // ==============================================================
-            informe.AppendLine("--- 1. VERIFICACIÓN DE LOS CINCO CASOS HISTÓRICOS ---");
+            informe.AppendLine("--- 1. VERIFICACION DE LOS CINCO CASOS HISTORICOS ---");
 
             // Prueba 1
             var a1 = Archivo(Path.Combine(raiz, "prueba1_sencillo.txt"));
             Verificar("Prueba 1: sin errores", a1.ObtenerErrores().Count == 0);
             Verificar("Prueba 1: recuento tokens esperado (25)", a1.ObtenerTokens().Count == 25);
             Verificar("Prueba 1: reservada e identificador", HayToken(a1, "namespace", "TK_RESERVADA") && HayToken(a1, "contador", "TK_IDENTIFICADOR"));
-            Verificar("Prueba 1: += es asignación", HayToken(a1, "+=", "TK_OP_ASIGNACION"));
+            Verificar("Prueba 1: += es asignacion", HayToken(a1, "+=", "TK_OP_ASIGNACION"));
             var contador = a1.ObtenerSimbolos().SingleOrDefault(s => s.NombreIdentificador == "contador");
-            Verificar("Prueba 1: símbolo único y primera posición (5:13)",
+            Verificar("Prueba 1: simbolo unico y primera posicion (5:13)",
                 contador != null && contador.LineaPrimeraAparicion == 5 && contador.ColumnaInicio == 13 &&
                 a1.ObtenerSimbolos().Count(s => s.NombreIdentificador == "contador") == 1);
 
@@ -87,7 +87,7 @@ namespace PruebasConsola
             var a2 = Archivo(Path.Combine(raiz, "prueba2_medio.txt"));
             Verificar("Prueba 2: sin errores", a2.ObtenerErrores().Count == 0);
             Verificar("Prueba 2: recuento tokens esperado (62)", a2.ObtenerTokens().Count == 62);
-            Verificar("Prueba 2: símbolos únicos (9)", a2.ObtenerSimbolos().Count == 9);
+            Verificar("Prueba 2: simbolos unicos (9)", a2.ObtenerSimbolos().Count == 9);
             Verificar("Prueba 2: decimal, for y continue",
                 HayToken(a2, "2.5", "TK_NUM_DECIMAL") && HayToken(a2, "for", "TK_RESERVADA") && HayToken(a2, "continue", "TK_RESERVADA"));
 
@@ -95,15 +95,15 @@ namespace PruebasConsola
             var a3 = Archivo(Path.Combine(raiz, "prueba3_errores.txt"));
             Verificar("Prueba 3: exactamente cuatro errores visibles", a3.ObtenerErrores().Count == 4);
             Verificar("Prueba 3: recuento tokens esperado (20)", a3.ObtenerTokens().Count == 20);
-            Verificar("Prueba 3: símbolos únicos (4)", a3.ObtenerSimbolos().Count == 4);
-            Verificar("Prueba 3: diagnóstico identificador con inicio numérico (6:13)",
-                a3.ObtenerErrores().Any(e => e.Linea == 6 && e.Columna == 13 && e.Descripcion.Contains("inicio numérico")));
-            Verificar("Prueba 3: diagnóstico decimal mal formado (9:22)",
+            Verificar("Prueba 3: simbolos unicos (4)", a3.ObtenerSimbolos().Count == 4);
+            Verificar("Prueba 3: diagnostico identificador con inicio numerico (6:13)",
+                a3.ObtenerErrores().Any(e => e.Linea == 6 && e.Columna == 13 && e.Descripcion.Contains("inicio numerico")));
+            Verificar("Prueba 3: diagnostico decimal mal formado (9:22)",
                 a3.ObtenerErrores().Any(e => e.Linea == 9 && e.Columna == 22 && e.Descripcion.Contains("decimal mal formado")));
-            Verificar("Prueba 3: diagnóstico cadena sin cerrar (12:23)",
+            Verificar("Prueba 3: diagnostico cadena sin cerrar (12:23)",
                 a3.ObtenerErrores().Any(e => e.Linea == 12 && e.Columna == 23 && e.Descripcion.Contains("Cadena de texto sin cerrar")));
-            Verificar("Prueba 3: diagnóstico comentario multilínea sin cerrar (14:9)",
-                a3.ObtenerErrores().Any(e => e.Linea == 14 && e.Columna == 9 && e.Descripcion.Contains("Comentario multilínea sin cerrar")));
+            Verificar("Prueba 3: diagnostico comentario multilinea sin cerrar (14:9)",
+                a3.ObtenerErrores().Any(e => e.Linea == 14 && e.Columna == 9 && e.Descripcion.Contains("Comentario multilinea sin cerrar")));
             Verificar("Prueba 3: @ permanece dentro del comentario abierto",
                 !a3.ObtenerErrores().Any(e => e.CaracterInvalido == "@"));
 
@@ -111,16 +111,16 @@ namespace PruebasConsola
             var a4 = Archivo(Path.Combine(raiz, "prueba4_recuperacion.txt"));
             Verificar("Prueba 4: exactamente dos errores", a4.ObtenerErrores().Count == 2);
             Verificar("Prueba 4: recuento tokens esperado (21)", a4.ObtenerTokens().Count == 21);
-            Verificar("Prueba 4: carácter no permitido @ en 2:1",
+            Verificar("Prueba 4: caracter no permitido @ en 2:1",
                 a4.ObtenerErrores()[0].CaracterInvalido == "@" && a4.ObtenerErrores()[0].Linea == 2 && a4.ObtenerErrores()[0].Columna == 1);
-            Verificar("Prueba 4: recuperación continúa hasta identificador final",
+            Verificar("Prueba 4: recuperacion continua hasta identificador final",
                 HayToken(a4, "final", "TK_IDENTIFICADOR") && HayToken(a4, "despues", "TK_IDENTIFICADOR"));
 
             // Prueba 5
             var a5 = Archivo(Path.Combine(raiz, "prueba5_categorias.txt"));
             Verificar("Prueba 5: sin errores", a5.ObtenerErrores().Count == 0);
             Verificar("Prueba 5: recuento tokens esperado (59)", a5.ObtenerTokens().Count == 59);
-            Verificar("Prueba 5: símbolos únicos (7)", a5.ObtenerSimbolos().Count == 7);
+            Verificar("Prueba 5: simbolos unicos (7)", a5.ObtenerSimbolos().Count == 7);
             string[] categoriasRequeridas = {
                 "TK_RESERVADA", "TK_IDENTIFICADOR", "TK_NUM_ENTERO", "TK_CADENA", "TK_CARACTER",
                 "TK_OP_ARITMETICO", "TK_OP_RELACIONAL", "TK_OP_LOGICO", "TK_OP_ASIGNACION",
@@ -128,20 +128,20 @@ namespace PruebasConsola
             };
             foreach (string tipo in categoriasRequeridas)
             {
-                Verificar("Prueba 5: categoría cubierta " + tipo, a5.ObtenerTokens().Any(t => t.TipoToken == tipo));
+                Verificar("Prueba 5: categoria cubierta " + tipo, a5.ObtenerTokens().Any(t => t.TipoToken == tipo));
             }
             informe.AppendLine();
 
             // ==============================================================
-            // 2. CASO NUEVO: PRUEBA 6 (INTERFAZ Y EXPORTACIÓN)
+            // 2. CASO NUEVO: PRUEBA 6 (INTERFAZ Y EXPORTACION)
             // ==============================================================
-            informe.AppendLine("--- 2. VERIFICACIÓN DEL CASO NUEVO (PRUEBA 6) ---");
+            informe.AppendLine("--- 2. VERIFICACION DEL CASO NUEVO (PRUEBA 6) ---");
             string rutaP6 = Path.Combine(raiz, "prueba6_interfaz_exportacion.txt");
             var a6 = Archivo(rutaP6);
             Verificar("Prueba 6: procesada con motor real", a6 != null);
             Verificar("Prueba 6: detecta comentario literal /*<LF>*/", HayToken(a6, "/*<LF>*/", "TK_COMENTARIO_BLOQUE"));
             Verificar("Prueba 6: detecta comentario literal /*<CRLF>*/", HayToken(a6, "/*<CRLF>*/", "TK_COMENTARIO_BLOQUE"));
-            Verificar("Prueba 6: detecta comentario multilínea con salto real",
+            Verificar("Prueba 6: detecta comentario multilinea con salto real",
                 a6.ObtenerTokens().Any(t => t.TipoToken == "TK_COMENTARIO_BLOQUE" && t.Lexema.Contains("\n") && t.Lexema.Contains("salto real")));
             Verificar("Prueba 6: detecta cadenas con barras invertidas",
                 HayToken(a6, "\"C:\\\\Archivos\\\\Proyecto\\\\test.txt\"", "TK_CADENA"));
@@ -149,14 +149,14 @@ namespace PruebasConsola
                 a6.ObtenerTokens().Any(t => t.TipoToken == "TK_CADENA" && t.Lexema.Contains("\\t") && t.Lexema.Contains("\\\"")));
             Verificar("Prueba 6: caracteres literales con escape ('\\\\', '\\'', '\\n')",
                 HayToken(a6, "'\\\\'", "TK_CARACTER") && HayToken(a6, "'\\''", "TK_CARACTER") && HayToken(a6, "'\\n'", "TK_CARACTER"));
-            Verificar("Prueba 6: contiene exactamente 1 error léxico controlado (# en 26:26)",
+            Verificar("Prueba 6: contiene exactamente 1 error lexico controlado (# en 26:26)",
                 a6.ObtenerErrores().Count == 1 && a6.ObtenerErrores()[0].CaracterInvalido == "#" && a6.ObtenerErrores()[0].Linea == 26 && a6.ObtenerErrores()[0].Columna == 26);
             informe.AppendLine();
 
             // ==============================================================
-            // 3. DEFECTO: CONSUMO Y DETECCIÓN RIGUROSA DE BOM
+            // 3. DEFECTO: CONSUMO Y DETECCION RIGUROSA DE BOM
             // ==============================================================
-            informe.AppendLine("--- 3. VERIFICACIÓN DE CARGA FIABLE Y DETECCIÓN DE BOM ---");
+            informe.AppendLine("--- 3. VERIFICACION DE CARGA FIABLE Y DETECCION DE BOM ---");
 
             string tempDir = Path.Combine(Path.GetTempPath(), "CExtendedTests_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(tempDir);
@@ -177,7 +177,7 @@ namespace PruebasConsola
 
                 var motorUtf8Bom = new AnalizadorLexico();
                 motorUtf8Bom.Analizar(contenidoUtf8Bom);
-                Verificar("Carga BOM: el primer token es 'var' en línea 1 columna 1 sin error de BOM",
+                Verificar("Carga BOM: el primer token es 'var' en linea 1 columna 1 sin error de BOM",
                     motorUtf8Bom.ObtenerTokens().Count > 0 &&
                     motorUtf8Bom.ObtenerTokens()[0].Lexema == "var" &&
                     motorUtf8Bom.ObtenerTokens()[0].Linea == 1 &&
@@ -216,7 +216,7 @@ namespace PruebasConsola
                 Verificar("Carga BOM: UTF-32 BE es rechazado claramente",
                     !okU32Be && errU32Be != null && errU32Be.Contains("UTF-32 BE"));
 
-                // UTF-8 inválido (secuencia corrupta sin fallback a U+FFFD)
+                // UTF-8 invalido (secuencia corrupta sin fallback a U+FFFD)
                 string archivoInvalido = Path.Combine(tempDir, "utf8_invalido.txt");
                 byte[] bytesInvalidos = new byte[] { (byte)'v', (byte)'a', (byte)'r', 0xC0, 0xAF, (byte)';' };
                 File.WriteAllBytes(archivoInvalido, bytesInvalidos);
@@ -234,17 +234,17 @@ namespace PruebasConsola
                 Verificar("Carga binario: archivo con bytes nulos es rechazado",
                     !okBin && errBin != null && errBin.Contains("binario"));
 
-                // Archivo vacío
+                // Archivo vacio
                 string archivoVacio = Path.Combine(tempDir, "vacio.txt");
                 File.WriteAllBytes(archivoVacio, new byte[0]);
                 string contVacio, errVacio;
                 bool okVacio = FrmPrincipal.IntentarLeerArchivo(archivoVacio, out contVacio, out errVacio);
-                Verificar("Carga vacío: archivo de 0 bytes se carga sin excepción como texto vacío",
+                Verificar("Carga vacio: archivo de 0 bytes se carga sin excepcion como texto vacio",
                     okVacio && contVacio == "");
 
-                // Código compuesto únicamente por comentarios
+                // Codigo compuesto unicamente por comentarios
                 var motorSoloComentarios = new AnalizadorLexico();
-                motorSoloComentarios.Analizar("// Comentario 1\r\n/* Comentario 2\r\n multilínea */\r\n// Comentario 3");
+                motorSoloComentarios.Analizar("// Comentario 1\r\n/* Comentario 2\r\n multilinea */\r\n// Comentario 3");
                 Verificar("Carga comentarios: archivo solo con comentarios se procesa con 0 errores y tokens correspondientes",
                     motorSoloComentarios.ObtenerErrores().Count == 0 &&
                     motorSoloComentarios.ObtenerTokens().Count == 3 &&
@@ -258,11 +258,11 @@ namespace PruebasConsola
             informe.AppendLine();
 
             // ==============================================================
-            // 4. DEFECTO: EXPORTACIÓN SIN AMBIGÜEDAD Y FECHA/HORA
+            // 4. DEFECTO: EXPORTACION SIN AMBIGUEDAD Y FECHA/HORA
             // ==============================================================
-            informe.AppendLine("--- 4. VERIFICACIÓN DE EXPORTACIÓN SIN AMBIGÜEDAD ---");
+            informe.AppendLine("--- 4. VERIFICACION DE EXPORTACION SIN AMBIGUEDAD ---");
 
-            // Reversibilidad y no-colisión de /*<LF>*/ vs salto real
+            // Reversibilidad y no-colision de /*<LF>*/ vs salto real
             string litLF = "/*<LF>*/";
             string realLF = "/*\n*/";
             string realCRLF = "/*\r\n*/";
@@ -275,14 +275,14 @@ namespace PruebasConsola
             string escLitCRLF = Exportador.EscaparCadena(litCRLF);
             string escLitBarraN = Exportador.EscaparCadena(litBarraN);
 
-            Verificar("Escape sin ambigüedad: /*<LF>*/ y /*\\n*/ producen representaciones distintas",
+            Verificar("Escape sin ambiguedad: /*<LF>*/ y /*\\n*/ producen representaciones distintas",
                 escLitLF != escRealLF);
-            Verificar("Escape sin ambigüedad: /*<CRLF>*/ y /*\\r\\n*/ producen representaciones distintas",
+            Verificar("Escape sin ambiguedad: /*<CRLF>*/ y /*\\r\\n*/ producen representaciones distintas",
                 escLitCRLF != escRealCRLF);
-            Verificar("Escape sin ambigüedad: /*\\n*/ literal y /*\n*/ real son distinguibles",
+            Verificar("Escape sin ambiguedad: /*\\n*/ literal y /*\n*/ real son distinguibles",
                 escLitBarraN != escRealLF);
 
-            // Verificación de reversibilidad universal: Desescapar(Escapar(x)) == x
+            // Verificacion de reversibilidad universal: Desescapar(Escapar(x)) == x
             string[] casosEscape = {
                 litLF, realLF, realCRLF, litCRLF, litBarraN,
                 "Texto con comillas \"dobles\" y comas, y barras \\ y tabulador \t fin",
@@ -304,7 +304,7 @@ namespace PruebasConsola
             }
             Verificar("Escape reversible: DesescaparCadena(EscaparCadena(s)) == s para todos los casos", todoReversible);
 
-            // Verificación de captura de fecha y hora del análisis en exportación
+            // Verificacion de captura de fecha y hora del analisis en exportacion
             DateTime fechaFijada = new DateTime(2026, 10, 12, 14, 30, 45);
             var resExport = new ResultadoAnalisis(
                 a6.ObtenerTokens(),
@@ -322,19 +322,19 @@ namespace PruebasConsola
                 Exportador.ExportarTxt(rutaTempExport, resExport);
                 string contenidoExport = File.ReadAllText(rutaTempExport, Encoding.UTF8);
 
-                Verificar("Exportación: archivo generado existe y no está vacío", File.Exists(rutaTempExport) && contenidoExport.Length > 0);
-                Verificar("Exportación: conserva fecha/hora capturada del análisis (2026-10-12 14:30:45)",
-                    contenidoExport.Contains("Fecha y hora de análisis   : 2026-10-12 14:30:45"));
-                Verificar("Exportación: muestra fecha y hora de exportación identificada separadamente",
-                    contenidoExport.Contains("Fecha y hora de exportación:"));
-                Verificar("Exportación: incluye convención de escape reversible en el encabezado",
-                    contenidoExport.Contains("Convención de escape reversible"));
-                Verificar("Exportación: tabla de tokens incluye lexemas escapados sin ambigüedad",
+                Verificar("Exportacion: archivo generado existe y no esta vacio", File.Exists(rutaTempExport) && contenidoExport.Length > 0);
+                Verificar("Exportacion: conserva fecha/hora capturada del analisis (2026-10-12 14:30:45)",
+                    contenidoExport.Contains("Fecha y hora de analisis   : 2026-10-12 14:30:45"));
+                Verificar("Exportacion: muestra fecha y hora de exportacion identificada separadamente",
+                    contenidoExport.Contains("Fecha y hora de exportacion:"));
+                Verificar("Exportacion: incluye convencion de escape reversible en el encabezado",
+                    contenidoExport.Contains("Convencion de escape reversible"));
+                Verificar("Exportacion: tabla de tokens incluye lexemas escapados sin ambiguedad",
                     contenidoExport.Contains("/*<LF>*/") && contenidoExport.Contains("--- TOKENS ---"));
-                Verificar("Exportación: tabla de errores incluye error # de prueba 6",
-                    contenidoExport.Contains("--- ERRORES LÉXICOS ---") && contenidoExport.Contains("#"));
-                Verificar("Exportación: tabla de símbolos presente y ordenada",
-                    contenidoExport.Contains("--- TABLA DE SÍMBOLOS ---") && contenidoExport.Contains("ExportacionAvanzada"));
+                Verificar("Exportacion: tabla de errores incluye error # de prueba 6",
+                    contenidoExport.Contains("--- ERRORES LEXICOS ---") && contenidoExport.Contains("#"));
+                Verificar("Exportacion: tabla de simbolos presente y ordenada",
+                    contenidoExport.Contains("--- TABLA DE SIMBOLOS ---") && contenidoExport.Contains("ExportacionAvanzada"));
             }
             finally
             {
@@ -345,15 +345,15 @@ namespace PruebasConsola
             // ==============================================================
             // 5. DEFECTO: FORMULARIO, SPLITMAIN Y PANEL RESUMEN
             // ==============================================================
-            informe.AppendLine("--- 5. VERIFICACIÓN DE FRMPRINCIPAL, SPLITMAIN Y PNLRESUMEN ---");
+            informe.AppendLine("--- 5. VERIFICACION DE FRMPRINCIPAL, SPLITMAIN Y PNLRESUMEN ---");
 
             try
             {
                 using (var form = new FrmPrincipal())
                 {
                     Verificar("FrmPrincipal: inicializa sin lanzar InvalidOperationException ni NullReferenceException", form != null);
-                    Verificar("FrmPrincipal: título correcto", form.Text == "C-extended | Analizador léxico");
-                    Verificar("FrmPrincipal: tamaño de cliente inicial compatible (1200x720)",
+                    Verificar("FrmPrincipal: titulo correcto", form.Text == "C-extended | Analizador lexico y sintactico");
+                    Verificar("FrmPrincipal: tamano de cliente inicial compatible (1200x720)",
                         form.ClientSize.Width == 1200 && form.ClientSize.Height == 720);
 
                     // Verificar splitMain
@@ -363,7 +363,7 @@ namespace PruebasConsola
                     {
                         Verificar("splitMain: Panel1MinSize es 280 y Panel2MinSize es 380",
                             split.Panel1MinSize == 280 && split.Panel2MinSize == 380);
-                        Verificar("splitMain: SplitterDistance es 440 (compatible con tamaño inicial 1200x608)",
+                        Verificar("splitMain: SplitterDistance es 440 (compatible con tamano inicial 1200x608)",
                             split.SplitterDistance == 440);
                     }
 
@@ -373,7 +373,7 @@ namespace PruebasConsola
                     if (resumen != null)
                     {
                         Verificar("pnlResumen: altura funcional configurada (36)", resumen.Height == 36);
-                        Verificar("pnlResumen: contiene etiquetas de resumen (Tokens, Errores, Símbolos, Líneas, Tiempo)",
+                        Verificar("pnlResumen: contiene etiquetas de resumen (Tokens, Errores, Simbolos, Lineas, Tiempo)",
                             resumen.Controls.ContainsKey("lblResumenTokens") &&
                             resumen.Controls.ContainsKey("lblResumenErrores") &&
                             resumen.Controls.ContainsKey("lblResumenSimbolos") &&
@@ -388,7 +388,7 @@ namespace PruebasConsola
             }
             catch (Exception ex)
             {
-                Verificar("FrmPrincipal: inicialización falló con excepción", false, ex.ToString());
+                Verificar("FrmPrincipal: inicializacion fallo con excepcion", false, ex.ToString());
             }
             informe.AppendLine();
 

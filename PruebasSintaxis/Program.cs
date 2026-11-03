@@ -1,0 +1,169 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Drawing;
+using System.Windows.Forms;
+using C_Extended.Core;
+using C_Extended.UI;
+
+class Program
+{
+    static int aprobadas;
+    static void Verificar(string nombre, bool correcto)
+    {
+        if (!correcto) throw new Exception("FALLO: " + nombre);
+        aprobadas++;
+        Console.WriteLine("APROBADA: " + nombre);
+    }
+    static ResultadoAnalisis Analizar(string texto)
+    {
+        var lexico = new AnalizadorLexico();
+        lexico.Analizar(texto);
+        return new ResultadoAnalisis(lexico.ObtenerTokens(), lexico.ObtenerErrores(),
+            lexico.ObtenerSimbolos(), lexico.TotalLineas, 0, "prueba", texto);
+    }
+    [STAThread]
+    static int Main(string[] args)
+    {
+        try
+        {
+            string salida = args.Length > 0 ? Path.GetFullPath(args[0]) : AppDomain.CurrentDomain.BaseDirectory;
+            Directory.CreateDirectory(salida);
+            string[] validos = {
+                "Persona[] datos;", "Persona[][] datos;", "Persona[] crear() { return datos; }",
+                "for (Persona p = origen; listo; p++) { break; }",
+                "while (true) { func f() { while (true) { break; } return; } break; }",
+                "", "// comentario", "var x = 1;", "int x;", "int x = 1, y = 2;",
+                "string saludo = \"hola\";", "char letra = 'a';", "bool listo = true;",
+                "x = 2 + 3 * 4;", "x += 2;", "x++; --x;", "obj.x = 1; a[0] = 2;",
+                "imprimir(x, 2);", "var x = funcion(2);", "var a = new int[4];", "var x = new Clase();",
+                "if (x > 0) x--; else x++;", "if (true) { if (false) x++; else x--; }",
+                "while (x < 5) { x++; continue; }", "for (var i = 0; i < 5; i++) { if (i == 2) break; }",
+                "for (;;) { break; }", "switch (x) { case 1: x++; break; default: x = 0; break; }",
+                "enum Estado { Activo, Inactivo }", "enum Estado { A = 1, B = 2, }",
+                "namespace Demo { class C { func suma(int a, int b) { return a + b; } } }",
+                "public static int suma(int a) { return a; }", "void ejecutar() { return; }",
+                "using Sistema.Texto;", "MiClase objeto;", "int[] datos;", "var x = (a + b) * -2;",
+                "namespace A.B { class C { var n = 0; if (n == 0) { n += 1; } } }"
+            };
+            for (int i = 0; i < validos.Length; i++)
+            {
+                var r = Analizar(validos[i]);
+                Verificar("Valido " + i + " " + validos[i], r.Errores.Count == 0 && r.SintaxisEvaluada && r.ErroresSintacticos.Count == 0);
+            }
+            string[] invalidos = {
+                "return 1;", "return;", "public public int x;", "public private int x;",
+                "void[] datos;", "void[] crear() {}", "var x = new void();", "var x = new var();",
+                "while (true) { func f() { break; } }",
+                "while (true) { func f() { continue; } }",
+                "switch (x) { default: func f() { break; } }",
+                "var x = 1", "var x = ;", "var = 1;", "int int = 2;", "x = 50 10;", "x = 1 + ;",
+                "if true { x++; }", "if () x++;", "if (true)", "if (true) { x++;", "}", "x = (1 + 2;",
+                "x = a[1;", "else x++;", "for (var i = 0 i < 5; i++) { }", "for (;;) ",
+                "while (x > 0 { x--; }", "switch (x) { case 1 x++; }", "switch (x) { default: ; default: ; }",
+                "case 1: x++;", "func () {}", "func f(int) {}", "func f(int x, ) {}", "func f() return;",
+                "class { }", "namespace { }", "enum E { A B }", "void x;", "x;", "break;", "continue;",
+                "1 = 2;", "1++;", "++1;", "f() = 2;", "x = ; var y = 2;", "f(1,);", "obj. = 2;",
+                "x = new ;", "if (true) else x++;", "(x);", "x + f();", "f() + 1;", "void f(void x) {}"
+            };
+            for (int i = 0; i < invalidos.Length; i++)
+            {
+                var r = Analizar(invalidos[i]);
+                Verificar("Invalido " + i + " " + invalidos[i], r.Errores.Count == 0 && r.SintaxisEvaluada && r.ErroresSintacticos.Count > 0);
+            }
+            string ejemplos = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Pruebas"));
+            foreach (string archivo in new[] { "prueba1_sencillo.txt", "prueba2_medio.txt", "prueba5_categorias.txt" })
+            {
+                var original = Analizar(File.ReadAllText(Path.Combine(ejemplos, archivo)));
+                Verificar("Ejemplo original " + archivo, original.SintaxisEvaluada && original.TotalErrores == 0);
+            }
+            var pendiente = Analizar("var x = @;");
+            Verificar("No afirmar sintaxis correcta con errores lexicos", !pendiente.SintaxisEvaluada && pendiente.ErroresSintacticos.Count == 0);
+            var ubicacion = Analizar("var x = 1;\r\nvar y = ;");
+            Verificar("Linea y columna CRLF", ubicacion.ErroresSintacticos[0].Linea == 2 && ubicacion.ErroresSintacticos[0].Columna == 9);
+            Verificar("Recuperacion conserva siguiente declaracion", Analizar("var x = ; var y = 2;").Declaraciones.Any(d => d.Nombre == "y"));
+            var eof = Analizar("var x = 1");
+            Verificar("Ubicacion al final de archivo", eof.ErroresSintacticos.Any(e => e.Linea == 1 && e.Columna == 10));
+            Verificar("Limite de anidamiento", Analizar(new string('{', 200)).ErroresSintacticos.Count > 0);
+            Verificar("Limite de expresiones", Analizar("var x = " + new string('(', 200) + "1;").ErroresSintacticos.Count > 0);
+            var motor = new AnalizadorSintactico();
+            motor.Analizar(new System.Collections.Generic.List<Token> { new Token("repetir", "TK_RESERVADA", 1, 1) }, "repetir");
+            Verificar("Reservada personalizada requiere regla", motor.Errores.Any(e => e.Descripcion.Contains("regla sintactica")));
+            motor.Analizar(new System.Collections.Generic.List<Token>(), "");
+            Verificar("Reutilizacion reinicia resultados", motor.Errores.Count == 0 && motor.Declaraciones.Count == 0);
+            string destino = Path.Combine(salida, "informe_prueba.txt");
+            Exportador.ExportarTxt(destino, ubicacion);
+            string informe = File.ReadAllText(destino);
+            Verificar("Exportacion separa ambas etapas", informe.Contains("--- ERRORES LEXICOS ---") && informe.Contains("--- ERRORES SINTACTICOS ---") && informe.Contains("Se esperaba una expresion"));
+            Verificar("Exportacion totaliza errores sintacticos", informe.Contains("Total de errores detectados: " + ubicacion.TotalErrores));
+            Exportador.ExportarTxt(destino, Analizar("int x = 1;"));
+            Verificar("Exportacion incluye declaraciones", File.ReadAllText(destino).Contains("x | int |"));
+            Exportador.ExportarTxt(destino, pendiente);
+            Verificar("Exportacion indica sintaxis pendiente", File.ReadAllText(destino).Contains("Analisis sintactico pendiente"));
+            Verificar("Exportacion distingue datos no evaluados", File.ReadAllText(destino).Contains("No evaluadas: analisis sintactico pendiente."));
+            Application.EnableVisualStyles();
+            using (var f = new FrmPrincipal())
+            {
+                f.Show();
+                var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                var editor = (RichTextBox)typeof(FrmPrincipal).GetField("rtbEditor", flags).GetValue(f);
+                var analizar = typeof(FrmPrincipal).GetMethod("btnAnalizar_Click", flags);
+                editor.Text = "var x = ;";
+                analizar.Invoke(f, new object[] { null, EventArgs.Empty });
+                var tabla = (DataGridView)typeof(FrmPrincipal).GetField("dgvSintacticos", flags).GetValue(f);
+                Verificar("Pestana muestra errores sintacticos", tabla.Rows.Count > 0);
+                typeof(FrmPrincipal).GetMethod("IrAFila", flags).Invoke(f, new object[] { tabla, 0, 2, 3 });
+                Verificar("Navegacion al error selecciona el token", editor.SelectionStart == 8 && editor.SelectedText == ";");
+                typeof(FrmPrincipal).GetMethod("IrAUbicacion", flags).Invoke(f, new object[] { 1, 999 });
+                Verificar("Navegacion limita columna al final", editor.SelectionStart == editor.TextLength);
+                typeof(FrmPrincipal).GetField("_rutaArchivoCargado", flags).SetValue(f, Path.Combine(salida, "fuente.txt"));
+                var proteger = typeof(FrmPrincipal).GetMethod("EsArchivoFuente", flags);
+                Verificar("Exportacion protege archivo fuente", (bool)proteger.Invoke(f, new object[] { Path.Combine(salida, "FUENTE.txt") }));
+                Verificar("Exportacion permite otro destino", !(bool)proteger.Invoke(f, new object[] { Path.Combine(salida, "informe.txt") }));
+                var resumen = (Label)typeof(FrmPrincipal).GetField("lblResumenErrores", flags).GetValue(f);
+                var estadisticas = (TextBox)typeof(FrmPrincipal).GetField("txtEstadisticas", flags).GetValue(f);
+                var avisoLexico = (Label)typeof(FrmPrincipal).GetField("lblSinErrores", flags).GetValue(f);
+                Verificar("Resumen suma sintaxis", resumen.Text != "Errores: 0");
+                Verificar("Sin errores lexicos remite a sintaxis", avisoLexico.Text.Contains("Hay errores sintacticos"));
+                Verificar("Estadisticas incluyen total", estadisticas.Text.Contains("Errores totales detectados"));
+                editor.Text = "int x = 1;";
+                analizar.Invoke(f, new object[] { null, EventArgs.Empty });
+                Verificar("Reanalisis limpia errores sintacticos", tabla.Rows.Count == 0);
+                var simbolos = (DataGridView)typeof(FrmPrincipal).GetField("dgvSimbolos", flags).GetValue(f);
+                Verificar("Tabla de simbolos muestra declaracion", Convert.ToString(simbolos.Rows[0].Cells[5].Value).Contains("variable (int)"));
+                var tabs = (TabControl)typeof(FrmPrincipal).GetField("tabResultados", flags).GetValue(f);
+                Verificar("Apartados separados", tabs.TabPages.Cast<TabPage>().Any(t => t.Text == "Errores sintacticos") && tabs.TabPages.Cast<TabPage>().Any(t => t.Text == "Diccionario"));
+                tabs.SelectedTab = tabs.TabPages.Cast<TabPage>().First(t => t.Text == "Errores sintacticos");
+                editor.Text = "var x = ;";
+                analizar.Invoke(f, new object[] { null, EventArgs.Empty });
+                Application.DoEvents();
+                using (var imagen = new Bitmap(f.Width, f.Height))
+                {
+                    f.DrawToBitmap(imagen, new Rectangle(0, 0, f.Width, f.Height));
+                    imagen.Save(Path.Combine(salida, "sintaxis.png"));
+                }
+                editor.Text = "int x = 1;\nvar y = ;";
+                analizar.Invoke(f, new object[] { null, EventArgs.Empty });
+                typeof(FrmPrincipal).GetMethod("IrAFila", flags).Invoke(f, new object[] { tabla, 0, 2, 3 });
+                Verificar("Navegacion respeta linea y columna", editor.GetLineFromCharIndex(editor.SelectionStart) == 1 && editor.SelectedText == ";");
+                editor.Text = "var x = @;";
+                analizar.Invoke(f, new object[] { null, EventArgs.Empty });
+                var estado = (Label)typeof(FrmPrincipal).GetField("lblEstadoSintactico", flags).GetValue(f);
+                Verificar("Interfaz indica pendiente por error lexico", estado.Text.Contains("PENDIENTE") && tabla.Rows.Count == 0);
+                Verificar("Estadisticas no confunden pendiente con cero", estadisticas.Text.Contains("No evaluadas"));
+                var limpiar = typeof(FrmPrincipal).GetMethod("btnLimpiar_Click", flags);
+                limpiar.Invoke(f, new object[] { null, EventArgs.Empty });
+                var tooltip = (ToolTip)typeof(FrmPrincipal).GetField("toolTipPrincipal", flags).GetValue(f);
+                Verificar("Limpiar borra tooltip anterior", tooltip.GetToolTip(resumen).Contains("Ambas etapas estan pendientes"));
+                Verificar("Limpiar impide exportar resultados anteriores", !((Button)typeof(FrmPrincipal).GetField("btnExportar", flags).GetValue(f)).Enabled);
+                editor.Clear();
+                Verificar("Limpiar editor invalida ambas etapas", tabla.Rows.Count == 0 && estado.Text.Contains("Pendiente"));
+                f.Close();
+            }
+            Console.WriteLine("TOTAL: " + aprobadas + " pruebas aprobadas.");
+            return 0;
+        }
+        catch (Exception ex) { Console.WriteLine(ex); return 1; }
+    }
+}

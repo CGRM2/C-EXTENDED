@@ -10,15 +10,15 @@ using C_Extended.Core;
 namespace C_Extended.UI
 {
     /// <summary>
-    /// Formulario principal de C-extended | Analizador léxico.
-    /// Organización: barra de acciones (arriba) · editor con numeración (izquierda) ·
-    ///               pestañas de resultados (derecha) · panel de resumen (abajo) ·
+    /// Formulario principal de C-extended | Analizador lexico y sintactico.
+    /// Organizacion: barra de acciones (arriba)  editor con numeracion (izquierda) 
+    ///               pestanas de resultados (derecha)  panel de resumen (abajo) 
     ///               barra de estado (inferior).
     /// </summary>
     public partial class FrmPrincipal : Form
     {
         // ----------------------------------------------------------------
-        // Estado de la sesión
+        // Estado de la sesion
         // ----------------------------------------------------------------
         private ResultadoAnalisis _ultimoResultado = null;
         private string            _rutaArchivoCargado = null;
@@ -38,13 +38,16 @@ namespace C_Extended.UI
         {
             InitializeComponent();
             InicializarEstadoFormulario();
+            InicializarDiccionario();
+            InicializarSintaxis();
+            InicializarNavegacion();
         }
 
         private void InicializarEstadoFormulario()
         {
             btnExportar.Enabled = false;
-            lblFuente.Text      = "Código escrito en el editor";
-            toolTipPrincipal.SetToolTip(lblFuente, "Editor de código activo");
+            lblFuente.Text      = "Codigo escrito en el editor";
+            toolTipPrincipal.SetToolTip(lblFuente, "Editor de codigo activo");
             ActualizarResumen(null);
             ActualizarBarraEstado(null);
         }
@@ -58,7 +61,7 @@ namespace C_Extended.UI
         {
             using (var dlg = new OpenFileDialog
             {
-                Title       = "Cargar archivo de código",
+                Title       = "Cargar archivo de codigo",
                 Filter      = "Archivos de texto (*.txt)|*.txt|Archivos C# (*.cs)|*.cs|Todos los archivos (*.*)|*.*",
                 FilterIndex = 1
             })
@@ -77,8 +80,8 @@ namespace C_Extended.UI
         }
 
         /// <summary>
-        /// Lee un archivo de texto aplicando detección y consumo riguroso de BOM,
-        /// validación estricta de codificación (sin sustitución silenciosa con U+FFFD)
+        /// Lee un archivo de texto aplicando deteccion y consumo riguroso de BOM,
+        /// validacion estricta de codificacion (sin sustitucion silenciosa con U+FFFD)
         /// y rechazo claro de codificaciones no admitidas como UTF-32.
         /// </summary>
 
@@ -98,8 +101,8 @@ namespace C_Extended.UI
                 contenido = null;
                 errorMensaje =
                     "El archivo contiene caracteres nulos y no puede " +
-                    "cargarse como código de texto.\n" +
-                    "Guárdalo nuevamente como texto UTF-8.";
+                    "cargarse como codigo de texto.\n" +
+                    "Guardalo nuevamente como texto UTF-8.";
 
                 return false;
             }
@@ -115,7 +118,7 @@ namespace C_Extended.UI
             {
                 byte[] bytes = File.ReadAllBytes(ruta);
 
-                // Archivo vacío
+                // Archivo vacio
                 if (bytes.Length == 0)
                 {
                     contenido = "";
@@ -125,12 +128,12 @@ namespace C_Extended.UI
                 // 1. Detectar firmas de 4 bytes (UTF-32 LE y BE)
                 if (bytes.Length >= 4 && bytes[0] == 0xFF && bytes[1] == 0xFE && bytes[2] == 0x00 && bytes[3] == 0x00)
                 {
-                    errorMensaje = "La codificación detectada es UTF-32 LE, la cual no está admitida por el analizador.\nPor favor guarde el archivo en codificación UTF-8 o UTF-16.";
+                    errorMensaje = "La codificacion detectada es UTF-32 LE, la cual no esta admitida por el analizador.\nPor favor guarde el archivo en codificacion UTF-8 o UTF-16.";
                     return false;
                 }
                 if (bytes.Length >= 4 && bytes[0] == 0x00 && bytes[1] == 0x00 && bytes[2] == 0xFE && bytes[3] == 0xFF)
                 {
-                    errorMensaje = "La codificación detectada es UTF-32 BE, la cual no está admitida por el analizador.\nPor favor guarde el archivo en codificación UTF-8 o UTF-16.";
+                    errorMensaje = "La codificacion detectada es UTF-32 BE, la cual no esta admitida por el analizador.\nPor favor guarde el archivo en codificacion UTF-8 o UTF-16.";
                     return false;
                 }
 
@@ -145,7 +148,7 @@ namespace C_Extended.UI
                     }
                     catch (DecoderFallbackException)
                     {
-                        errorMensaje = "El archivo presenta encabezado UTF-8 (BOM) pero contiene bytes no válidos para la codificación UTF-8.";
+                        errorMensaje = "El archivo presenta encabezado UTF-8 (BOM) pero contiene bytes no validos para la codificacion UTF-8.";
                         return false;
                     }
                 }
@@ -161,7 +164,7 @@ namespace C_Extended.UI
                     }
                     catch (DecoderFallbackException)
                     {
-                        errorMensaje = "El archivo presenta encabezado UTF-16 LE pero contiene secuencias de bytes no válidas.";
+                        errorMensaje = "El archivo presenta encabezado UTF-16 LE pero contiene secuencias de bytes no validas.";
                         return false;
                     }
                 }
@@ -177,7 +180,7 @@ namespace C_Extended.UI
                     }
                     catch (DecoderFallbackException)
                     {
-                        errorMensaje = "El archivo presenta encabezado UTF-16 BE pero contiene secuencias de bytes no válidas.";
+                        errorMensaje = "El archivo presenta encabezado UTF-16 BE pero contiene secuencias de bytes no validas.";
                         return false;
                     }
                 }
@@ -193,7 +196,7 @@ namespace C_Extended.UI
                     }
                 }
 
-                // 6. Decodificación estricta UTF-8 sin BOM
+                // 6. Decodificacion estricta UTF-8 sin BOM
                 try
                 {
                     var encUtf8Strict = new UTF8Encoding(false, throwOnInvalidBytes: true);
@@ -202,7 +205,7 @@ namespace C_Extended.UI
                 }
                 catch (DecoderFallbackException)
                 {
-                    errorMensaje = "El archivo no contiene una codificación UTF-8 válida y fue rechazado para evitar distorsión del código fuente.\nGuarde el archivo como texto UTF-8.";
+                    errorMensaje = "El archivo no contiene una codificacion UTF-8 valida y fue rechazado para evitar distorsion del codigo fuente.\nGuarde el archivo como texto UTF-8.";
                     return false;
                 }
             }
@@ -243,16 +246,17 @@ namespace C_Extended.UI
         // ---- Analizar ----
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
+            temporizadorAnalisis.Stop();
             string texto = rtbEditor.Text;
             if (string.IsNullOrWhiteSpace(texto))
             {
-                MessageBox.Show("Escribe o carga código antes de analizar.",
-                    "Editor vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Escribe o carga codigo antes de analizar.",
+                    "Editor vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             string fuente = string.IsNullOrEmpty(_rutaArchivoCargado)
-                ? "Código escrito en el editor"
+                ? "Codigo escrito en el editor"
                 : Path.GetFileName(_rutaArchivoCargado);
 
             try
@@ -282,12 +286,12 @@ namespace C_Extended.UI
                 InvalidarResultados();
 
                 MessageBox.Show(
-                    $"Ocurrió un error inesperado durante el análisis léxico:\n{ex.Message}",
-                    "Error del motor léxico",
+                    $"Ocurrio un error inesperado durante el analisis lexico o sintactico:\n{ex.Message}",
+                    "Error del analizador",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
 
-                lblEstado.Text = "Error en análisis: " + ex.Message;
+                lblEstado.Text = "Error en analisis: " + ex.Message;
                 lblEstado.ForeColor = ColorError;
             }
         }
@@ -297,27 +301,33 @@ namespace C_Extended.UI
         {
             if (_ultimoResultado == null || !_resultadosValidos)
             {
-                MessageBox.Show("Realiza un análisis antes de exportar.",
+                MessageBox.Show("Realiza un analisis antes de exportar.",
                     "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             using (var dlg = new SaveFileDialog
             {
-                Title       = "Exportar resultados del análisis",
+                Title       = "Exportar resultados del analisis",
                 Filter      = "Archivo de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*",
                 FilterIndex = 1,
                 FileName    = "resultados_c_extended.txt"
             })
             {
                 if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (EsArchivoFuente(dlg.FileName))
+                {
+                    MessageBox.Show("Elige otro nombre: el informe no debe sobrescribir el codigo fuente cargado.",
+                        "Proteger codigo fuente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 try
                 {
                     Exportador.ExportarTxt(dlg.FileName, _ultimoResultado);
 
                     MessageBox.Show($"Resultados exportados correctamente en:\n{dlg.FileName}",
-                        "Exportación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        "Exportacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (IOException ex)
                 {
@@ -326,10 +336,17 @@ namespace C_Extended.UI
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Sin permisos para escribir en la ubicación seleccionada.",
+                    MessageBox.Show("Sin permisos para escribir en la ubicacion seleccionada.",
                         "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private bool EsArchivoFuente(string destino)
+        {
+            return !string.IsNullOrEmpty(_rutaArchivoCargado) &&
+                string.Equals(Path.GetFullPath(destino), Path.GetFullPath(_rutaArchivoCargado),
+                    StringComparison.OrdinalIgnoreCase);
         }
 
         // ---- Limpiar ----
@@ -340,8 +357,8 @@ namespace C_Extended.UI
             _suprimiendoCambio  = false;
 
             _rutaArchivoCargado = null;
-            lblFuente.Text      = "Código escrito en el editor";
-            toolTipPrincipal.SetToolTip(lblFuente, "Editor de código activo");
+            lblFuente.Text      = "Codigo escrito en el editor";
+            toolTipPrincipal.SetToolTip(lblFuente, "Editor de codigo activo");
 
             InvalidarResultados();
             pnlNumeros.Invalidate();
@@ -351,7 +368,7 @@ namespace C_Extended.UI
         }
 
         // ================================================================
-        // Eventos del Editor y Numeración
+        // Eventos del Editor y Numeracion
         // ================================================================
         private void rtbEditor_TextChanged(object sender, EventArgs e)
         {
@@ -359,15 +376,15 @@ namespace C_Extended.UI
 
             if (_suprimiendoCambio) return;
 
-            if (_resultadosValidos)
+            temporizadorAnalisis.Stop();
+            InvalidarResultados();
+            ActualizarBarraEstado(null);
+            if (!string.IsNullOrWhiteSpace(rtbEditor.Text))
             {
-                InvalidarResultados();
-                ActualizarBarraEstado(null);
-                lblEstado.Text      = "Código modificado. Resultados anteriores invalidados. Vuelve a analizar.";
-                lblEstado.ForeColor = ColorAdvertencia;
+                lblEstado.Text = "Codigo modificado. Actualizando analisis...";
+                temporizadorAnalisis.Start();
             }
         }
-
         private void rtbEditor_VScroll(object sender, EventArgs e) => pnlNumeros.Invalidate();
         private void rtbEditor_Resize(object sender, EventArgs e)  => pnlNumeros.Invalidate();
         private void rtbEditor_SelectionChanged(object sender, EventArgs e) => pnlNumeros.Invalidate();
@@ -378,7 +395,7 @@ namespace C_Extended.UI
 
             int totalLineas = Math.Max(1, rtbEditor.Lines.Length);
 
-            // Ajustar el margen a la cantidad real de líneas.
+            // Ajustar el margen a la cantidad real de lineas.
             int digitos = totalLineas.ToString().Length;
             int anchoRequerido = Math.Max(48, 16 + digitos * 9);
 
@@ -445,6 +462,9 @@ namespace C_Extended.UI
             dgvErrores.Rows.Clear();
             if (r.Errores.Count == 0)
             {
+                lblSinErrores.Text = r.ErroresSintacticos.Count > 0
+                    ? "No se encontraron errores lexicos.\nHay errores sintacticos; consulta su pestana."
+                    : "No se encontraron errores lexicos.\nConsulta tambien el resultado sintactico.";
                 lblSinErrores.Visible = true;
                 dgvErrores.Visible    = false;
             }
@@ -460,7 +480,7 @@ namespace C_Extended.UI
                 }
             }
 
-            // ---- Símbolos ----
+            // ---- Simbolos ----
             dgvSimbolos.Rows.Clear();
             int ns = 1;
             foreach (var s in r.Simbolos)
@@ -469,7 +489,8 @@ namespace C_Extended.UI
                                      s.LineaPrimeraAparicion, s.ColumnaInicio);
             }
 
-            // ---- Estadísticas, Resumen y Estado ----
+            // ---- Estadisticas, Resumen y Estado ----
+            MostrarSintaxis(r);
             MostrarEstadisticas(r);
             ActualizarResumen(r);
             ActualizarBarraEstado(r);
@@ -479,15 +500,22 @@ namespace C_Extended.UI
         {
             var sb = new StringBuilder();
             sb.AppendLine("=============================================================");
-            sb.AppendLine("  ESTADÍSTICAS DEL ANÁLISIS LÉXICO");
+            sb.AppendLine("  ESTADISTICAS DEL ANALISIS LEXICO Y SINTACTICO");
             sb.AppendLine($"  Fecha y hora: {r.FechaHora:yyyy-MM-dd HH:mm:ss}");
             sb.AppendLine($"  Fuente      : {r.NombreFuente}");
             sb.AppendLine("=============================================================");
             sb.AppendLine($"Tokens totales reconocidos : {r.Tokens.Count}");
-            sb.AppendLine($"Errores léxicos detectados : {r.Errores.Count}");
-            sb.AppendLine($"Identificadores únicos     : {r.Simbolos.Count}");
-            sb.AppendLine($"Total de líneas procesadas : {r.TotalLineas}");
-            sb.AppendLine($"Tiempo de ejecución        : {r.TiempoMs} ms");
+            sb.AppendLine($"Errores lexicos detectados : {r.Errores.Count}");
+            sb.AppendLine("Estado sintactico          : " + (r.SintaxisEvaluada ? "Evaluado" : "Pendiente por errores lexicos"));
+            sb.AppendLine("Errores sintacticos        : " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "No evaluados"));
+            sb.AppendLine("Errores totales detectados : " + r.TotalErrores);
+            sb.AppendLine("Estructuras procesadas     : " + (r.SintaxisEvaluada ? r.TotalInstrucciones.ToString() : "No evaluadas"));
+            sb.AppendLine("Declaraciones encontradas  : " + (r.SintaxisEvaluada ? r.Declaraciones.Count.ToString() : "No evaluadas"));
+            sb.AppendLine("Tiempo lexico              : " + r.TiempoMs + " ms");
+            sb.AppendLine("Tiempo sintactico          : " + (r.SintaxisEvaluada ? r.TiempoSintacticoMs + " ms" : "No evaluado"));
+            sb.AppendLine($"Identificadores unicos     : {r.Simbolos.Count}");
+            sb.AppendLine($"Total de lineas procesadas : {r.TotalLineas}");
+            sb.AppendLine($"Tiempo total                : {r.TiempoTotalMs} ms");
             sb.AppendLine();
 
             var conteos = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -497,7 +525,7 @@ namespace C_Extended.UI
                 conteos[t.TipoToken]++;
             }
 
-            sb.AppendLine("Distribución de tokens por categoría:");
+            sb.AppendLine("Distribucion de tokens por categoria:");
             int suma = 0;
             foreach (var kv in conteos)
             {
@@ -518,19 +546,21 @@ namespace C_Extended.UI
             {
                 lblResumenTokens.Text   = "Tokens: 0";
                 lblResumenErrores.Text  = "Errores: 0";
-                lblResumenErrores.ForeColor = Color.FromArgb(0, 200, 80);
-                lblResumenSimbolos.Text = "Símbolos: 0";
-                lblResumenLineas.Text   = "Líneas: 0";
+                lblResumenErrores.ForeColor = ColorTexto;
+                toolTipPrincipal.SetToolTip(lblResumenErrores, "Sin resultados vigentes. Ambas etapas estan pendientes.");
+                lblResumenSimbolos.Text = "Simbolos: 0";
+                lblResumenLineas.Text   = "Lineas: 0";
                 lblResumenTiempo.Text   = "Tiempo: 0 ms";
             }
             else
             {
                 lblResumenTokens.Text   = $"Tokens: {r.Tokens.Count}";
-                lblResumenErrores.Text  = $"Errores: {r.Errores.Count}";
-                lblResumenErrores.ForeColor = r.Errores.Count > 0 ? ColorError : Color.FromArgb(0, 200, 80);
-                lblResumenSimbolos.Text = $"Símbolos: {r.Simbolos.Count}";
-                lblResumenLineas.Text   = $"Líneas: {r.TotalLineas}";
-                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoMs} ms";
+                lblResumenErrores.Text  = $"Errores: {r.TotalErrores}";
+                toolTipPrincipal.SetToolTip(lblResumenErrores, "Lexicos: " + r.Errores.Count + "; sintacticos: " + (r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "pendientes"));
+                lblResumenErrores.ForeColor = r.TotalErrores > 0 ? ColorError : Color.FromArgb(0, 200, 80);
+                lblResumenSimbolos.Text = $"Simbolos: {r.Simbolos.Count}";
+                lblResumenLineas.Text   = $"Lineas: {r.TotalLineas}";
+                lblResumenTiempo.Text   = $"Tiempo: {r.TiempoTotalMs} ms";
             }
         }
 
@@ -541,14 +571,14 @@ namespace C_Extended.UI
                 lblEstado.Text      = "Listo";
                 lblEstado.ForeColor = ColorTexto;
             }
-            else if (r.Errores.Count > 0)
+            else if (r.TotalErrores > 0)
             {
-                lblEstado.Text      = $"Análisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores detectados ({r.TiempoMs} ms).";
+                lblEstado.Text      = $"Analisis completado: {r.Tokens.Count} tokens, {r.Errores.Count} errores lexicos, sintacticos: {(r.SintaxisEvaluada ? r.ErroresSintacticos.Count.ToString() : "pendientes")} ({r.TiempoTotalMs} ms).";
                 lblEstado.ForeColor = ColorError;
             }
             else
             {
-                lblEstado.Text      = $"Análisis completado con éxito: {r.Tokens.Count} tokens, 0 errores ({r.TiempoMs} ms).";
+                lblEstado.Text      = $"Analisis completado con exito: {r.Tokens.Count} tokens, 0 errores lexicos y sintacticos ({r.TiempoTotalMs} ms).";
                 lblEstado.ForeColor = Color.FromArgb(0, 200, 80);
             }
         }
@@ -562,6 +592,12 @@ namespace C_Extended.UI
             dgvTokens.Rows.Clear();
             dgvErrores.Rows.Clear();
             dgvSimbolos.Rows.Clear();
+            if (dgvSintacticos != null)
+            {
+                dgvSintacticos.Rows.Clear();
+                lblEstadoSintactico.Text = "Pendiente de analisis.";
+                lblEstadoSintactico.ForeColor = ColorTexto;
+            }
 
             _suprimiendoCambio   = true;
             txtEstadisticas.Clear();
@@ -571,18 +607,19 @@ namespace C_Extended.UI
             dgvErrores.Visible    = true;
 
             ActualizarResumen(null);
+            ActualizarBarraEstado(null);
         }
 
         /// <summary>
-        /// Representación visible para las celdas del DataGridView en tiempo de ejecución.
+        /// Representacion visible para las celdas del DataGridView en tiempo de ejecucion.
         /// </summary>
         private static string EscaparParaGrid(string s)
         {
             if (s == null) return "";
-            return s.Replace("\r\n", "↵")
-                    .Replace("\r", "↵")
-                    .Replace("\n", "↵")
-                    .Replace("\t", "→");
+            return s.Replace("\r\n", "")
+                    .Replace("\r", "")
+                    .Replace("\n", "")
+                    .Replace("\t", "->");
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)

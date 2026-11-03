@@ -1,27 +1,27 @@
 =============================================================
-  C-extended | Analizador Léxico — Informe de resultados
-  Fecha y hora de análisis   : 2026-10-15 15:37:55
-  Fecha y hora de exportación: 2026-10-15 15:40:00
+  C-extended | Analizador Lexico - Informe de resultados
+  Fecha y hora de analisis   : 2026-10-15 15:37:55
+  Fecha y hora de exportacion: 2026-10-15 15:40:00
   Fuente analizada           : prueba6_interfaz_exportacion.txt
 =============================================================
-  Convención de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de línea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulación horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> código Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 98
 Total de errores    : 1
-Símbolos únicos     : 15
-Total de líneas     : 32
-Tiempo de análisis  : 2 ms
+Simbolos unicos     : 15
+Total de lineas     : 32
+Tiempo de analisis  : 2 ms
 
---- TOKENS POR CATEGORÍA ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 19
   TK_IDENTIFICADOR               : 20
   TK_DELIMITADOR                 : 26
@@ -38,7 +38,7 @@ Tiempo de análisis  : 2 ms
   TOTAL                          : 98
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             Línea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     namespace                                     TK_RESERVADA              1       1
   2     ExportacionAvanzada                           TK_IDENTIFICADOR          1       11
@@ -139,13 +139,13 @@ Tiempo de análisis  : 2 ms
   97    }                                             TK_DELIMITADOR            30      5
   98    }                                             TK_DELIMITADOR            31      1
 
---- ERRORES LÉXICOS ---
-  #     Secuencia inválida (escapada)            Línea   Columna   Descripción
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
-  1     #                                        26      26        Carácter no permitido
+  1     #                                        26      26        Caracter no permitido
 
---- TABLA DE SÍMBOLOS ---
-  #     Identificador                       Tipo de token        Primera línea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     ExportacionAvanzada                 TK_IDENTIFICADOR     1               11
   2     Demostracion                        TK_IDENTIFICADOR     3               11

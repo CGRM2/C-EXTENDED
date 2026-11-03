@@ -3,12 +3,12 @@ namespace C_Extended.UI
     partial class FrmPrincipal
     {
         /// <summary>
-        /// Variable del diseñador requerida.
+        /// Variable del disenador requerida.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén utilizando.
+        /// Limpiar los recursos que se esten utilizando.
         /// </summary>
         /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
@@ -20,11 +20,11 @@ namespace C_Extended.UI
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region Codigo generado por el Disenador de Windows Forms
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se debe modificar
-        /// el contenido de este método con el editor de código.
+        /// Metodo necesario para admitir el Disenador. No se debe modificar
+        /// el contenido de este metodo con el editor de codigo.
         /// </summary>
         private void InitializeComponent()
         {
@@ -191,7 +191,7 @@ namespace C_Extended.UI
             this.lblFuente.Name = "lblFuente";
             this.lblFuente.Size = new System.Drawing.Size(680, 36);
             this.lblFuente.TabIndex = 4;
-            this.lblFuente.Text = "Código escrito en el editor";
+            this.lblFuente.Text = "Codigo escrito en el editor";
             this.lblFuente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // splitMain
@@ -353,7 +353,7 @@ namespace C_Extended.UI
             // 
             // colTokenLinea
             // 
-            this.colTokenLinea.HeaderText = "Línea";
+            this.colTokenLinea.HeaderText = "Linea";
             this.colTokenLinea.MinimumWidth = 6;
             this.colTokenLinea.Name = "colTokenLinea";
             this.colTokenLinea.ReadOnly = true;
@@ -377,7 +377,7 @@ namespace C_Extended.UI
             this.tabErrores.Padding = new System.Windows.Forms.Padding(3);
             this.tabErrores.Size = new System.Drawing.Size(748, 574);
             this.tabErrores.TabIndex = 1;
-            this.tabErrores.Text = "Errores léxicos";
+            this.tabErrores.Text = "Errores lexicos";
             // 
             // dgvErrores
             // 
@@ -428,7 +428,7 @@ namespace C_Extended.UI
             // 
             // colErrSecuencia
             // 
-            this.colErrSecuencia.HeaderText = "Secuencia inválida";
+            this.colErrSecuencia.HeaderText = "Secuencia invalida";
             this.colErrSecuencia.MinimumWidth = 6;
             this.colErrSecuencia.Name = "colErrSecuencia";
             this.colErrSecuencia.ReadOnly = true;
@@ -436,7 +436,7 @@ namespace C_Extended.UI
             // 
             // colErrLinea
             // 
-            this.colErrLinea.HeaderText = "Línea";
+            this.colErrLinea.HeaderText = "Linea";
             this.colErrLinea.MinimumWidth = 6;
             this.colErrLinea.Name = "colErrLinea";
             this.colErrLinea.ReadOnly = true;
@@ -452,7 +452,7 @@ namespace C_Extended.UI
             // 
             // colErrDesc
             // 
-            this.colErrDesc.HeaderText = "Descripción";
+            this.colErrDesc.HeaderText = "Descripcion";
             this.colErrDesc.MinimumWidth = 6;
             this.colErrDesc.Name = "colErrDesc";
             this.colErrDesc.ReadOnly = true;
@@ -467,7 +467,7 @@ namespace C_Extended.UI
             this.lblSinErrores.Name = "lblSinErrores";
             this.lblSinErrores.Size = new System.Drawing.Size(742, 568);
             this.lblSinErrores.TabIndex = 1;
-            this.lblSinErrores.Text = "No se encontraron errores léxicos.";
+            this.lblSinErrores.Text = "No se encontraron errores lexicos.";
             this.lblSinErrores.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblSinErrores.Visible = false;
             // 
@@ -479,7 +479,7 @@ namespace C_Extended.UI
             this.tabSimbolos.Name = "tabSimbolos";
             this.tabSimbolos.Size = new System.Drawing.Size(748, 574);
             this.tabSimbolos.TabIndex = 2;
-            this.tabSimbolos.Text = "Tabla de símbolos";
+            this.tabSimbolos.Text = "Tabla de simbolos";
             // 
             // dgvSimbolos
             // 
@@ -546,7 +546,7 @@ namespace C_Extended.UI
             // 
             // colSimLinea
             // 
-            this.colSimLinea.HeaderText = "Primera línea";
+            this.colSimLinea.HeaderText = "Primera linea";
             this.colSimLinea.MinimumWidth = 6;
             this.colSimLinea.Name = "colSimLinea";
             this.colSimLinea.ReadOnly = true;
@@ -568,7 +568,7 @@ namespace C_Extended.UI
             this.tabEstadisticas.Padding = new System.Windows.Forms.Padding(6);
             this.tabEstadisticas.Size = new System.Drawing.Size(748, 574);
             this.tabEstadisticas.TabIndex = 3;
-            this.tabEstadisticas.Text = "Estadísticas";
+            this.tabEstadisticas.Text = "Estadisticas";
             // 
             // txtEstadisticas
             // 
@@ -620,7 +620,7 @@ namespace C_Extended.UI
             this.lblResumenLineas.Name = "lblResumenLineas";
             this.lblResumenLineas.Size = new System.Drawing.Size(65, 20);
             this.lblResumenLineas.TabIndex = 4;
-            this.lblResumenLineas.Text = "Líneas: 0";
+            this.lblResumenLineas.Text = "Lineas: 0";
             // 
             // lblResumenSimbolos
             // 
@@ -630,7 +630,7 @@ namespace C_Extended.UI
             this.lblResumenSimbolos.Name = "lblResumenSimbolos";
             this.lblResumenSimbolos.Size = new System.Drawing.Size(86, 20);
             this.lblResumenSimbolos.TabIndex = 3;
-            this.lblResumenSimbolos.Text = "Símbolos: 0";
+            this.lblResumenSimbolos.Text = "Simbolos: 0";
             // 
             // lblResumenErrores
             // 
@@ -701,7 +701,7 @@ namespace C_Extended.UI
             this.MinimumSize = new System.Drawing.Size(1000, 640);
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "C-extended | Analizador léxico";
+            this.Text = "C-extended | Analizador lexico y sintactico";
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.pnlBarra.ResumeLayout(false);
             this.splitMain.Panel1.ResumeLayout(false);

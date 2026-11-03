@@ -3,13 +3,13 @@ using System;
 namespace C_Extended.Core
 {
     /// <summary>
-    /// Representa un error léxico detectado durante el análisis.
+    /// Representa un error lexico detectado durante el analisis.
     /// CaracterInvalido contiene la secuencia completa que produjo el error.
-    /// Línea y columna comienzan en 1 e indican el inicio de la secuencia.
+    /// Linea y columna comienzan en 1 e indican el inicio de la secuencia.
     /// </summary>
     public sealed class ErrorLexico
     {
-        /// <summary>Secuencia completa de caracteres inválidos o mal formados.</summary>
+        /// <summary>Secuencia completa de caracteres invalidos o mal formados.</summary>
         public string CaracterInvalido { get; private set; }
         public int    Linea            { get; private set; }
         public int    Columna          { get; private set; }
@@ -24,7 +24,7 @@ namespace C_Extended.Core
         }
 
         public override string ToString()
-            => $"Error en {Linea}:{Columna} — {Descripcion} (\"{CaracterInvalido}\")";
+            => $"Error en {Linea}:{Columna} - {Descripcion} (\"{CaracterInvalido}\")";
     }
 }
 
