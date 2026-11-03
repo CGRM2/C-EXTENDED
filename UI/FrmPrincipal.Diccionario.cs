@@ -47,7 +47,7 @@ namespace C_Extended.UI
             campos.Controls.Add(txtPalabra, 1, 0);
             campos.Controls.Add(new Label { Text = "Tipo", AutoSize = true }, 0, 1);
             campos.Controls.Add(cboTipoPalabra, 1, 1);
-            campos.Controls.Add(new Label { Text = "Descripción", AutoSize = true }, 0, 2);
+            campos.Controls.Add(new Label { Text = "Descripcion", AutoSize = true }, 0, 2);
             campos.Controls.Add(txtDescripcionPalabra, 1, 2);
             var acciones = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true, WrapContents = true };
             AgregarAccion(acciones, "Nuevo", () => LimpiarEntrada());
@@ -149,7 +149,7 @@ namespace C_Extended.UI
                 MessageBox.Show("Selecciona la palabra que deseas eliminar.");
                 return;
             }
-            if (MessageBox.Show("¿Eliminar '" + palabraSeleccionada + "' del diccionario?",
+            if (MessageBox.Show("Eliminar '" + palabraSeleccionada + "' del diccionario?",
                 "Diccionario", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             try
             {

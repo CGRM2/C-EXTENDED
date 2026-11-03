@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,13 +13,13 @@ namespace C_Extended.UI
 
         private void InicializarSintaxis()
         {
-            Text = "C-extended | Analizador léxico y sintáctico";
-            var pagina = new TabPage("Errores sintácticos") {
+            Text = "C-extended | Analizador lexico y sintactico";
+            var pagina = new TabPage("Errores sintacticos") {
                 BackColor = Color.FromArgb(28, 28, 28), ForeColor = ColorTexto
             };
             lblEstadoSintactico = new Label {
                 Dock = DockStyle.Top, Height = 65, Padding = new Padding(8),
-                Text = "Pendiente de análisis.", ForeColor = ColorTexto
+                Text = "Pendiente de analisis.", ForeColor = ColorTexto
             };
             dgvSintacticos = new DataGridView {
                 Dock = DockStyle.Fill, ReadOnly = true, AllowUserToAddRows = false,
@@ -34,9 +34,9 @@ namespace C_Extended.UI
             };
             dgvSintacticos.Columns.Add("Numero", "#");
             dgvSintacticos.Columns.Add("Encontrado", "Encontrado");
-            dgvSintacticos.Columns.Add("Linea", "Línea");
+            dgvSintacticos.Columns.Add("Linea", "Linea");
             dgvSintacticos.Columns.Add("Columna", "Columna");
-            dgvSintacticos.Columns.Add("Descripcion", "Descripción / corrección");
+            dgvSintacticos.Columns.Add("Descripcion", "Descripcion / correccion");
             dgvSintacticos.Columns[2].MinimumWidth = 60;
             dgvSintacticos.Columns[3].MinimumWidth = 75;
             dgvSintacticos.Columns[0].FillWeight = 25;
@@ -60,22 +60,22 @@ namespace C_Extended.UI
             paginas.Insert(2, pagina);
             tabResultados.TabPages.Clear();
             tabResultados.TabPages.AddRange(paginas.ToArray());
-            dgvTokens.Columns.Add("UsoSintactico", "Declaración sintáctica");
+            dgvTokens.Columns.Add("UsoSintactico", "Declaracion sintactica");
             dgvSimbolos.Columns.Add("Declaraciones", "Declaraciones encontradas");
             dgvTokens.Columns["UsoSintactico"].MinimumWidth = 200;
             dgvSimbolos.Columns["Declaraciones"].MinimumWidth = 200;
             toolTipPrincipal.SetToolTip(dgvSimbolos,
-                "Identificadores léxicos y declaraciones encontradas por nombre. No resuelve ámbitos ni verifica tipos.");
+                "Identificadores lexicos y declaraciones encontradas por nombre. No resuelve ambitos ni verifica tipos.");
         }
 
         private void MostrarAyudaSintaxis()
         {
             var respuesta = MessageBox.Show(this,
-                "Carga un archivo o escribe código y pulsa Analizar.\n" +
-                "Revisa primero Errores léxicos y después Errores sintácticos.\n" +
-                "Cada error indica su línea, columna y descripción. Corrige el código y vuelve a analizar.\n\n" +
-                "¿Deseas consultar el Manual de Uso completo?",
-                "Ayuda rápida", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                "Carga un archivo o escribe codigo y pulsa Analizar.\n" +
+                "Revisa primero Errores lexicos y despues Errores sintacticos.\n" +
+                "Cada error indica su linea, columna y descripcion. Corrige el codigo y vuelve a analizar.\n\n" +
+                "Deseas consultar el Manual de Uso completo?",
+                "Ayuda rapida", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (respuesta != DialogResult.Yes) return;
             try
             {
@@ -113,13 +113,13 @@ namespace C_Extended.UI
             dgvSintacticos.Rows.Clear();
             if (!resultado.SintaxisEvaluada)
             {
-                lblEstadoSintactico.Text = "ANÁLISIS SINTÁCTICO PENDIENTE: corrige los errores léxicos y vuelve a analizar. No se puede afirmar que la sintaxis sea correcta.";
+                lblEstadoSintactico.Text = "ANALISIS SINTACTICO PENDIENTE: corrige los errores lexicos y vuelve a analizar. No se puede afirmar que la sintaxis sea correcta.";
                 lblEstadoSintactico.ForeColor = ColorAdvertencia;
                 return;
             }
             lblEstadoSintactico.Text = resultado.ErroresSintacticos.Count == 0
-                ? "Sin errores sintácticos según la gramática de C-Extended. Esto no verifica tipos ni variables declaradas."
-                : "Errores sintácticos: " + resultado.ErroresSintacticos.Count + ". Corrige las primeras filas y vuelve a analizar para reducir errores derivados.";
+                ? "Sin errores sintacticos segun la gramatica de C-Extended. Esto no verifica tipos ni variables declaradas."
+                : "Errores sintacticos: " + resultado.ErroresSintacticos.Count + ". Corrige las primeras filas y vuelve a analizar para reducir errores derivados.";
             lblEstadoSintactico.ForeColor = resultado.ErroresSintacticos.Count == 0 ? Color.FromArgb(0, 200, 80) : ColorError;
             int numero = 1;
             foreach (var error in resultado.ErroresSintacticos)

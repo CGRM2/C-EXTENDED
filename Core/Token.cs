@@ -3,8 +3,8 @@ using System;
 namespace C_Extended.Core
 {
     /// <summary>
-    /// Representa un token reconocido por el analizador léxico de C-extended.
-    /// Línea y columna comienzan en 1.
+    /// Representa un token reconocido por el analizador lexico de C-extended.
+    /// Linea y columna comienzan en 1.
     /// </summary>
     public sealed class Token
     {

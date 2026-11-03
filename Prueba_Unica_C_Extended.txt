@@ -1,119 +1,120 @@
 // PRUEBA UNICA DE C-EXTENDED
-// Este archivo re�ne las 22 entradas de la matriz en bloques identificados.
+// Este archivo reune las 22 entradas de la matriz en bloques identificados.
 // Para comprobar un caso por separado, copia solamente su bloque al editor.
-// Si cargas TODO el archivo, habr� errores l�xicos deliberados y la sintaxis
-// quedar� pendiente. Eso es normal: no equivale a ejecutar los 22 casos aislados.
-// El comentario sin cierre P13 est� al final para no ocultar los dem�s bloques.
+// Si cargas TODO el archivo, habra errores lexicos deliberados y la sintaxis
+// quedara pendiente. Eso es normal: no equivale a ejecutar los 22 casos aislados.
+// El comentario sin cierre P13 esta al final para no ocultar los demas bloques.
 
 // ============================================================
-// P01 - Declaraci�n entera
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 5 tokens; 1 s�mbolos
+// P01 - Declaracion entera
+// Esperado aislado: 0 lexicos; 0 sintacticos; 5 tokens; 1 simbolos
 int numero = 10;
 
 // ============================================================
 // P02 - Decimal de muchas cifras
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 5 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 5 tokens; 1 simbolos
 double pi = 3.141592653589793238462643383279;
 
 // ============================================================
 // P03 - Identificador largo
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 5 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 5 tokens; 1 simbolos
 var identificador_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1;
 
 // ============================================================
-// P04 - Identificador Unicode
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 5 tokens; 1 s�mbolos
-var a�o = 2026;
+// P04 - Identificador ASCII
+// Esperado aislado: 0 lexicos; 0 sintacticos; 5 tokens; 1 simbolos
+var anio = 2026;
 
 // ============================================================
 // P05 - Cadena con escapes
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 5 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 5 tokens; 1 simbolos
 string texto = "Hola\n\"CUNOR\"";
 
 // ============================================================
-// P06 - Car�cter con escape
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 5 tokens; 1 s�mbolos
+// P06 - Caracter con escape
+// Esperado aislado: 0 lexicos; 0 sintacticos; 5 tokens; 1 simbolos
 char salto = '\n';
 
 // ============================================================
 // P07 - Operadores y control
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 27 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 27 tokens; 1 simbolos
 var x = 1; if (x >= 1 && x != 2 || !false) { x += 2; x++; }
 
 // ============================================================
 // P08 - Comentarios y delimitadores
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 7 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 7 tokens; 1 simbolos
 // inicio
+
 /* bloque */ int[] datos;
 
 // ============================================================
 // P09 - Funciones y ciclos
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 39 tokens; 4 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 39 tokens; 4 simbolos
 func sumar(int a, int b) { return a + b; } for (var i=0; i<3; i++) { sumar(i, 1); }
 
 // ============================================================
-// P10 - Entrada vac�a
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 0 tokens; 0 s�mbolos
+// P10 - Entrada vacia
+// Esperado aislado: 0 lexicos; 0 sintacticos; 0 tokens; 0 simbolos
 
 
 // ============================================================
-// P11 - Errores combinados y recuperaci�n
-// Esperado aislado: 3 l�xicos; sintaxis pendiente; 17 tokens; 4 s�mbolos
+// P11 - Errores combinados y recuperacion
+// Esperado aislado: 3 lexicos; sintaxis pendiente; 17 tokens; 4 simbolos
 var x = @; var y = 12abc; var z = 1..2; var ok = 3;
 
 // ============================================================
-// P12 - Cadena sin cerrar recupera l�nea
-// Esperado aislado: 1 l�xicos; sintaxis pendiente; 8 tokens; 2 s�mbolos
+// P12 - Cadena sin cerrar recupera linea
+// Esperado aislado: 1 lexicos; sintaxis pendiente; 8 tokens; 2 simbolos
 string x = "sin cierre
 var ok = 1;
 
 // ============================================================
 // P14 - Comentarios anidados no admitidos
-// Esperado aislado: 1 l�xicos; sintaxis pendiente; 2 tokens; 1 s�mbolos
+// Esperado aislado: 1 lexicos; sintaxis pendiente; 2 tokens; 1 simbolos
 /* exterior /* interior */ resto */
 
 // ============================================================
 // P15 - Decimales incompletos
-// Esperado aislado: 2 l�xicos; sintaxis pendiente; 8 tokens; 2 s�mbolos
+// Esperado aislado: 2 lexicos; sintaxis pendiente; 8 tokens; 2 simbolos
 var a = .5; var b = 1.;
 
 // ============================================================
-// P16 - Car�cter de longitud inv�lida
-// Esperado aislado: 2 l�xicos; sintaxis pendiente; 8 tokens; 2 s�mbolos
+// P16 - Caracter de longitud invalida
+// Esperado aislado: 2 lexicos; sintaxis pendiente; 8 tokens; 2 simbolos
 char a = ''; char b = 'ab';
 
 // ============================================================
-// P17 - Escape inv�lido
-// Esperado aislado: 1 l�xicos; sintaxis pendiente; 4 tokens; 1 s�mbolos
+// P17 - Escape invalido
+// Esperado aislado: 1 lexicos; sintaxis pendiente; 4 tokens; 1 simbolos
 string x = "\q";
 
 // ============================================================
 // P18 - Punto y coma ausente
-// Esperado aislado: 0 l�xicos; 1 sint�cticos; 4 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 1 sintacticos; 4 tokens; 1 simbolos
 int x = 10
 
 // ============================================================
 // P19 - Operando ausente
-// Esperado aislado: 0 l�xicos; 1 sint�cticos; 6 tokens; 1 s�mbolos
+// Esperado aislado: 0 lexicos; 1 sintacticos; 6 tokens; 1 simbolos
 var x = 5 + ;
 
 // ============================================================
 // P20 - Control fuera de contexto
-// Esperado aislado: 0 l�xicos; 3 sint�cticos; 7 tokens; 0 s�mbolos
+// Esperado aislado: 0 lexicos; 3 sintacticos; 7 tokens; 0 simbolos
 return 1; break; continue;
 
 // ============================================================
 // P21 - Arreglos de tipo propio
-// Esperado aislado: 0 l�xicos; 0 sint�cticos; 7 tokens; 2 s�mbolos
+// Esperado aislado: 0 lexicos; 0 sintacticos; 7 tokens; 2 simbolos
 Persona[][] datos;
 
 // ============================================================
-// P22 - Contexto de funci�n independiente
-// Esperado aislado: 0 l�xicos; 1 sint�cticos; 14 tokens; 1 s�mbolos
+// P22 - Contexto de funcion independiente
+// Esperado aislado: 0 lexicos; 1 sintacticos; 14 tokens; 1 simbolos
 while (true) { func f() { break; } }
 
 // ============================================================
 // P13 - Comentario sin cerrar
-// Esperado aislado: 1 l�xicos; sintaxis pendiente; 5 tokens; 1 s�mbolos
+// Esperado aislado: 1 lexicos; sintaxis pendiente; 5 tokens; 1 simbolos
 int x = 1; /* sin cierre
 

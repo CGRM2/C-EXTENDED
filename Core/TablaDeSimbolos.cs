@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace C_Extended.Core
 {
     /// <summary>
-    /// Entrada de la tabla de símbolos. TipoToken es la categoría léxica
-    /// (siempre TK_IDENTIFICADOR), no el tipo semántico de la variable.
-    /// La primera ubicación no cambia por apariciones posteriores.
+    /// Entrada de la tabla de simbolos. TipoToken es la categoria lexica
+    /// (siempre TK_IDENTIFICADOR), no el tipo semantico de la variable.
+    /// La primera ubicacion no cambia por apariciones posteriores.
     /// </summary>
     public sealed class Simbolo
     {
@@ -25,8 +25,8 @@ namespace C_Extended.Core
     }
 
     /// <summary>
-    /// Diccionario de identificadores únicos con orden de aparición.
-    /// La comparación es sensible a mayúsculas y minúsculas (Ordinal).
+    /// Diccionario de identificadores unicos con orden de aparicion.
+    /// La comparacion es sensible a mayusculas y minusculas (Ordinal).
     /// </summary>
     public sealed class TablaDeSimbolos
     {
@@ -37,7 +37,7 @@ namespace C_Extended.Core
 
         /// <summary>
         /// Registra un identificador solo si no existe ya en la tabla.
-        /// Conserva la primera ubicación; ignora apariciones posteriores.
+        /// Conserva la primera ubicacion; ignora apariciones posteriores.
         /// </summary>
         public void AgregarSimbolo(string lexema, int linea, int columna)
         {
@@ -47,7 +47,7 @@ namespace C_Extended.Core
             ordenAparicion.Add(simbolo);
         }
 
-        /// <summary>Devuelve los símbolos en orden de primera aparición.</summary>
+        /// <summary>Devuelve los simbolos en orden de primera aparicion.</summary>
         public List<Simbolo> ObtenerSimbolos()
             => new List<Simbolo>(ordenAparicion);
     }

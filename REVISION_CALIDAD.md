@@ -1,29 +1,29 @@
-# Revisión de calidad del lector de errores
+# Revision de calidad del lector de errores
 
 ## Problemas corregidos
 
-- Se rechazaban declaraciones de arreglos de tipos propios. Ahora se reconoce la secuencia tipo, pares [] e identificador, también al iniciar un for.
-- El contexto de ciclos/switch se filtraba al cuerpo de una función anidada. Ahora se guarda, reinicia y restaura por función; un break/continue interior requiere su propio ciclo/switch.
+- Se rechazaban declaraciones de arreglos de tipos propios. Ahora se reconoce la secuencia tipo, pares [] e identificador, tambien al iniciar un for.
+- El contexto de ciclos/switch se filtraba al cuerpo de una funcion anidada. Ahora se guarda, reinicia y restaura por funcion; un break/continue interior requiere su propio ciclo/switch.
 - Se aceptaba return fuera de funciones y combinaciones de modificadores repetidos o public/private.
 - Se aceptaban arreglos de void y construcciones new void/new var.
-- La suite de regresión esperaba Pruebas, pero sus seis entradas no estaban publicadas allí. Se incluyen copias de las entradas históricas documentadas.
+- La suite de regresion esperaba Pruebas, pero sus seis entradas no estaban publicadas alli. Se incluyen copias de las entradas historicas documentadas.
 
 ## Mejoras de uso
 
-- Doble clic en errores, tokens y símbolos lleva al editor, con ubicación acotada al texto y soporte de EOF.
+- Doble clic en errores, tokens y simbolos lleva al editor, con ubicacion acotada al texto y soporte de EOF.
 - Atajos F5, Ctrl+O y Ctrl+E, explicados en tooltips y manual.
-- Protección contra sobrescritura del archivo fuente cargado al exportar un informe.
-- Caché ordinal de las clasificaciones del diccionario, invalidada después de guardar cambios.
-- README de la versión actual con instrucciones para compilar, ejecutar, probar y distinguir documentación histórica.
+- Proteccion contra sobrescritura del archivo fuente cargado al exportar un informe.
+- Cache ordinal de las clasificaciones del diccionario, invalidada despues de guardar cambios.
+- README de la version actual con instrucciones para compilar, ejecutar, probar y distinguir documentacion historica.
 
-## Validación
+## Validacion
 
-- Compilación Release de la aplicación y ambos ejecutores con MSBuild de Visual Studio y .NET Framework 4.8.
-- 125 comprobaciones aprobadas en PruebasSintaxis: casos válidos/inválidos, ubicación, recuperación, límites de profundidad, exportación, UI, limpieza, navegación y protección del destino.
-- 76 comprobaciones aprobadas en PruebasConsola: tokens, errores léxicos, símbolos, recuperación, codificaciones, escapes/exportación e inicialización del formulario.
-- Los ejemplos originales válidos 1, 2 y 5 siguen aceptándose por ambas etapas.
-- Inspección de la captura de la pestaña sintáctica generada por la suite.
+- Compilacion Release de la aplicacion y ambos ejecutores con MSBuild de Visual Studio y .NET Framework 4.8.
+- 125 comprobaciones aprobadas en PruebasSintaxis: casos validos/invalidos, ubicacion, recuperacion, limites de profundidad, exportacion, UI, limpieza, navegacion y proteccion del destino.
+- 76 comprobaciones aprobadas en PruebasConsola: tokens, errores lexicos, simbolos, recuperacion, codificaciones, escapes/exportacion e inicializacion del formulario.
+- Los ejemplos originales validos 1, 2 y 5 siguen aceptandose por ambas etapas.
+- Inspeccion de la captura de la pestana sintactica generada por la suite.
 
-## Límites de la revisión
+## Limites de la revision
 
-No es una garantía de ausencia de fallos. Se conserva la gramática simplificada del curso y no se añade ejecución ni análisis semántico de tipos, nombres o ámbitos. La publicación no certifica el video, la revisión de los PDF históricos ni la ejecución en una segunda computadora.
+No es una garantia de ausencia de fallos. Se conserva la gramatica simplificada del curso y no se anade ejecucion ni analisis semantico de tipos, nombres o ambitos. La publicacion no certifica el video, la revision de los PDF historicos ni la ejecucion en una segunda computadora.

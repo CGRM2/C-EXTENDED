@@ -1,41 +1,41 @@
-# Informes originales consolidados
+# Informes consolidados de la version ASCII
 
-Cada apartado conserva el informe de un caso ejecutado independientemente.
+Las entradas Unicode de la regresion interna se representan con escapes para mantener este archivo en ASCII.
 
-## P01 Declaraci�n entera
+## P01 Declaracion entera
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P01
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 7 ms
-Tiempo total        : 7 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Tiempo sintactico   : 5 ms
+Tiempo total        : 5 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -44,7 +44,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     int                                           TK_RESERVADA              1       1
   2     numero                                        TK_IDENTIFICADOR          1       5
@@ -52,17 +52,17 @@ Tiempo de an�lisis  : 0 ms
   4     10                                            TK_NUM_ENTERO             1       14
   5     ;                                             TK_DELIMITADOR            1       16
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   numero | int | variable | 1:5
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     numero                              TK_IDENTIFICADOR     1               5
 
@@ -76,36 +76,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P02
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -114,7 +114,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     double                                        TK_RESERVADA              1       1
   2     pi                                            TK_IDENTIFICADOR          1       8
@@ -122,17 +122,17 @@ Tiempo de an�lisis  : 0 ms
   4     3.141592653589793238462643383279              TK_NUM_DECIMAL            1       13
   5     ;                                             TK_DELIMITADOR            1       45
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   pi | double | variable | 1:8
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     pi                                  TK_IDENTIFICADOR     1               8
 
@@ -146,36 +146,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P03
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -184,7 +184,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     var                                           TK_RESERVADA              1       1
   2     identificador_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa TK_IDENTIFICADOR          1       5
@@ -192,17 +192,17 @@ Tiempo de an�lisis  : 0 ms
   4     1                                             TK_NUM_ENTERO             1       1046
   5     ;                                             TK_DELIMITADOR            1       1047
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   identificador_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa | var | variable | 1:5
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     identificador_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa TK_IDENTIFICADOR     1               5
 
@@ -216,36 +216,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P04
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -254,27 +254,27 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     var                                           TK_RESERVADA              1       1
-  2     a�o                                           TK_IDENTIFICADOR          1       5
+  2     a\u00f1o                                           TK_IDENTIFICADOR          1       5
   3     =                                             TK_OP_ASIGNACION          1       9
   4     2026                                          TK_NUM_ENTERO             1       11
   5     ;                                             TK_DELIMITADOR            1       15
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  a�o | var | variable | 1:5
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  a\u00f1o | var | variable | 1:5
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
-  1     a�o                                 TK_IDENTIFICADOR     1               5
+  1     a\u00f1o                                 TK_IDENTIFICADOR     1               5
 
 =============================================================
   Fin del informe
@@ -286,36 +286,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P05
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -324,7 +324,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     string                                        TK_RESERVADA              1       1
   2     texto                                         TK_IDENTIFICADOR          1       8
@@ -332,17 +332,17 @@ Tiempo de an�lisis  : 0 ms
   4     \"Hola\\n\\\"CUNOR\\\"\"                      TK_CADENA                 1       16
   5     ;                                             TK_DELIMITADOR            1       33
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   texto | string | variable | 1:8
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     texto                               TK_IDENTIFICADOR     1               8
 
@@ -352,40 +352,40 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P06 Car�cter con escape
+## P06 Caracter con escape
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P06
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -394,7 +394,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     char                                          TK_RESERVADA              1       1
   2     salto                                         TK_IDENTIFICADOR          1       6
@@ -402,17 +402,17 @@ Tiempo de an�lisis  : 0 ms
   4     '\\n'                                         TK_CARACTER               1       14
   5     ;                                             TK_DELIMITADOR            1       18
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   salto | char | variable | 1:6
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     salto                               TK_IDENTIFICADOR     1               6
 
@@ -426,36 +426,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P07
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 27
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 5
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 3
   TK_IDENTIFICADOR               : 5
   TK_OP_ASIGNACION               : 2
@@ -467,7 +467,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 27
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     var                                           TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       5
@@ -497,17 +497,17 @@ Tiempo de an�lisis  : 0 ms
   26    ;                                             TK_DELIMITADOR            1       57
   27    }                                             TK_DELIMITADOR            1       59
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   x | var | variable | 1:5
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               5
 
@@ -521,36 +521,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P08
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 7
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 2
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 2
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_COMENTARIO_LINEA            : 1
   TK_COMENTARIO_BLOQUE           : 1
   TK_RESERVADA                   : 1
@@ -559,7 +559,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 7
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     // inicio                                     TK_COMENTARIO_LINEA       1       1
   2     /* bloque */                                  TK_COMENTARIO_BLOQUE      2       1
@@ -569,17 +569,17 @@ Tiempo de an�lisis  : 0 ms
   6     datos                                         TK_IDENTIFICADOR          2       20
   7     ;                                             TK_DELIMITADOR            2       25
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   datos | int[] | variable | 2:20
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     datos                               TK_IDENTIFICADOR     2               20
 
@@ -593,36 +593,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P09
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 39
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 5
 Declaraciones       : 4
-Tiempo sint�ctico   : 1 ms
+Tiempo sintactico   : 1 ms
 Tiempo total        : 1 ms
-S�mbolos �nicos     : 4
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 4
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 6
   TK_IDENTIFICADOR               : 10
   TK_DELIMITADOR                 : 16
@@ -633,7 +633,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 39
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     func                                          TK_RESERVADA              1       1
   2     sumar                                         TK_IDENTIFICADOR          1       6
@@ -675,20 +675,20 @@ Tiempo de an�lisis  : 0 ms
   38    ;                                             TK_DELIMITADOR            1       81
   39    }                                             TK_DELIMITADOR            1       83
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  sumar | func | funci�n | 1:6
-  a | int | par�metro | 1:16
-  b | int | par�metro | 1:23
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  sumar | func | funcion | 1:6
+  a | int | parametro | 1:16
+  b | int | parametro | 1:23
   i | var | variable | 1:53
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     sumar                               TK_IDENTIFICADOR     1               6
   2     a                                   TK_IDENTIFICADOR     1               16
@@ -701,56 +701,56 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P10 Entrada vac�a
+## P10 Entrada vacia
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P10
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 0
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 0
 Declaraciones       : 0
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 0
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 0
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TOTAL                          : 0
 
 --- TOKENS ---
   (no se encontraron tokens)
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   No se encontraron declaraciones.
 
---- TABLA DE S�MBOLOS ---
-  (tabla vac�a)
+--- TABLA DE SIMBOLOS ---
+  (tabla vacia)
 
 =============================================================
   Fin del informe
@@ -758,40 +758,40 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P11 Errores combinados y recuperaci�n
+## P11 Errores combinados y recuperacion
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P11
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 17
 Total de errores detectados: 3
-Errores l�xicos      : 3
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 3
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 4
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 4
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 4
   TK_IDENTIFICADOR               : 4
   TK_OP_ASIGNACION               : 4
@@ -800,7 +800,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 17
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     var                                           TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       5
@@ -820,21 +820,21 @@ Tiempo de an�lisis  : 0 ms
   16    3                                             TK_NUM_ENTERO             1       50
   17    ;                                             TK_DELIMITADOR            1       51
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
-  1     @                                        1       9         Car�cter no permitido
-  2     12abc                                    1       20        Identificador con inicio num�rico
-  3     1..2                                     1       35        N�mero decimal mal formado: falta un d�gito despu�s del punto
+  1     @                                        1       9         Caracter no permitido
+  2     12abc                                    1       20        Identificador con inicio numerico
+  3     1..2                                     1       35        Numero decimal mal formado: falta un digito despues del punto
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               5
   2     y                                   TK_IDENTIFICADOR     1               16
@@ -847,40 +847,40 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P12 Cadena sin cerrar recupera l�nea
+## P12 Cadena sin cerrar recupera linea
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P12
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 8
 Total de errores detectados: 1
-Errores l�xicos      : 1
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 1
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 2
-Total de l�neas     : 2
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 2
+Total de lineas     : 2
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 2
   TK_IDENTIFICADOR               : 2
   TK_OP_ASIGNACION               : 2
@@ -889,7 +889,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 8
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     string                                        TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       8
@@ -900,19 +900,19 @@ Tiempo de an�lisis  : 0 ms
   7     1                                             TK_NUM_ENTERO             2       10
   8     ;                                             TK_DELIMITADOR            2       11
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
   1     \"sin cierre                             1       12        Cadena de texto sin cerrar
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               8
   2     ok                                  TK_IDENTIFICADOR     2               5
@@ -927,36 +927,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P13
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 5
 Total de errores detectados: 1
-Errores l�xicos      : 1
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 1
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -965,7 +965,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 5
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     int                                           TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       5
@@ -973,19 +973,19 @@ Tiempo de an�lisis  : 0 ms
   4     1                                             TK_NUM_ENTERO             1       9
   5     ;                                             TK_DELIMITADOR            1       10
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
-  1     /* sin cierre                            1       12        Comentario multil�nea sin cerrar
+  1     /* sin cierre                            1       12        Comentario multilinea sin cerrar
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               5
 
@@ -999,59 +999,59 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P14
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 2
 Total de errores detectados: 1
-Errores l�xicos      : 1
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 1
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_COMENTARIO_BLOQUE           : 1
   TK_IDENTIFICADOR               : 1
   TOTAL                          : 2
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     /* exterior /* interior */                    TK_COMENTARIO_BLOQUE      1       1
   2     resto                                         TK_IDENTIFICADOR          1       28
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
   1     */                                       1       34        Cierre de comentario sin apertura /*
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     resto                               TK_IDENTIFICADOR     1               28
 
@@ -1065,36 +1065,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P15
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 8
 Total de errores detectados: 2
-Errores l�xicos      : 2
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 2
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 2
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 2
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 2
   TK_IDENTIFICADOR               : 2
   TK_OP_ASIGNACION               : 2
@@ -1102,7 +1102,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 8
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     var                                           TK_RESERVADA              1       1
   2     a                                             TK_IDENTIFICADOR          1       5
@@ -1113,20 +1113,20 @@ Tiempo de an�lisis  : 0 ms
   7     =                                             TK_OP_ASIGNACION          1       19
   8     ;                                             TK_DELIMITADOR            1       23
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
-  1     .5                                       1       9         N�mero decimal mal formado: falta un d�gito antes del punto
-  2     1.                                       1       21        N�mero decimal mal formado: falta un d�gito despu�s del punto
+  1     .5                                       1       9         Numero decimal mal formado: falta un digito antes del punto
+  2     1.                                       1       21        Numero decimal mal formado: falta un digito despues del punto
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     a                                   TK_IDENTIFICADOR     1               5
   2     b                                   TK_IDENTIFICADOR     1               17
@@ -1137,40 +1137,40 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P16 Car�cter de longitud inv�lida
+## P16 Caracter de longitud invalida
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P16
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 8
 Total de errores detectados: 2
-Errores l�xicos      : 2
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 2
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 2
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 2
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 2
   TK_IDENTIFICADOR               : 2
   TK_OP_ASIGNACION               : 2
@@ -1178,7 +1178,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 8
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     char                                          TK_RESERVADA              1       1
   2     a                                             TK_IDENTIFICADOR          1       6
@@ -1189,20 +1189,20 @@ Tiempo de an�lisis  : 0 ms
   7     =                                             TK_OP_ASIGNACION          1       21
   8     ;                                             TK_DELIMITADOR            1       27
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
-  1     ''                                       1       10        Un car�cter literal debe contener exactamente un car�cter
-  2     'ab'                                     1       23        Un car�cter literal debe contener exactamente un car�cter
+  1     ''                                       1       10        Un caracter literal debe contener exactamente un caracter
+  2     'ab'                                     1       23        Un caracter literal debe contener exactamente un caracter
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     a                                   TK_IDENTIFICADOR     1               6
   2     b                                   TK_IDENTIFICADOR     1               19
@@ -1213,40 +1213,40 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P17 Escape inv�lido
+## P17 Escape invalido
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P17
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 4
 Total de errores detectados: 1
-Errores l�xicos      : 1
-Estado sint�ctico   : Pendiente / no evaluado
-Errores sint�cticos : No evaluados
+Errores lexicos      : 1
+Estado sintactico   : Pendiente / no evaluado
+Errores sintacticos : No evaluados
 Estructuras         : No evaluadas
 Declaraciones       : No evaluadas
-Tiempo sint�ctico   : No evaluado
+Tiempo sintactico   : No evaluado
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -1254,26 +1254,26 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 4
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     string                                        TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       8
   3     =                                             TK_OP_ASIGNACION          1       10
   4     ;                                             TK_DELIMITADOR            1       16
 
---- ERRORES L�XICOS ---
-  #     Secuencia inv�lida (escapada)            L�nea   Columna   Descripci�n
+--- ERRORES LEXICOS ---
+  #     Secuencia invalida (escapada)            Linea   Columna   Descripcion
   ----------------------------------------------------------------------------------------------------
-  1     \"\\q\"                                  1       12        Secuencia de escape no v�lida en cadena
+  1     \"\\q\"                                  1       12        Secuencia de escape no valida en cadena
 
---- ERRORES SINT�CTICOS ---
-  An�lisis sint�ctico pendiente / no evaluado. Corrige primero los errores l�xicos si existen.
+--- ERRORES SINTACTICOS ---
+  Analisis sintactico pendiente / no evaluado. Corrige primero los errores lexicos si existen.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  No evaluadas: an�lisis sint�ctico pendiente.
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  No evaluadas: analisis sintactico pendiente.
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               8
 
@@ -1287,36 +1287,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P18
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 4
 Total de errores detectados: 1
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 1
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 1
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -1324,24 +1324,24 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 4
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     int                                           TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       5
   3     =                                             TK_OP_ASIGNACION          1       7
   4     10                                            TK_NUM_ENTERO             1       9
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  1:11 | fin de archivo | Se esperaba ';'; se encontr� 'fin de archivo'.
+--- ERRORES SINTACTICOS ---
+  1:11 | fin de archivo | Se esperaba ';'; se encontro 'fin de archivo'.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   x | int | variable | 1:5
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               5
 
@@ -1355,36 +1355,36 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P19
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 6
 Total de errores detectados: 1
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 1
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 1
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 1
   TK_IDENTIFICADOR               : 1
   TK_OP_ASIGNACION               : 1
@@ -1394,7 +1394,7 @@ Tiempo de an�lisis  : 0 ms
   TOTAL                          : 6
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     var                                           TK_RESERVADA              1       1
   2     x                                             TK_IDENTIFICADOR          1       5
@@ -1403,17 +1403,17 @@ Tiempo de an�lisis  : 0 ms
   5     +                                             TK_OP_ARITMETICO          1       11
   6     ;                                             TK_DELIMITADOR            1       13
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  1:13 | ; | Se esperaba una expresi�n; se encontr� ';'.
+--- ERRORES SINTACTICOS ---
+  1:13 | ; | Se esperaba una expresion; se encontro ';'.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   x | var | variable | 1:5
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     x                                   TK_IDENTIFICADOR     1               5
 
@@ -1427,43 +1427,43 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P20
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 7
 Total de errores detectados: 3
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 3
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 3
 Estructuras         : 3
 Declaraciones       : 0
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 0
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 0
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 3
   TK_NUM_ENTERO                  : 1
   TK_DELIMITADOR                 : 3
   TOTAL                          : 7
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     return                                        TK_RESERVADA              1       1
   2     1                                             TK_NUM_ENTERO             1       8
@@ -1473,19 +1473,19 @@ Tiempo de an�lisis  : 0 ms
   6     continue                                      TK_RESERVADA              1       18
   7     ;                                             TK_DELIMITADOR            1       26
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  1:8 | 1 | 'return' est� fuera de una funci�n.
-  1:11 | break | 'break' est� fuera de un ciclo o switch.
-  1:18 | continue | 'continue' est� fuera de un ciclo.
+--- ERRORES SINTACTICOS ---
+  1:8 | 1 | 'return' esta fuera de una funcion.
+  1:11 | break | 'break' esta fuera de un ciclo o switch.
+  1:18 | continue | 'continue' esta fuera de un ciclo.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   No se encontraron declaraciones.
 
---- TABLA DE S�MBOLOS ---
-  (tabla vac�a)
+--- TABLA DE SIMBOLOS ---
+  (tabla vacia)
 
 =============================================================
   Fin del informe
@@ -1497,42 +1497,42 @@ Tiempo de an�lisis  : 0 ms
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P21
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 7
 Total de errores detectados: 0
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 0
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 0
 Estructuras         : 1
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 2
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 2
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_IDENTIFICADOR               : 2
   TK_DELIMITADOR                 : 5
   TOTAL                          : 7
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     Persona                                       TK_IDENTIFICADOR          1       1
   2     [                                             TK_DELIMITADOR            1       8
@@ -1542,17 +1542,17 @@ Tiempo de an�lisis  : 0 ms
   6     datos                                         TK_IDENTIFICADOR          1       13
   7     ;                                             TK_DELIMITADOR            1       18
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  Sin errores seg�n la gram�tica de C-Extended. No se verifican tipos ni nombres declarados.
+--- ERRORES SINTACTICOS ---
+  Sin errores segun la gramatica de C-Extended. No se verifican tipos ni nombres declarados.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
   datos | Persona[][] | variable | 1:13
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     Persona                             TK_IDENTIFICADOR     1               1
   2     datos                               TK_IDENTIFICADOR     1               13
@@ -1563,47 +1563,47 @@ Tiempo de an�lisis  : 0 ms
 
 ```
 
-## P22 Contexto de funci�n independiente
+## P22 Contexto de funcion independiente
 
 ```text
 =============================================================
-  C-extended | Analizador L�xico y Sint�ctico - Informe de resultados
-  Fecha y hora de an�lisis   : 2026-11-02 23:11:04
-  Fecha y hora de exportaci�n: 2026-11-02 23:11:04
+  C-extended | Analizador Lexico y Sintactico - Informe de resultados
+  Fecha y hora de analisis   : 2026-11-02 23:55:33
+  Fecha y hora de exportacion: 2026-11-02 23:55:33
   Fuente analizada           : P22
 =============================================================
-  Convenci�n de escape reversible aplicada:
+  Convencion de escape reversible aplicada:
     '\\'     -> barra invertida literal (\)
-    '\n'     -> salto de l�nea (LF)
+    '\n'     -> salto de linea (LF)
     '\r'     -> retorno de carro (CR)
-    '\t'     -> tabulaci�n horizontal
+    '\t'     -> tabulacion horizontal
     '\"'    -> comilla doble (")
     '\0'     -> byte nulo
-    '\uXXXX' -> c�digo Unicode hexadecimal para otros caracteres de control
+    '\uXXXX' -> codigo Unicode hexadecimal para otros caracteres de control
 =============================================================
 
 --- RESUMEN ---
 Total de tokens     : 14
 Total de errores detectados: 1
-Errores l�xicos      : 0
-Estado sint�ctico   : Evaluado
-Errores sint�cticos : 1
+Errores lexicos      : 0
+Estado sintactico   : Evaluado
+Errores sintacticos : 1
 Estructuras         : 4
 Declaraciones       : 1
-Tiempo sint�ctico   : 0 ms
+Tiempo sintactico   : 0 ms
 Tiempo total        : 0 ms
-S�mbolos �nicos     : 1
-Total de l�neas     : 1
-Tiempo de an�lisis  : 0 ms
+Simbolos unicos     : 1
+Total de lineas     : 1
+Tiempo de analisis  : 0 ms
 
---- TOKENS POR CATEGOR�A ---
+--- TOKENS POR CATEGORIA ---
   TK_RESERVADA                   : 4
   TK_DELIMITADOR                 : 9
   TK_IDENTIFICADOR               : 1
   TOTAL                          : 14
 
 --- TOKENS ---
-  #     Lexema (escapado)                             Tipo de token             L�nea   Columna
+  #     Lexema (escapado)                             Tipo de token             Linea   Columna
   -----------------------------------------------------------------------------------------------
   1     while                                         TK_RESERVADA              1       1
   2     (                                             TK_DELIMITADOR            1       7
@@ -1620,17 +1620,17 @@ Tiempo de an�lisis  : 0 ms
   13    }                                             TK_DELIMITADOR            1       34
   14    }                                             TK_DELIMITADOR            1       36
 
---- ERRORES L�XICOS ---
-  No se encontraron errores l�xicos.
+--- ERRORES LEXICOS ---
+  No se encontraron errores lexicos.
 
---- ERRORES SINT�CTICOS ---
-  1:27 | break | 'break' est� fuera de un ciclo o switch.
+--- ERRORES SINTACTICOS ---
+  1:27 | break | 'break' esta fuera de un ciclo o switch.
 
---- DECLARACIONES SINT�CTICAS ENCONTRADAS (SIN RESOLUCI�N DE �MBITOS) ---
-  f | func | funci�n | 1:21
+--- DECLARACIONES SINTACTICAS ENCONTRADAS (SIN RESOLUCION DE AMBITOS) ---
+  f | func | funcion | 1:21
 
---- TABLA DE S�MBOLOS ---
-  #     Identificador                       Tipo de token        Primera l�nea   Primera columna
+--- TABLA DE SIMBOLOS ---
+  #     Identificador                       Tipo de token        Primera linea   Primera columna
   ------------------------------------------------------------------------------------------
   1     f                                   TK_IDENTIFICADOR     1               21
 

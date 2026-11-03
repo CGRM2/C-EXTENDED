@@ -1,107 +1,107 @@
 =============================================================
-  BATER�A DE PRUEBAS DE VERIFICACI�N - ENTREGABLE 4
+  BATERIA DE PRUEBAS DE VERIFICACION - ENTREGABLE 4
   C-EXTENDED | CORRECCIONES Y ROBUSTEZ
-  Fecha de ejecuci�n: 2026-11-02 23:10:43
+  Fecha de ejecucion: 2026-11-02 23:55:30
 =============================================================
 
---- 1. VERIFICACI�N DE LOS CINCO CASOS HIST�RICOS ---
-ARCHIVO | prueba1_sencillo.txt | tokens=25 | s�mbolos=3 | errores=0 | l�neas=11
+--- 1. VERIFICACION DE LOS CINCO CASOS HISTORICOS ---
+ARCHIVO | prueba1_sencillo.txt | tokens=25 | simbolos=3 | errores=0 | lineas=11
 APROBADA | Prueba 1: sin errores
 APROBADA | Prueba 1: recuento tokens esperado (25)
 APROBADA | Prueba 1: reservada e identificador
-APROBADA | Prueba 1: += es asignaci�n
-APROBADA | Prueba 1: s�mbolo �nico y primera posici�n (5:13)
-ARCHIVO | prueba2_medio.txt | tokens=62 | s�mbolos=9 | errores=0 | l�neas=25
+APROBADA | Prueba 1: += es asignacion
+APROBADA | Prueba 1: simbolo unico y primera posicion (5:13)
+ARCHIVO | prueba2_medio.txt | tokens=62 | simbolos=9 | errores=0 | lineas=25
 APROBADA | Prueba 2: sin errores
 APROBADA | Prueba 2: recuento tokens esperado (62)
-APROBADA | Prueba 2: s�mbolos �nicos (9)
+APROBADA | Prueba 2: simbolos unicos (9)
 APROBADA | Prueba 2: decimal, for y continue
-ARCHIVO | prueba3_errores.txt | tokens=20 | s�mbolos=4 | errores=4 | l�neas=20
-  ERROR 6:13 | Identificador con inicio num�rico | 12variable
-  ERROR 9:22 | N�mero decimal mal formado | 45.12.3
+ARCHIVO | prueba3_errores.txt | tokens=20 | simbolos=4 | errores=4 | lineas=20
+  ERROR 6:13 | Identificador con inicio numerico | 12variable
+  ERROR 9:22 | Numero decimal mal formado | 45.12.3
   ERROR 12:23 | Cadena de texto sin cerrar | \"Hola mundo sin comilla de cierre ;
-  ERROR 14:9 | Comentario multil�nea sin cerrar | /* Error 4: Comentario multilineal sin cerrar\n\n        // Error 5: Caracter no permitido\n        var total = 100 @ 50;\n    }\n}\n
+  ERROR 14:9 | Comentario multilinea sin cerrar | /* Error 4: Comentario multilineal sin cerrar\n\n        // Error 5: Caracter no permitido\n        var total = 100 @ 50;\n    }\n}\n
 APROBADA | Prueba 3: exactamente cuatro errores visibles
 APROBADA | Prueba 3: recuento tokens esperado (20)
-APROBADA | Prueba 3: s�mbolos �nicos (4)
-APROBADA | Prueba 3: diagn�stico identificador con inicio num�rico (6:13)
-APROBADA | Prueba 3: diagn�stico decimal mal formado (9:22)
-APROBADA | Prueba 3: diagn�stico cadena sin cerrar (12:23)
-APROBADA | Prueba 3: diagn�stico comentario multil�nea sin cerrar (14:9)
+APROBADA | Prueba 3: simbolos unicos (4)
+APROBADA | Prueba 3: diagnostico identificador con inicio numerico (6:13)
+APROBADA | Prueba 3: diagnostico decimal mal formado (9:22)
+APROBADA | Prueba 3: diagnostico cadena sin cerrar (12:23)
+APROBADA | Prueba 3: diagnostico comentario multilinea sin cerrar (14:9)
 APROBADA | Prueba 3: @ permanece dentro del comentario abierto
-ARCHIVO | prueba4_recuperacion.txt | tokens=21 | s�mbolos=4 | errores=2 | l�neas=5
-  ERROR 2:1 | Car�cter no permitido | @
-  ERROR 3:14 | N�mero decimal mal formado | 45.12.3
+ARCHIVO | prueba4_recuperacion.txt | tokens=21 | simbolos=4 | errores=2 | lineas=5
+  ERROR 2:1 | Caracter no permitido | @
+  ERROR 3:14 | Numero decimal mal formado | 45.12.3
 APROBADA | Prueba 4: exactamente dos errores
 APROBADA | Prueba 4: recuento tokens esperado (21)
-APROBADA | Prueba 4: car�cter no permitido @ en 2:1
-APROBADA | Prueba 4: recuperaci�n contin�a hasta identificador final
-ARCHIVO | prueba5_categorias.txt | tokens=59 | s�mbolos=7 | errores=0 | l�neas=17
+APROBADA | Prueba 4: caracter no permitido @ en 2:1
+APROBADA | Prueba 4: recuperacion continua hasta identificador final
+ARCHIVO | prueba5_categorias.txt | tokens=59 | simbolos=7 | errores=0 | lineas=17
 APROBADA | Prueba 5: sin errores
 APROBADA | Prueba 5: recuento tokens esperado (59)
-APROBADA | Prueba 5: s�mbolos �nicos (7)
-APROBADA | Prueba 5: categor�a cubierta TK_RESERVADA
-APROBADA | Prueba 5: categor�a cubierta TK_IDENTIFICADOR
-APROBADA | Prueba 5: categor�a cubierta TK_NUM_ENTERO
-APROBADA | Prueba 5: categor�a cubierta TK_CADENA
-APROBADA | Prueba 5: categor�a cubierta TK_CARACTER
-APROBADA | Prueba 5: categor�a cubierta TK_OP_ARITMETICO
-APROBADA | Prueba 5: categor�a cubierta TK_OP_RELACIONAL
-APROBADA | Prueba 5: categor�a cubierta TK_OP_LOGICO
-APROBADA | Prueba 5: categor�a cubierta TK_OP_ASIGNACION
-APROBADA | Prueba 5: categor�a cubierta TK_DELIMITADOR
-APROBADA | Prueba 5: categor�a cubierta TK_COMENTARIO_LINEA
-APROBADA | Prueba 5: categor�a cubierta TK_COMENTARIO_BLOQUE
+APROBADA | Prueba 5: simbolos unicos (7)
+APROBADA | Prueba 5: categoria cubierta TK_RESERVADA
+APROBADA | Prueba 5: categoria cubierta TK_IDENTIFICADOR
+APROBADA | Prueba 5: categoria cubierta TK_NUM_ENTERO
+APROBADA | Prueba 5: categoria cubierta TK_CADENA
+APROBADA | Prueba 5: categoria cubierta TK_CARACTER
+APROBADA | Prueba 5: categoria cubierta TK_OP_ARITMETICO
+APROBADA | Prueba 5: categoria cubierta TK_OP_RELACIONAL
+APROBADA | Prueba 5: categoria cubierta TK_OP_LOGICO
+APROBADA | Prueba 5: categoria cubierta TK_OP_ASIGNACION
+APROBADA | Prueba 5: categoria cubierta TK_DELIMITADOR
+APROBADA | Prueba 5: categoria cubierta TK_COMENTARIO_LINEA
+APROBADA | Prueba 5: categoria cubierta TK_COMENTARIO_BLOQUE
 
---- 2. VERIFICACI�N DEL CASO NUEVO (PRUEBA 6) ---
-ARCHIVO | prueba6_interfaz_exportacion.txt | tokens=67 | s�mbolos=11 | errores=1 | l�neas=30
-  ERROR 26:26 | Car�cter no permitido | #
+--- 2. VERIFICACION DEL CASO NUEVO (PRUEBA 6) ---
+ARCHIVO | prueba6_interfaz_exportacion.txt | tokens=67 | simbolos=11 | errores=1 | lineas=30
+  ERROR 26:26 | Caracter no permitido | #
 APROBADA | Prueba 6: procesada con motor real
 APROBADA | Prueba 6: detecta comentario literal /*<LF>*/
 APROBADA | Prueba 6: detecta comentario literal /*<CRLF>*/
-APROBADA | Prueba 6: detecta comentario multil�nea con salto real
+APROBADA | Prueba 6: detecta comentario multilinea con salto real
 APROBADA | Prueba 6: detecta cadenas con barras invertidas
 APROBADA | Prueba 6: detecta cadenas con escapes y tabulaciones
 APROBADA | Prueba 6: caracteres literales con escape ('\\', '\'', '\n')
-APROBADA | Prueba 6: contiene exactamente 1 error l�xico controlado (# en 26:26)
+APROBADA | Prueba 6: contiene exactamente 1 error lexico controlado (# en 26:26)
 
---- 3. VERIFICACI�N DE CARGA FIABLE Y DETECCI�N DE BOM ---
+--- 3. VERIFICACION DE CARGA FIABLE Y DETECCION DE BOM ---
 APROBADA | Carga BOM: UTF-8 con BOM se lee correctamente
 APROBADA | Carga BOM: U+FEFF es consumido y no pasa al texto ('var x = 1;' sin BOM)
-APROBADA | Carga BOM: el primer token es 'var' en l�nea 1 columna 1 sin error de BOM
+APROBADA | Carga BOM: el primer token es 'var' en linea 1 columna 1 sin error de BOM
 APROBADA | Carga BOM: UTF-16 LE con BOM se lee y consume correctamente
 APROBADA | Carga BOM: UTF-16 BE con BOM se lee y consume correctamente
 APROBADA | Carga BOM: UTF-32 LE no se confunde con UTF-16 LE y es rechazado claramente
 APROBADA | Carga BOM: UTF-32 BE es rechazado claramente
 APROBADA | Carga UTF-8 estricto: bytes corruptos son rechazados y no aceptados con U+FFFD
 APROBADA | Carga binario: archivo con bytes nulos es rechazado
-APROBADA | Carga vac�o: archivo de 0 bytes se carga sin excepci�n como texto vac�o
+APROBADA | Carga vacio: archivo de 0 bytes se carga sin excepcion como texto vacio
 APROBADA | Carga comentarios: archivo solo con comentarios se procesa con 0 errores y tokens correspondientes
 
---- 4. VERIFICACI�N DE EXPORTACI�N SIN AMBIG�EDAD ---
-APROBADA | Escape sin ambig�edad: /*<LF>*/ y /*\n*/ producen representaciones distintas
-APROBADA | Escape sin ambig�edad: /*<CRLF>*/ y /*\r\n*/ producen representaciones distintas
-APROBADA | Escape sin ambig�edad: /*\n*/ literal y /*
+--- 4. VERIFICACION DE EXPORTACION SIN AMBIGUEDAD ---
+APROBADA | Escape sin ambiguedad: /*<LF>*/ y /*\n*/ producen representaciones distintas
+APROBADA | Escape sin ambiguedad: /*<CRLF>*/ y /*\r\n*/ producen representaciones distintas
+APROBADA | Escape sin ambiguedad: /*\n*/ literal y /*
 */ real son distinguibles
 APROBADA | Escape reversible: DesescaparCadena(EscaparCadena(s)) == s para todos los casos
-APROBADA | Exportaci�n: archivo generado existe y no est� vac�o
-APROBADA | Exportaci�n: conserva fecha/hora capturada del an�lisis (2026-10-12 14:30:45)
-APROBADA | Exportaci�n: muestra fecha y hora de exportaci�n identificada separadamente
-APROBADA | Exportaci�n: incluye convenci�n de escape reversible en el encabezado
-APROBADA | Exportaci�n: tabla de tokens incluye lexemas escapados sin ambig�edad
-APROBADA | Exportaci�n: tabla de errores incluye error # de prueba 6
-APROBADA | Exportaci�n: tabla de s�mbolos presente y ordenada
+APROBADA | Exportacion: archivo generado existe y no esta vacio
+APROBADA | Exportacion: conserva fecha/hora capturada del analisis (2026-10-12 14:30:45)
+APROBADA | Exportacion: muestra fecha y hora de exportacion identificada separadamente
+APROBADA | Exportacion: incluye convencion de escape reversible en el encabezado
+APROBADA | Exportacion: tabla de tokens incluye lexemas escapados sin ambiguedad
+APROBADA | Exportacion: tabla de errores incluye error # de prueba 6
+APROBADA | Exportacion: tabla de simbolos presente y ordenada
 
---- 5. VERIFICACI�N DE FRMPRINCIPAL, SPLITMAIN Y PNLRESUMEN ---
+--- 5. VERIFICACION DE FRMPRINCIPAL, SPLITMAIN Y PNLRESUMEN ---
 APROBADA | FrmPrincipal: inicializa sin lanzar InvalidOperationException ni NullReferenceException
-APROBADA | FrmPrincipal: t�tulo correcto
-APROBADA | FrmPrincipal: tama�o de cliente inicial compatible (1200x720)
+APROBADA | FrmPrincipal: titulo correcto
+APROBADA | FrmPrincipal: tamano de cliente inicial compatible (1200x720)
 APROBADA | splitMain: control presente en controles principales
 APROBADA | splitMain: Panel1MinSize es 280 y Panel2MinSize es 380
-APROBADA | splitMain: SplitterDistance es 440 (compatible con tama�o inicial 1200x608)
+APROBADA | splitMain: SplitterDistance es 440 (compatible con tamano inicial 1200x608)
 APROBADA | pnlResumen: panel presente en controles principales (no es campo nulo)
 APROBADA | pnlResumen: altura funcional configurada (36)
-APROBADA | pnlResumen: contiene etiquetas de resumen (Tokens, Errores, S�mbolos, L�neas, Tiempo)
+APROBADA | pnlResumen: contiene etiquetas de resumen (Tokens, Errores, Simbolos, Lineas, Tiempo)
 APROBADA | pnlEstado: barra de estado presente
 
 =============================================================

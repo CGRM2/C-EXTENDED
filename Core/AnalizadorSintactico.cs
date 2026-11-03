@@ -60,7 +60,7 @@ namespace C_Extended.Core
                 Instruccion();
                 if (posicion == antes) posicion++;
             }
-            if (!Fin) Error("Se alcanzó el límite de 200 errores; corrige los primeros y vuelve a analizar.");
+            if (!Fin) Error("Se alcanzo el limite de 200 errores; corrige los primeros y vuelve a analizar.");
         }
 
         private void Error(string mensaje)
@@ -79,7 +79,7 @@ namespace C_Extended.Core
         private bool Esperar(string texto)
         {
             if (Tomar(texto)) return true;
-            Error("Se esperaba '" + texto + "'; se encontró '" + Lexema + "'.");
+            Error("Se esperaba '" + texto + "'; se encontro '" + Lexema + "'.");
             return false;
         }
 
@@ -97,7 +97,7 @@ namespace C_Extended.Core
         {
             if (++profundidad > 128)
             {
-                Error("Anidamiento excesivo: máximo 128 niveles.");
+                Error("Anidamiento excesivo: maximo 128 niveles.");
                 posicion = tokens.Count;
                 profundidad--;
                 return;
@@ -141,14 +141,14 @@ namespace C_Extended.Core
             if (Tomar("enum")) { Enumeracion(); return; }
             if (Tomar("using"))
             {
-                Nombre("importación", "using");
-                while (Tomar(".")) Nombre("importación", "using");
+                Nombre("importacion", "using");
+                while (Tomar(".")) Nombre("importacion", "using");
                 Esperar(";"); return;
             }
-            if (Tomar("func")) { Nombre("función", "func"); Funcion(); return; }
+            if (Tomar("func")) { Nombre("funcion", "func"); Funcion(); return; }
             if (EsDeclaracion())
             { Declaracion(true); return; }
-            if (modificador) { Error("Se esperaba una declaración después del modificador."); return; }
+            if (modificador) { Error("Se esperaba una declaracion despues del modificador."); return; }
             if (Tomar("if"))
             {
                 Condicion(); Cuerpo();
@@ -163,7 +163,7 @@ namespace C_Extended.Core
             if (Tomar("switch")) { Seleccion(); return; }
             if (Tomar("return"))
             {
-                if (funciones == 0) Error("'return' está fuera de una función.");
+                if (funciones == 0) Error("'return' esta fuera de una funcion.");
                 if (Lexema != ";" && Lexema != "}" && !Fin) Expresion();
                 Esperar(";"); return;
             }
@@ -171,15 +171,15 @@ namespace C_Extended.Core
             {
                 bool continuar = Lexema == "continue";
                 if (ciclos == 0 && (continuar || selecciones == 0))
-                    Error("'" + Lexema + "' está fuera de " + (continuar ? "un ciclo." : "un ciclo o switch."));
+                    Error("'" + Lexema + "' esta fuera de " + (continuar ? "un ciclo." : "un ciclo o switch."));
                 posicion++; Esperar(";"); return;
             }
             if (Lexema == "else" || Lexema == "case" || Lexema == "default" || Lexema == "}" || Lexema == ")" || Lexema == "]")
             { Error("'" + Lexema + "' no tiene una apertura o estructura correspondiente."); posicion++; return; }
             if (Actual.TipoToken == "TK_RESERVADA" && Lexema != "true" && Lexema != "false" && Lexema != "nil" && Lexema != "new")
-            { Error("La palabra reservada '" + Lexema + "' no tiene una regla sintáctica en esta gramática."); Recuperar(); return; }
+            { Error("La palabra reservada '" + Lexema + "' no tiene una regla sintactica en esta gramatica."); Recuperar(); return; }
             Expresion();
-            if (!ultimaAccion) Error("Se esperaba una asignación, llamada o incremento/decremento como instrucción.");
+            if (!ultimaAccion) Error("Se esperaba una asignacion, llamada o incremento/decremento como instruccion.");
             Esperar(";");
         }
 
@@ -197,7 +197,7 @@ namespace C_Extended.Core
 
         private void Cuerpo()
         {
-            if (Fin || Lexema == "}" || Lexema == "else") { Error("Falta el cuerpo de la instrucción."); return; }
+            if (Fin || Lexema == "}" || Lexema == "else") { Error("Falta el cuerpo de la instruccion."); return; }
             Instruccion();
         }
 
@@ -214,10 +214,10 @@ namespace C_Extended.Core
             if (nombre == null) { Recuperar(); return; }
             if (Lexema == "(")
             {
-                Declaraciones[Declaraciones.Count - 1].Rol = "función";
+                Declaraciones[Declaraciones.Count - 1].Rol = "funcion";
                 Funcion(); return;
             }
-            if (tipo == "void" || tipo.StartsWith("void[")) Error("'void' solo puede usarse como retorno de una función.");
+            if (tipo == "void" || tipo.StartsWith("void[")) Error("'void' solo puede usarse como retorno de una funcion.");
             if (Tomar("=")) Expresion();
             while (Tomar(","))
             { Nombre("variable", tipo); if (Tomar("=")) Expresion(); }
@@ -231,16 +231,16 @@ namespace C_Extended.Core
             {
                 do
                 {
-                    if (!EsTipo(Lexema) && !Identificador) { Error("Se esperaba el tipo del parámetro."); break; }
+                    if (!EsTipo(Lexema) && !Identificador) { Error("Se esperaba el tipo del parametro."); break; }
                     string tipo = Lexema;
-                    if (tipo == "void") Error("Un parámetro no puede tener tipo 'void'.");
+                    if (tipo == "void") Error("Un parametro no puede tener tipo 'void'.");
                     posicion++;
                     while (Tomar("[")) { Esperar("]"); tipo += "[]"; }
-                    Nombre("parámetro", tipo);
+                    Nombre("parametro", tipo);
                 } while (Tomar(","));
             }
             Esperar(")");
-            // Una función tiene su propio contexto de control de flujo.
+            // Una funcion tiene su propio contexto de control de flujo.
             int ciclosExternos = ciclos, seleccionesExternas = selecciones;
             ciclos = selecciones = 0;
             funciones++;
@@ -250,7 +250,7 @@ namespace C_Extended.Core
 
         private void Enumeracion()
         {
-            Nombre("enumeración", "enum");
+            Nombre("enumeracion", "enum");
             if (!Esperar("{")) return;
             if (Lexema != "}")
             {
@@ -324,7 +324,7 @@ namespace C_Extended.Core
         private bool Expresion(int minimo = 1)
         {
             if (++limiteExpresion > 128)
-            { Error("Expresión demasiado anidada: máximo 128 niveles."); posicion = tokens.Count; limiteExpresion--; return false; }
+            { Error("Expresion demasiado anidada: maximo 128 niveles."); posicion = tokens.Count; limiteExpresion--; return false; }
             try
             {
                 bool asignable = Primaria();
@@ -332,7 +332,7 @@ namespace C_Extended.Core
                 while (!Fin && Prioridad(Lexema) >= minimo && Prioridad(Lexema) > 0)
                 {
                     int prioridad = Prioridad(Lexema);
-                    if (prioridad == 1 && !asignable) Error("El lado izquierdo de una asignación debe ser una variable, miembro o elemento de arreglo.");
+                    if (prioridad == 1 && !asignable) Error("El lado izquierdo de una asignacion debe ser una variable, miembro o elemento de arreglo.");
                     posicion++;
                     Expresion(prioridad == 1 ? prioridad : prioridad + 1);
                     asignable = false;
@@ -362,27 +362,27 @@ namespace C_Extended.Core
             else if (Tomar("new"))
             {
                 accion = true;
-                if (!Identificador && !EsTipo(Lexema)) { Error("Se esperaba un tipo después de 'new'."); return false; }
+                if (!Identificador && !EsTipo(Lexema)) { Error("Se esperaba un tipo despues de 'new'."); return false; }
                 if (Lexema == "void" || Lexema == "var")
                     Error("No se puede construir un valor de tipo '" + Lexema + "'.");
                 posicion++;
                 if (Tomar("(")) { if (Lexema != ")") ListaExpresiones(); Esperar(")"); }
                 else if (Tomar("[")) { Expresion(); Esperar("]"); }
-                else Error("Se esperaba '(' o '[' después del tipo.");
+                else Error("Se esperaba '(' o '[' despues del tipo.");
             }
             else if (Identificador || Actual.TipoToken == "TK_NUM_ENTERO" || Actual.TipoToken == "TK_NUM_DECIMAL" ||
                 Actual.TipoToken == "TK_CADENA" || Actual.TipoToken == "TK_CARACTER" || Lexema == "true" || Lexema == "false" || Lexema == "nil")
             { asignable = Identificador; posicion++; }
             else
             {
-                Error("Se esperaba una expresión; se encontró '" + Lexema + "'.");
+                Error("Se esperaba una expresion; se encontro '" + Lexema + "'.");
                 if (!Fin && !new[] { ";", ")", "]", "}", ",", ":", "{" }.Contains(Lexema)) posicion++;
                 ultimaAccion = false;
                 return false;
             }
             while (!Fin)
             {
-                if (Tomar(".")) { if (!Identificador) { Error("Se esperaba un miembro después de '.'."); break; } posicion++; asignable = true; accion = false; }
+                if (Tomar(".")) { if (!Identificador) { Error("Se esperaba un miembro despues de '.'."); break; } posicion++; asignable = true; accion = false; }
                 else if (Tomar("(")) { if (Lexema != ")") ListaExpresiones(); Esperar(")"); asignable = false; accion = true; }
                 else if (Tomar("[")) { Expresion(); Esperar("]"); asignable = true; accion = false; }
                 else if (Tomar("++") || Tomar("--"))

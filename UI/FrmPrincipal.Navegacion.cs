@@ -13,9 +13,9 @@ namespace C_Extended.UI
             dgvTokens.CellDoubleClick += (s, e) => IrAFila(dgvTokens, e.RowIndex, 3, 4);
             dgvSimbolos.CellDoubleClick += (s, e) => IrAFila(dgvSimbolos, e.RowIndex, 3, 4);
             toolTipPrincipal.SetToolTip(dgvErrores, "Doble clic en una fila para ir al error en el editor.");
-            toolTipPrincipal.SetToolTip(dgvSintacticos, "Doble clic para ir al error. La ubicación puede indicar dónde falta un símbolo.");
+            toolTipPrincipal.SetToolTip(dgvSintacticos, "Doble clic para ir al error. La ubicacion puede indicar donde falta un simbolo.");
             toolTipPrincipal.SetToolTip(btnAnalizar, "Analizar ambas etapas (F5).");
-            toolTipPrincipal.SetToolTip(btnCargar, "Cargar código (Ctrl+O).");
+            toolTipPrincipal.SetToolTip(btnCargar, "Cargar codigo (Ctrl+O).");
             toolTipPrincipal.SetToolTip(btnExportar, "Exportar el informe de ambas etapas (Ctrl+E).");
         }
 

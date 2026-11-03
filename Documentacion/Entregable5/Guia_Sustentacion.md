@@ -1,78 +1,78 @@
-# Gu�a para la sustentaci�n de C-Extended
+# Guia para la sustentacion de C-Extended
 
-Duraci�n propuesta: 12 minutos, dentro de los 10 a 15 solicitados. Las diapositivas incluyen notas del presentador con los pasos y tiempos. El reparto siguiente es una propuesta de exposici�n, no una atribuci�n de autor�a del c�digo.
+Duracion propuesta: 12 minutos, dentro de los 10 a 15 solicitados. Las diapositivas incluyen notas del presentador con los pasos y tiempos. El reparto siguiente es una propuesta de exposicion, no una atribucion de autoria del codigo.
 
 ## Reparto sugerido
 
 | Integrante | Diapositivas | Tema | Tiempo |
 | --- | --- | --- | --- |
-| Cristian | 1 a 4 | Objetivo, especificaci�n, expresiones regulares y estados | 3:30 |
-| Enrique | 5 a 7 | Arquitectura, recuperaci�n y pruebas | 3:00 |
-| Jos� Roberto | 8 a 11 | Demostraci�n, exportaci�n y l�mites | 5:30 |
+| Cristian | 1 a 4 | Objetivo, especificacion, expresiones regulares y estados | 3:30 |
+| Enrique | 5 a 7 | Arquitectura, recuperacion y pruebas | 3:00 |
+| Jose Roberto | 8 a 11 | Demostracion, exportacion y limites | 5:30 |
 
-Todos deben conocer las preguntas b�sicas siguientes. Pueden intercambiar el reparto seg�n lo que realmente trabaj� cada uno.
+Todos deben conocer las preguntas basicas siguientes. Pueden intercambiar el reparto segun lo que realmente trabajo cada uno.
 
-## Demostraci�n paso a paso
+## Demostracion paso a paso
 
 1. Extraer el paquete y abrir `Aplicacion/C-Extended.exe`.
-2. Escribir `int numero = 10;` y pulsar F5. Mostrar Tokens y Tabla de s�mbolos.
-3. A�adir `if (numero > 0) { numero--; }`. Explicar por qu� numero aparece varias veces en tokens y una vez como s�mbolo.
-4. Cambiar a `var x = ;`. Abrir Errores sint�cticos. Hacer doble clic en la fila y explicar que falta una expresi�n.
+2. Escribir `int numero = 10;` y pulsar F5. Mostrar Tokens y Tabla de simbolos.
+3. Anadir `if (numero > 0) { numero--; }`. Explicar por que numero aparece varias veces en tokens y una vez como simbolo.
+4. Cambiar a `var x = ;`. Abrir Errores sintacticos. Hacer doble clic en la fila y explicar que falta una expresion.
 5. Corregir a `var x = 1;` y volver a analizar.
-6. Cambiar a `var x = @;`. Mostrar el error l�xico y que la sintaxis queda pendiente.
-7. Pulsar Ctrl+E y guardar un informe TXT con otro nombre. Abrirlo y se�alar los apartados de ambas etapas.
-8. Terminar con un caso v�lido y explicar los l�mites del analizador.
+6. Cambiar a `var x = @;`. Mostrar el error lexico y que la sintaxis queda pendiente.
+7. Pulsar Ctrl+E y guardar un informe TXT con otro nombre. Abrirlo y senalar los apartados de ambas etapas.
+8. Terminar con un caso valido y explicar los limites del analizador.
 
-La demostraci�n utiliza entradas peque�as para que el docente pueda seguirlas. Las 22 entradas est�n reunidas en `Prueba_Unica_C_Extended.txt`, en la ra�z. Copiar solamente un bloque a la vez para reproducir un caso de la matriz.
+La demostracion utiliza entradas pequenas para que el docente pueda seguirlas. Las 22 entradas estan reunidas en `Prueba_Unica_C_Extended.txt`, en la raiz. Copiar solamente un bloque a la vez para reproducir un caso de la matriz.
 
-## Preguntas b�sicas y respuestas
+## Preguntas basicas y respuestas
 
-**�Qu� diferencia hay entre token y lexema?**
-El lexema es el texto concreto, por ejemplo `numero`. El token representa ese fragmento con una categor�a y su ubicaci�n. En el proyecto, Token contiene Lexema, TipoToken, Linea y Columna.
+**Que diferencia hay entre token y lexema?**
+El lexema es el texto concreto, por ejemplo `numero`. El token representa ese fragmento con una categoria y su ubicacion. En el proyecto, Token contiene Lexema, TipoToken, Linea y Columna.
 
-**�Qu� hace el analizador l�xico?**
-Recorre los caracteres, reconoce secuencias del lenguaje, produce tokens y registra errores l�xicos. Conserva l�nea y columna y registra identificadores �nicos.
+**Que hace el analizador lexico?**
+Recorre los caracteres, reconoce secuencias del lenguaje, produce tokens y registra errores lexicos. Conserva linea y columna y registra identificadores unicos.
 
-**�Qu� hace el sint�ctico?**
-Consume los tokens y comprueba su organizaci�n seg�n la gram�tica simplificada. Detecta, por ejemplo, un punto y coma faltante o una expresi�n incompleta.
+**Que hace el sintactico?**
+Consume los tokens y comprueba su organizacion segun la gramatica simplificada. Detecta, por ejemplo, un punto y coma faltante o una expresion incompleta.
 
-**�Por qu� no se ejecuta la sintaxis cuando hay errores l�xicos?**
-Porque la secuencia de tokens puede estar incompleta. ResultadoAnalisis solo ejecuta el parser si la lista de errores l�xicos est� vac�a.
+**Por que no se ejecuta la sintaxis cuando hay errores lexicos?**
+Porque la secuencia de tokens puede estar incompleta. ResultadoAnalisis solo ejecuta el parser si la lista de errores lexicos esta vacia.
 
-**�El programa utiliza expresiones regulares?**
-Las usa para describir formalmente las reglas en la documentaci�n. El motor reconoce la entrada manualmente con condiciones y ciclos, sin motores Regex ni generadores de analizadores.
+**El programa utiliza expresiones regulares?**
+Las usa para describir formalmente las reglas en la documentacion. El motor reconoce la entrada manualmente con condiciones y ciclos, sin motores Regex ni generadores de analizadores.
 
-**�Qu� significa `(L|_)(L|D|_)*`?**
-El primer car�cter es letra o guion bajo. Despu�s pueden aparecer cero o m�s letras, d�gitos o guiones bajos. El asterisco es cerradura de Kleene.
+**Que significa `(L|_)(L|D|_)*`?**
+El primer caracter es letra o guion bajo. Despues pueden aparecer cero o mas letras, digitos o guiones bajos. El asterisco es cerradura de Kleene.
 
-**�Por qu� 12abc es un error?**
-Los identificadores no pueden comenzar con d�gitos y un entero no puede continuar inmediatamente con letras. El motor consume la secuencia completa e informa el error.
+**Por que 12abc es un error?**
+Los identificadores no pueden comenzar con digitos y un entero no puede continuar inmediatamente con letras. El motor consume la secuencia completa e informa el error.
 
-**�Qu� es m�ximo avance?**
-Preferir el lexema v�lido m�s largo en el contexto, por ejemplo reconocer `>=` completo antes de considerar `>` por separado. Los comentarios tambi�n tienen prioridad sobre divisi�n.
+**Que es maximo avance?**
+Preferir el lexema valido mas largo en el contexto, por ejemplo reconocer `>=` completo antes de considerar `>` por separado. Los comentarios tambien tienen prioridad sobre division.
 
-**�Se permiten comentarios anidados?**
-No. El primero `*/` cierra el comentario. Si queda otro cierre fuera de �l, se informa como cierre sin apertura.
+**Se permiten comentarios anidados?**
+No. El primero `*/` cierra el comentario. Si queda otro cierre fuera de el, se informa como cierre sin apertura.
 
-**�Qu� contiene la tabla de s�mbolos?**
-Identificadores �nicos con su primera ubicaci�n. La interfaz a�ade declaraciones encontradas por nombre. No resuelve �mbitos ni comprueba tipos o nombres sin declarar.
+**Que contiene la tabla de simbolos?**
+Identificadores unicos con su primera ubicacion. La interfaz anade declaraciones encontradas por nombre. No resuelve ambitos ni comprueba tipos o nombres sin declarar.
 
-**�Qu� diferencia hay entre una entrada inv�lida y una prueba fallida?**
-Una entrada inv�lida puede ser una prueba aprobada si el programa detecta el error previsto. Una prueba falla cuando el resultado no cumple el criterio esperado.
+**Que diferencia hay entre una entrada invalida y una prueba fallida?**
+Una entrada invalida puede ser una prueba aprobada si el programa detecta el error previsto. Una prueba falla cuando el resultado no cumple el criterio esperado.
 
-**�C�mo se verific� la entrega?**
-Se ejecutaron 22 casos finales, 76 comprobaciones l�xicas y 125 de sintaxis e integraci�n, todos aprobados. Cada bater�a tiene evidencia. No son 223 archivos diferentes ni una garant�a para cualquier entrada posible.
+**Como se verifico la entrega?**
+Se ejecutaron 22 casos finales, 76 comprobaciones lexicas y 125 de sintaxis e integracion, todos aprobados. Cada bateria tiene evidencia. No son 223 archivos diferentes ni una garantia para cualquier entrada posible.
 
-**�Qu� pasa si se agrega una reservada al diccionario?**
-Cambia su clasificaci�n l�xica. No crea una regla sint�ctica nueva.
+**Que pasa si se agrega una reservada al diccionario?**
+Cambia su clasificacion lexica. No crea una regla sintactica nueva.
 
-**�Es un compilador completo de C#?**
-No. Reconoce el subconjunto C-Extended y una gram�tica simplificada. No ejecuta c�digo ni valida tipos, �mbitos o referencias a variables.
+**Es un compilador completo de C#?**
+No. Reconoce el subconjunto C-Extended y una gramatica simplificada. No ejecuta codigo ni valida tipos, ambitos o referencias a variables.
 
 ## Antes de entregar
 
-- Abrir la presentaci�n y revisar sus notas.
-- Probar el ejecutable ya extra�do en el equipo donde se presentar�.
+- Abrir la presentacion y revisar sus notas.
+- Probar el ejecutable ya extraido en el equipo donde se presentara.
 - Revisar juntos la memoria y las respuestas anteriores.
 - Conservar la memoria PDF, matriz PDF, diapositivas y enlace de la release final.
-- Entregar por el medio indicado por el docente. La sustentaci�n presencial y la entrega acad�mica las realiza el grupo.
+- Entregar por el medio indicado por el docente. La sustentacion presencial y la entrega academica las realiza el grupo.
